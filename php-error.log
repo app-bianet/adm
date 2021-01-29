@@ -1,0 +1,66 @@
+[28-Jan-2021 13:27:45 America/Caracas] PHP Notice:  Array to string conversion in D:\DEVAPP\htdocs\Bianet\Controllers\Articulo.php on line 29
+[28-Jan-2021 13:27:45 America/Caracas] PHP Notice:  Array to string conversion in D:\DEVAPP\htdocs\Bianet\Controllers\Articulo.php on line 29
+[28-Jan-2021 13:27:45 America/Caracas] PHP Notice:  Array to string conversion in D:\DEVAPP\htdocs\Bianet\Controllers\Articulo.php on line 29
+[28-Jan-2021 13:27:45 America/Caracas] PHP Warning:  error_log() expects parameter 1 to be string, array given in D:\DEVAPP\htdocs\Bianet\Controllers\Articulo.php on line 31
+[28-Jan-2021 13:27:45 America/Caracas] PHP Warning:  error_log() expects parameter 1 to be string, array given in D:\DEVAPP\htdocs\Bianet\Controllers\Articulo.php on line 32
+[28-Jan-2021 13:29:34 America/Caracas] PHP Notice:  Array to string conversion in D:\DEVAPP\htdocs\Bianet\Controllers\Articulo.php on line 29
+[28-Jan-2021 13:29:34 America/Caracas] PHP Notice:  Array to string conversion in D:\DEVAPP\htdocs\Bianet\Controllers\Articulo.php on line 29
+[28-Jan-2021 13:29:34 America/Caracas] PHP Notice:  Array to string conversion in D:\DEVAPP\htdocs\Bianet\Controllers\Articulo.php on line 29
+[28-Jan-2021 13:29:34 America/Caracas] PHP Warning:  error_log() expects parameter 1 to be string, array given in D:\DEVAPP\htdocs\Bianet\Controllers\Articulo.php on line 31
+[28-Jan-2021 13:29:34 America/Caracas] PHP Warning:  error_log() expects parameter 1 to be string, array given in D:\DEVAPP\htdocs\Bianet\Controllers\Articulo.php on line 32
+[28-Jan-2021 21:26:46 America/Caracas] PHP Notice:  Undefined variable: controlle in D:\DEVAPP\htdocs\Bianet\Core\Load.php on line 2
+[28-Jan-2021 21:29:00 America/Caracas] PHP Warning:  require_once(Views/ZXNjcml0b3Jpbw==.php): failed to open stream: No such file or directory in D:\DEVAPP\htdocs\Bianet\Core\Views.php on line 11
+[28-Jan-2021 21:29:00 America/Caracas] PHP Fatal error:  require_once(): Failed opening required 'Views/ZXNjcml0b3Jpbw==.php' (include_path='D:\DEVAPP\php\PEAR') in D:\DEVAPP\htdocs\Bianet\Core\Views.php on line 11
+[28-Jan-2021 21:29:55 America/Caracas] PHP Warning:  require_once(Views/escritorig==.php): failed to open stream: No such file or directory in D:\DEVAPP\htdocs\Bianet\Core\Views.php on line 11
+[28-Jan-2021 21:29:55 America/Caracas] PHP Fatal error:  require_once(): Failed opening required 'Views/escritorig==.php' (include_path='D:\DEVAPP\php\PEAR') in D:\DEVAPP\htdocs\Bianet\Core\Views.php on line 11
+[28-Jan-2021 21:30:35 America/Caracas] PHP Warning:  require_once(Views/ZXNjcml0b3Jpbw==.php): failed to open stream: No such file or directory in D:\DEVAPP\htdocs\Bianet\Core\Views.php on line 11
+[28-Jan-2021 21:30:35 America/Caracas] PHP Fatal error:  require_once(): Failed opening required 'Views/ZXNjcml0b3Jpbw==.php' (include_path='D:\DEVAPP\php\PEAR') in D:\DEVAPP\htdocs\Bianet\Core\Views.php on line 11
+[28-Jan-2021 21:31:58 America/Caracas] PHP Warning:  base64_encode() expects parameter 1 to be string, object given in D:\DEVAPP\htdocs\Bianet\Controllers\Escritorio.php on line 25
+[28-Jan-2021 21:31:58 America/Caracas] PHP Warning:  get_class() expects parameter 1 to be object, null given in D:\DEVAPP\htdocs\Bianet\Core\Views.php on line 5
+[28-Jan-2021 21:33:14 America/Caracas] PHP Warning:  base64_encode() expects parameter 1 to be string, object given in D:\DEVAPP\htdocs\Bianet\Controllers\Escritorio.php on line 25
+[28-Jan-2021 21:33:14 America/Caracas] PHP Warning:  get_class() expects parameter 1 to be object, null given in D:\DEVAPP\htdocs\Bianet\Core\Views.php on line 5
+[28-Jan-2021 21:33:14 America/Caracas] PHP Warning:  : failed to open stream: No such file or directory in D:\DEVAPP\htdocs\Bianet\Core\Views.php on line 11
+[28-Jan-2021 21:33:14 America/Caracas] PHP Fatal error:  require_once(): Failed opening required 'Views/z�+��+�.php' (include_path='D:\DEVAPP\php\PEAR') in D:\DEVAPP\htdocs\Bianet\Core\Views.php on line 11
+[29-Jan-2021 01:55:08 America/Caracas] PHP Notice:  Undefined index: simagen in D:\DEVAPP\htdocs\Bianet\Views\Templates\header_admin.php on line 53
+[29-Jan-2021 01:55:08 America/Caracas] PHP Notice:  Undefined index: sdesc_usuario in D:\DEVAPP\htdocs\Bianet\Views\Templates\header_admin.php on line 54
+[29-Jan-2021 01:55:08 America/Caracas] PHP Notice:  Undefined index: sidusuario in D:\DEVAPP\htdocs\Bianet\Views\Templates\header_admin.php on line 55
+[29-Jan-2021 01:55:08 America/Caracas] PHP Notice:  Undefined index: sdepartamento in D:\DEVAPP\htdocs\Bianet\Views\Templates\header_admin.php on line 58
+[29-Jan-2021 01:55:08 America/Caracas] PHP Notice:  Undefined index: sdesc_usuario in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 15
+[29-Jan-2021 01:55:08 America/Caracas] PHP Notice:  Undefined index: inventario in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 30
+[29-Jan-2021 01:55:08 America/Caracas] PHP Notice:  Undefined index: articulo in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 39
+[29-Jan-2021 01:55:08 America/Caracas] PHP Notice:  Undefined index: categoria in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 40
+[29-Jan-2021 01:55:08 America/Caracas] PHP Notice:  Undefined index: linea in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 41
+[29-Jan-2021 01:55:08 America/Caracas] PHP Notice:  Undefined index: unidad in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 42
+[29-Jan-2021 01:55:08 America/Caracas] PHP Notice:  Undefined index: deposito in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 43
+[29-Jan-2021 01:55:08 America/Caracas] PHP Notice:  Undefined index: opinventario in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 47
+[29-Jan-2021 01:55:08 America/Caracas] PHP Notice:  Undefined index: ajustei in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 51
+[29-Jan-2021 01:55:08 America/Caracas] PHP Notice:  Undefined index: traslado in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 52
+[29-Jan-2021 01:55:08 America/Caracas] PHP Notice:  Undefined index: ajustep in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 53
+[29-Jan-2021 01:55:08 America/Caracas] PHP Notice:  Undefined index: compras in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 60
+[29-Jan-2021 01:55:08 America/Caracas] PHP Notice:  Undefined index: proveedor in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 69
+[29-Jan-2021 01:55:08 America/Caracas] PHP Notice:  Undefined index: tipoproveedor in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 70
+[29-Jan-2021 01:55:08 America/Caracas] PHP Notice:  Undefined index: condpago in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 71
+[29-Jan-2021 01:55:08 America/Caracas] PHP Notice:  Undefined index: zona in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 72
+[29-Jan-2021 01:55:08 America/Caracas] PHP Notice:  Undefined index: opcompras in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 76
+[29-Jan-2021 01:55:08 America/Caracas] PHP Notice:  Undefined index: ventas in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 90
+[29-Jan-2021 01:55:08 America/Caracas] PHP Notice:  Undefined index: cliente in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 99
+[29-Jan-2021 01:55:08 America/Caracas] PHP Notice:  Undefined index: tipocliente in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 102
+[29-Jan-2021 01:55:08 America/Caracas] PHP Notice:  Undefined index: tipoprecio in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 105
+[29-Jan-2021 01:55:08 America/Caracas] PHP Notice:  Undefined index: vendedor in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 108
+[29-Jan-2021 01:55:08 America/Caracas] PHP Notice:  Undefined index: condpago in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 111
+[29-Jan-2021 01:55:08 America/Caracas] PHP Notice:  Undefined index: zona in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 114
+[29-Jan-2021 01:55:08 America/Caracas] PHP Notice:  Undefined index: opventas in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 120
+[29-Jan-2021 01:55:08 America/Caracas] PHP Notice:  Undefined index: bancos in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 134
+[29-Jan-2021 01:55:08 America/Caracas] PHP Notice:  Undefined index: opbancos in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 151
+[29-Jan-2021 01:55:08 America/Caracas] PHP Notice:  Undefined index: config in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 165
+[29-Jan-2021 01:55:08 America/Caracas] PHP Notice:  Undefined index: macceso in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 169
+[29-Jan-2021 01:55:08 America/Caracas] PHP Notice:  Undefined index: usuariotb in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 171
+[29-Jan-2021 01:55:08 America/Caracas] PHP Notice:  Undefined index: correlativo in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 173
+[29-Jan-2021 01:55:08 America/Caracas] PHP Notice:  Undefined index: operacion in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 175
+[29-Jan-2021 01:55:08 America/Caracas] PHP Notice:  Undefined index: impuesto in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 177
+[29-Jan-2021 01:55:08 America/Caracas] PHP Notice:  Undefined index: moneda in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 179
+[29-Jan-2021 01:55:08 America/Caracas] PHP Notice:  Undefined index: pais in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 181
+[29-Jan-2021 01:55:08 America/Caracas] PHP Notice:  Undefined index: sdesc_usuario in D:\DEVAPP\htdocs\Bianet\Views\Templates\header_admin.php on line 79
+[29-Jan-2021 01:55:08 America/Caracas] PHP Notice:  Undefined index: sidusuario in D:\DEVAPP\htdocs\Bianet\Views\Templates\header_admin.php on line 87
+[29-Jan-2021 04:37:59 America/Caracas] PHP Notice:  Undefined index: respondable in D:\DEVAPP\htdocs\Bianet\Controllers\Deposito.php on line 171
+[29-Jan-2021 04:37:59 America/Caracas] PHP Notice:  Undefined index: respondable in D:\DEVAPP\htdocs\Bianet\Controllers\Deposito.php on line 171
