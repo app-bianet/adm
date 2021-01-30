@@ -182,7 +182,7 @@ class Operacion extends Controllers{
 
   public function Selectpicker(){
     if (isset($_POST["security"])) {
-      $arrData=$this->model->ListDt();
+      $arrData=$this->model->ListDt(POSTT($_POST['op']));
       for ($i=0; $i<count($arrData);$i++) { 
         echo '<option value="'.$arrData[$i]['idoperacion'].'">'.$arrData[$i]['cod_operacion'].'-'.$arrData[$i]['desc_operacion'].'</option>';
       }

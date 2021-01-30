@@ -10,6 +10,7 @@
     private $Esconfig;
     private $Esbanco;
     private $Estatus;
+    private $Op;
 
     public function __construct(){
       parent::__construct();
@@ -21,9 +22,45 @@
       return $req;
     }
 
-    public function ListDt(){
-      $sql="SELECT * FROM tboperacion WHERE estatus='1'  ORDER BY cod_operacion ASC";
-      $req=$this->SelectAll($sql);
+    public function ListDt($op){
+      $this->Op=$op;
+      
+      switch ($this->Op) {
+        case 'Inventario':
+          $sql="SELECT * FROM tboperacion WHERE estatus='1' AND esinventario='1'
+          ORDER BY cod_operacion ASC";
+          $req=$this->SelectAll($sql);
+        break;
+
+        case 'Compra':
+          $sql="SELECT * FROM tboperacion WHERE estatus='1' AND escompra='1'
+          ORDER BY cod_operacion ASC";
+          $req=$this->SelectAll($sql);
+        break;
+
+        case 'Venta':
+          $sql="SELECT * FROM tboperacion WHERE estatus='1' AND esventa='1'
+          ORDER BY cod_operacion ASC";
+          $req=$this->SelectAll($sql);
+        break;
+
+        case 'Banco':
+          $sql="SELECT * FROM tboperacion WHERE estatus='1' AND esbanco='1'
+          ORDER BY cod_operacion ASC";
+          $req=$this->SelectAll($sql);
+        break;
+
+        case 'Config':
+          $sql="SELECT * FROM tboperacion WHERE estatus='1' AND esconfig='1'
+          ORDER BY cod_operacion ASC";
+          $req=$this->SelectAll($sql);
+        break;
+
+        case '':
+          $sql="SELECT * FROM tboperacion WHERE estatus='1' ORDER BY cod_operacion ASC";
+          $req=$this->SelectAll($sql);
+        break;
+      }
       return $req;
     }
 

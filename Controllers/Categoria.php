@@ -172,12 +172,15 @@ class Categoria extends Controllers{
   public function Selectpicker(){
     if (isset($_POST["security"])) {
       $arrData=$this->model->ListDt();
-      for ($i=0; $i<count($arrData);$i++) { 
-        echo '<option value="'.$arrData[$i]['idcategoria'].'">'.$arrData[$i]['cod_categoria'].'-'.$arrData[$i]['desc_categoria'].'</option>';
+      if ($arrData) {
+        for ($i=0; $i<count($arrData);$i++) { 
+          echo '<option value="'.$arrData[$i]['idcategoria'].'">'.$arrData[$i]['cod_categoria'].'-'.$arrData[$i]['desc_categoria'].'</option>';
+        }
+      } else {
+        echo '<option readonly>No Existen Registros!</option>';
       }
     } else {
-      header("Location:".base_URL()."Error403");
+        header("Location:".base_URL()."Error403");
     }
-  }
-  
+  } 
 }

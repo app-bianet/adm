@@ -172,8 +172,12 @@ class Zona extends Controllers{
   public function Selectpicker(){
     if (isset($_POST["security"])) {
       $arrData=$this->model->ListDt();
-      for ($i=0; $i<count($arrData);$i++) { 
-        echo '<option value="'.$arrData[$i]['idzona'].'">'.$arrData[$i]['cod_zona'].'-'.$arrData[$i]['desc_zona'].'</option>';
+      if ($arrData) {
+        for ($i=0; $i<count($arrData);$i++) { 
+          echo '<option value="'.$arrData[$i]['idzona'].'">'.$arrData[$i]['cod_zona'].'-'.$arrData[$i]['desc_zona'].'</option>';
+        }
+      } else {
+        echo '<option readonly>No Existen Registros!</option>';
       }
     } else {
       header("Location:".base_URL()."Error403");

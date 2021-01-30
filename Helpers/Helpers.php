@@ -77,6 +77,15 @@ function limpiarCadena($strCadena){
   return $string; 
 }
 
+function cortar_cadena($texto, $largo = 10, $puntos = "...") { 
+  $palabras = explode(' ', $texto); 
+  if (count($palabras) > $largo) { 
+    return implode(' ', array_slice($palabras, 0, $largo)) ." ". $puntos; 
+  } else {
+    return $texto; 
+  } 
+} 
+
 function POSTT($str){
   $srtData=isset($str)? limpiarCadena($str):"";
   return $srtData;
