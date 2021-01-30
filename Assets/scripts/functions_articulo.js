@@ -373,7 +373,7 @@ function InsertarEditar() {
               .then((result) => {
                 if (result.isConfirmed) { 
                   FuncUnidad(objData.RetornoId)
-                  ListarUnidad(objData.RetornoId,$("#desc_articulo").val())
+                  ListarUnidad(objData.RetornoId,$("#desc_articulo").val(),'hidden')
                 }});
 
             } else{
@@ -609,7 +609,6 @@ function Montos(){
   });
 }
 
-
 function ListarStock(idarticulo,habilitar) {
   $.post(url_base+'/ListaStock', {'id': idarticulo }, function (data) {
     $("#tblListadoDep").html(data);
@@ -617,7 +616,6 @@ function ListarStock(idarticulo,habilitar) {
     $(".btnl").attr('disabled',habilitar);
   });
 }
-
 
 //función para generar el código de barras
 function generarBarcode() {
@@ -659,7 +657,6 @@ function ListarPrecio(idarticulo,habilitar) {
 }
 
 function FuncPrecio(id,desc) {
-
   let BtnPrecio = document.querySelector("#btnPrecio");
   BtnPrecio.onclick = function () {
 
@@ -825,7 +822,7 @@ function MontoPrecio(event) {
     });
 }
 
-function ListarUnidad(id,desc) {
+function ListarUnidad(id,desc,visible) {
     $.post(url_baseL+'/ArtUnidad/ListarUnidad',{'id':id},function(data){
       $("#Uarticulo").html(desc)
       $("#tbunidad").html(data);
@@ -835,6 +832,7 @@ function ListarUnidad(id,desc) {
       $("#btnAgregarUnidad,button.btn-secondary").attr("disabled",false);
       EventoCheckBox();
       SelectUnidad();
+      $("#tbstock").addClass(visible);
       $('#ModalUnidad').modal('show');
     })
 }
@@ -842,7 +840,8 @@ function ListarUnidad(id,desc) {
 function MostrarModalUnidad(id) {
   document.querySelector("#btnMostrarUnidad").addEventListener('click',function(event){
     event.preventDefault();
-    ListarUnidad(id,$("#desc_articulo").val())
+    $("#btnGuardarUnidad,#btnCancelarUnidad,#btnAgregarUnidad").removeClass('hidden');
+    ListarUnidad(id,$("#desc_articulo").val(),'hidden');
   });
 }
 
@@ -862,7 +861,8 @@ function mostrarUnidad(id) {
     EventoCheckBox();
     $('div.card-body.table').addClass('hidden');
     $('div.card-body.form').removeClass('hidden');
-    $("#btnGuardarUnidad,button.btn-secondary").attr("disabled",false);
+    $("#btnGuardarUnidad,#btnCancelarUnidad,#btnAgregarUnidad").removeClass('hidden');
+    $("#btnGuardarUnidad,button.btn-secondary,#btnCancelarUnidad").attr("disabled",false);
     $("#btnAgregarUnidad").attr("disabled",true);
   }); 
 }
@@ -887,7 +887,7 @@ function eliminarUnidad(id,principal){
         if (objData.status) {
           Swal.fire({
             icon: "success", title:"Exito!",html: objData.msg, showConfirmButton: false,timer: 1500,});
-            ListarUnidad($("#idarticulo").val(),$("#desc_articulo").val())
+            ListarUnidad($("#idarticulo").val(),$("#desc_articulo").val(),'hidden')
           } else {
             Swal.fire({
               icon: "error",title: "Error!",html: objData.msg,
@@ -922,6 +922,7 @@ function FuncUnidad(id){
     EventoCheckBox();
     $('div.card-body.table').addClass('hidden');
     $('div.card-body.form').removeClass('hidden');
+    $("#btnGuardarUnidad,#btnCancelarUnidad,#btnAgregarUnidad").removeClass('hidden');
     $("#btnGuardarUnidad,#btnCancelarUnidad").attr("disabled",false);
     $("#btnAgregarUnidad,button.btn-secondary").attr("disabled",true);
   }
@@ -942,7 +943,7 @@ function FuncUnidad(id){
       if (objData.status) {
           Swal.fire({ icon: "success",title: 'Exito!',
           html: objData.msg,showConfirmButton: false,timer: 1500 });
-          ListarUnidad(id,$("#desc_articulo").val());
+          ListarUnidad(id,$("#desc_articulo").val(),'hidden');
       } else {
         Swal.fire({ icon: "error",title: 'Error!',html: objData.msg,
         customClass: { confirmButton: "btn btn-sm btnsw btn-primary",icon: "color:red"},
@@ -953,11 +954,32 @@ function FuncUnidad(id){
 
   let cancelar=document.querySelector("#btnCancelarUnidad");
   cancelar.onclick = function(event) {
+    event.preventDefault();
     $('div.card-body.form').addClass('hidden');
     $('div.card-body.table').removeClass('hidden');
+    $("#btnGuardarUnidad,#btnCancelarUnidad,#btnAgregarUnidad").removeClass('hidden');
     $("#btnGuardarUnidad,#btnCancelarUnidad").attr("disabled",true);
     $("#btnAgregarUnidad,button.btn-secondary").attr("disabled",false);
   };
 }
 
+function ListadoStock(id,desc,){
+  $("#btnGuardarUnidad,#btnCancelarUnidad,#btnAgregarUnidad").addClass('hidden');
+  $("#tbstock").removeClass('hidden');
+  ListarUnidad(id,desc);
+  $.post(url_base+'/ListaStock', {'id': id }, function (data) {
+    $("#tbstock").html(data);
+    $('.paneltb').css('max-height','160px');
+    $(".chk,.btnl").attr('disabled',true);
+  });
+}
+
+function listadoPrecio(id,desc){
+  $.post(url_baseL+'/ArtPrecio/ListaPrecio', {'id': id }, function (data) {
+      $("#tblistaPrecio").html(data);
+      $(".chk,.btnl").attr('disabled',true);
+      $("#LParticulo").html(desc)
+      $("#ModalListaPrecio").modal('show');
+  });
+}
 

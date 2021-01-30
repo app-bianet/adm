@@ -28,14 +28,22 @@
 <script src="<?= libs()?>/js/bootstrap-datepicker.min.js"></script>
 <script src="<?= libs()?>/js/bootstrap-datepicker.es.min.js"></script>
 
-<script src="<?= libs()?>/js/bootbox.js"></script>
+
 <script src="<?= libs()?>/tables/datatables.min.js"></script>
+<script src="<?= libs()?>/tables/pdfmake.min.js"></script>
+<script src="<?= libs()?>/tables/vfs_fonts.js"></script>
+
 <script src="<?= libs()?>/js/sweetalert2.min.js"></script>
 <script src="<?= libs()?>/js/jquery.number.js"></script>
 <script src="<?= libs()?>/js/app.js"></script>
 <script src="<?= libs()?>/js/jquery.PrintArea.js"></script>
 <script src="<?= libs()?>/js/JsBarcode.all.min.js"></script>
 <script src="<?= libs()?>/js/qrcode.js"></script>
+
+<script src="<?= libs()?>/js/Chart.bundle.min.js"></script>
+<script src="<?= libs()?>/js/Chart.min.js"></script>
+
+
 
 <script src="<?= libs();?>/scripts/<?= $data['func'];?>"></script>
 <script src="<?= libs();?>/scripts/main_functions.js"></script>

@@ -26,7 +26,7 @@
       $this->Idzona=$id;
       $sql="SELECT * 
       FROM tbzona
-      WHERE idzona= $this->Idzona";
+      WHERE idzona='$this->Idzona'";
       $req=$this->Select($sql);
       return $req;
     }

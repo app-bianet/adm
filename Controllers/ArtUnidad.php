@@ -44,7 +44,7 @@ class ArtUnidad extends Controllers{
               </h6></td>
               <td><h6 '.$al.''.$w.'60%">'.$row['desc_unidad'].'</h6></td>
               <td><h6 '.$al.'right'.$w.':10%">'.formatStock($row['valor']).'</h6></td>
-              <td class="text-center"><input type="checkbox" class="chk" value="'.$row['principal'].'"></td>
+              <td class="text-center"><input type="checkbox" class="chk" disabled value="'.$row['principal'].'"></td>
             </tr>';
           }
     var_dump($data,JSON_UNESCAPED_UNICODE);

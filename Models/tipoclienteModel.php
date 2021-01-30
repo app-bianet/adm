@@ -36,13 +36,6 @@
       return $req;
     }
 
-    // public function ShowDtC($id){
-    //   $this->Idtipocliente=$id;
-    //   $sql="SELECT * FROM tbtipocliente
-    //   WHERE idtipocliente='$this->Idtipoprecio'";
-    //   $req=$this->Select($sql);
-    //   return $req;
-    // }
   
     public function EstatusDt($id,$st){
       $this->Idtipocliente=$id;

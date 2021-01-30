@@ -223,8 +223,8 @@ function DateTimeSet(){
 
 $(function () {
 
-    document.querySelector("input[type=textc]").addEventListener('keyup', function () {
-        $(this).val($(this).val().toUpperCase());
+    $("input[type=textc]").on('keyup', function () {
+        $(this).val($(this).val().toUpperCase());   
     });
 
     let inputf =document.querySelectorAll('input.form-control,select.form-control');

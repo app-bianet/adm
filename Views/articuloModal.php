@@ -1,6 +1,6 @@
 <div class="modal fade" id="ModalUnidad" tabindex="-1" role="dialog" aria-labelledby="myModal-label" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content"  style="width:600px;">
+    <div class="modal-content" style="width:600px;">
       <div class="modal-header">
         <h5 class="modal-title" id="Uarticulo"></h5>
       </div>
@@ -12,6 +12,14 @@
             <th class="text-center">Unidad</th>
             <th class="text-center" style="width: 10%;">Valor</th>
             <th class="text-center" style="width: 10%;">Es Principal</th>
+          </thead>
+        </table>
+        <table id="tbstock" class="table table-bordered table-hover compact table-sm table-striped" 
+        style="width:100% !important;">
+          <thead class="bg-gray">
+            <th class="text-center" style="width: 10%;">Reng.</th>
+            <th class="text-center">Deposito</th>
+            <th class="text-center" style="width: 15%;">Stock</th>
           </thead>
         </table>
       </div>
@@ -47,7 +55,7 @@
           </div>
         </form>
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer und">
         <button type="button" class="btn btn-primary btn-sm btnm" id="btnGuardarUnidad">Guardar</button>
         <button type="button" class="btn btn-success btn-sm btnm" id="btnAgregarUnidad">Agregar</button>
         <button type="button" class="btn btn-danger btn-sm btnm" id="btnCancelarUnidad">Cancelar</button>
@@ -57,7 +65,8 @@
   </div>
 </div>
 
-<div class="modal fade" id="ModalPrecio" tabindex="-1" role="dialog" aria-labelledby="myModal-label" aria-hidden="true">
+<div class="modal fade" id="ModalPrecio" tabindex="-1" role="dialog" 
+  aria-labelledby="myModal-label" aria-hidden="true" style="z-index: 1800;">
   <div class="modal-dialog">
     <div class="modal-content" style="width:650px;">
       <div class="modal-header">
@@ -174,25 +183,39 @@
   </div>
 </div>
 
-
-<!-- Modal -->
-<div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
+<div class="modal fade" id="ModalListaPrecio" tabindex="-1" role="dialog" 
+  aria-labelledby="myModal-label" aria-hidden="true" style="z-index: 1600;">
+  <div class="modal-dialog">
+    <div class="modal-content" style="width:700px;">
       <div class="modal-header">
-        <h5 class="modal-title" id="Iarticulo"></h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+        <h5 class="modal-title" id="LParticulo"></h5>
       </div>
       <div class="modal-body">
-
+        <div class="table-responsive">
+        <table id="tblistaPrecio" class="table table-bordered table-hover compact table-sm table-striped" 
+          style="width:100% !important;">
+          <thead class="bg-gray">
+            <th class="nd text-center nd" style="width:100px">Opciones</th>
+            <th class="nd text-center nd" style="width:30px;font-size:14px">Moneda</th>
+            <th class="nd text-center nd" style="width:220px">Tipo de Precio</th>
+            <th class="nd text-center nd" style="width:150px">Precio Neto</th>
+            <th class="nd text-center nd" style="width:80px;font-size:14px">Margen</th>
+            <th class="nd text-center nd" style="width:160px">Margen+Precio</th>
+            <th class="nd text-center nd" style="width:120px">Impuesto</th>
+            <th class="nd text-center nd" style="width:160px">Total Precio</th>
+            <th class="nd text-center nd" style="width:90px">Registro</th>
+            <th class="nd text-center nd" style="width:90px">F. Venc.</th>
+            <th class="nd text-center nd" style="width:50px;font-size:14px">Venc.</th>
+          </thead>
+        </table>
+        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save</button>
+        <button type="button" class="btn btn-danger btn-sm btnm" data-dismiss="modal">Cerrar</button>
       </div>
     </div>
   </div>
 </div>
+
+
 

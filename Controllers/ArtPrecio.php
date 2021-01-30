@@ -56,10 +56,10 @@ class ArtPrecio extends Controllers{
           $data[] =
           '<tr class="filas">
             <td>
-              <h6 style="text-align:center; width:100px" class="btn-group">
+              <small style="text-align:center; width:100px" class="small btn-group">
               <'.$btn.'btn btn-primary btn-xs btnl" onclick="EditarPrecio('.$row['idartprecio'].')"> Editar </button>
               <'.$btn.'btn btn-danger btn-xs btnl" onclick="eliminarPrecio('.$row['idartprecio'].')">Eliminar</button>
-              </h6>
+              </small>
             </td>
             <td><h6 '.$al.'center'.$w.':50px;">'.$row['simbolo'].'</h6></td>
             <td><h6 '.$al.''.$w.':200px;">'.$row['cod_tipoprecio'].'-'.$row['desc_tipoprecio'].'</h6></td>

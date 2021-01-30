@@ -21,7 +21,7 @@
 
     public function ListDt(){
       $sql="SELECT * FROM tbpais 
-      WHERE estatus='1'  ORDER BY cod_pais ASC";
+      WHERE estatus='1' ORDER BY cod_pais ASC";
       $req=$this->SelectAll($sql);
       return $req;
     }

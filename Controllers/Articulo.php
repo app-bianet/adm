@@ -71,6 +71,8 @@ class Articulo extends Controllers{
           $_FILES['imagena']['type'] == "image/png"){
           $imagen = $cod_articulo.'.'.end($ext);
           move_uploaded_file($_FILES["imagena"]["tmp_name"], $rutaimg.$imagen);
+        } else {
+          $arrRspta=array("status"=>false,"msg"=>"El Formato de Imagen no es Soportado!");
         }
       }
 
@@ -103,7 +105,7 @@ class Articulo extends Controllers{
           $arrRspta=array("status"=>false,"msg"=>"Error Editando Registros!");
         }
       }
-      echo json_encode($arrRspta,JSON_UNESCAPED_UNICODE);    
+      echo json_encode($arrRspta,JSON_UNESCAPED_UNICODE);   
     } else{
       header("Location:".base_URL()."Error404");
     }
@@ -197,8 +199,8 @@ class Articulo extends Controllers{
           '<small '.$al.'center'.$w.'150px;" class="small btn-group">
           <button type="button" class="btn bg-navy btn-xs" onclick="mostrar('.$arrData[$i]['idarticulo'].')" data-toggle="tooltip" data-placement="right" title="Editar"><i class="fa fa-pencil"></i></button>
           <button type="button" class="btn btn-success btn-xs" onclick="desactivar('.$arrData[$i]['idarticulo'].')" data-toggle="tooltip" data-placement="right" title="Desactivar"><i class="fa fa-check"></i></button>
-          <button type="button" class="btn bg-purple btn-xs" onclick="listaPrecio('.$arrData[$i]['idarticulo'].'\''.$arrData[$i]['desc_articulo'].'\')" data-toggle="tooltip" data-placement="right" title="Precios"><i class="fa fa-money-bill"></i></button>
-          <button type="button" class="btn bg-orange btn-xs" onclick="ListaStock('.$arrData[$i]['idarticulo'].'\''.$arrData[$i]['desc_articulo'].'\')" data-toggle="tooltip" data-placement="right" title="Stock"><i class="fa fa-cubes"></i></button>
+          <button type="button" class="btn bg-purple btn-xs" onclick="listadoPrecio('.$arrData[$i]['idarticulo'].',\''.$arrData[$i]['desc_articulo'].'\')" data-toggle="tooltip" data-placement="right" title="Precios"><i class="fa fa-money-bill"></i></button>
+          <button type="button" class="btn bg-orange btn-xs" onclick="ListadoStock('.$arrData[$i]['idarticulo'].',\''.$arrData[$i]['desc_articulo'].'\')" data-toggle="tooltip" data-placement="right" title="Stock"><i class="fa fa-cubes"></i></button>
           </small>';
         } else {
           $arrData[$i]['estatus']='<small class="badge badge-danger">Inactivo</small>';
@@ -206,8 +208,8 @@ class Articulo extends Controllers{
           '<small '.$al.'center'.$w.'150px;" class="small btn-group">
           <button type="button" class="btn bg-navy btn-xs" onclick="mostrar('.$arrData[$i]['idarticulo'].')" data-toggle="tooltip" data-placement="right" title="Editar"><i class="fa fa-pencil"></i></button>
           <button type="button" class="btn btn-warning btn-xs" onclick="activar('.$arrData[$i]['idarticulo'].')" data-toggle="tooltip" data-placement="right" title="Activar"><i class="fa fa-exclamation-triangle"></i></button>
-          <button type="button" class="btn bg-purple btn-xs" onclick="listaPrecio('.$arrData[$i]['idarticulo'].'\''.$arrData[$i]['desc_articulo'].'\')" data-toggle="tooltip" data-placement="right" title="Precios"><i class="fa fa-money-bill"></i></button>
-          <button type="button" class="btn bg-orange btn-xs" onclick="ListaStock('.$arrData[$i]['idarticulo'].',\''.$arrData[$i]['desc_articulo'].'\')" data-toggle="tooltip" data-placement="right" title="Stock"><i class="fa fa-cubes"></i></button>
+          <button type="button" class="btn bg-purple btn-xs" onclick="listadoPrecio('.$arrData[$i]['idarticulo'].',\''.$arrData[$i]['desc_articulo'].'\')" data-toggle="tooltip" data-placement="right" title="Precios"><i class="fa fa-money-bill"></i></button>
+          <button type="button" class="btn bg-orange btn-xs" onclick="ListadoStock('.$arrData[$i]['idarticulo'].',\''.$arrData[$i]['desc_articulo'].'\')" data-toggle="tooltip" data-placement="right" title="Stock"><i class="fa fa-cubes"></i></button>
           </small>';   
         }
         $arrData[$i]['eliminar']='<h6 '.$al.'center'.$w.'50px;"><input type="checkbox" name="eliminar_reg[]" value="'.$arrData[$i]['idarticulo'].'"></h6>';
@@ -246,14 +248,14 @@ class Articulo extends Controllers{
     echo '<thead class="bg-gray">
       <th style="width:10%" class="text-center nd">Reng</th>
       <th style="width:65%"class="nd text-center">Deposito</th>
-      <th style="width:25%" class="text-center nd">Stock</th>
+      <th style="width:15%" class="text-center nd">Stock</th>
       </thead>';
       foreach ($arrData as $row) {
         $data[] =
         '<tr class="filas" id="fila'.($reng+1).'">
-          <td style="width:10%; text-align:center;">'.($reng+1).'</td>
-          <td>'.$row['cod_deposito'].'-'.$row['desc_deposito'].'</td>
-          <td style="text-align:right; width:25%;"><span class="numberf">'.formatStock($row['stock']).'</span></td>
+          <td><h6 style="width:10%; text-align:center;">'.($reng+1).'</h6></td>
+          <td><h6>'.$row['cod_deposito'].'-'.$row['desc_deposito'].'</h6></td>
+          <td><h6 style="width:10%;text-align:right;">'.formatStock($row['stock']).'</h6></td>
         </tr>';
         $totalst+=$row['stock'];		
         $reng++;

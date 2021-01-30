@@ -28,7 +28,7 @@ class usuarioModel extends MySql{
   }
 
   public function ListDt(){
-    $sql = "SELECT * FROM tbusuario WHERE estatus='1'  ORDER BY cod_usuario";
+    $sql = "SELECT * FROM tbusuario WHERE estatus='1' ORDER BY cod_usuario";
     $req = $this->SelectAll($sql);
     return $req;
   }
@@ -39,7 +39,7 @@ class usuarioModel extends MySql{
     u.idusuario,u.idmacceso,u.cod_usuario,u.desc_usuario,u.direccion,u.telefono,u.email,u.clave,
     u.imagen, DATE_FORMAT(u.fechareg,'%d/%m/%Y') AS fechareg,u.estatus,u.idempresa,ma.cod_macceso,ma.desc_macceso,ma.departamento
     FROM tbusuario u INNER JOIN tbmacceso ma ON ma.idmacceso=u.idmacceso
-    WHERE u.idusuario= $this->Idusuario";
+    WHERE u.idusuario='$this->Idusuario'";
     $req = $this->Select($sql);
     return $req;
   }

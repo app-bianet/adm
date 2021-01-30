@@ -26,7 +26,7 @@
       $this->Idtipoproveedor=$id;
       $sql="SELECT * 
       FROM tbtipoproveedor
-      WHERE idtipoproveedor= $this->Idtipoproveedor";
+      WHERE idtipoproveedor='$this->Idtipoproveedor'";
       $req=$this->Select($sql);
       return $req;
     }
