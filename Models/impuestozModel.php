@@ -2,9 +2,15 @@
   class impuestozModel extends MySql{
 
     private $Idimpuestoz;
+    private $Idimpuestozd;
     private $Cod_impuestoz;
     private $Desc_impuestoz;
     private $Estatus;
+    private $Cod_concepto;
+    private $Desc_concepto;
+    private $Base;
+    private $Retencion;
+    private $Sustraendo;
 
     public function __construct(){
       parent::__construct();
@@ -38,6 +44,26 @@
       return $req;
     }
 
+    public function ShowRengDt($id){
+      $this->Idimpuestozd=$id;
+      $sql="SELECT 
+      id.idimpuestozd,
+      id.idimpuestoz,
+      i.cod_impuestoz,
+      i.desc_impuestoz,
+      id.cod_concepto,
+      id.desc_concepto,
+      id.base,
+      id.retencion,
+      id.sustraendo 
+      FROM
+      tbimpuestozd id
+      INNER JOIN tbimpuestoz i ON i.idimpuestoz=id.idimpuestoz
+      WHERE id.idimpuestozd='$this->Idimpuestozd'";
+      $req=$this->Select($sql);
+      return $req;
+    }
+
     public function ShowDt($id){
       $this->Idimpuestoz=$id;
       $sql="SELECT * 
@@ -56,40 +82,43 @@
       return $request;
     }
 
-    public function InsertDt($cod_impuestoz,$desc_impuestoz){
-      $this->Cod_impuestoz=$cod_impuestoz;
-      $this->Desc_impuestoz=$desc_impuestoz;
-      $this->Estatus='1';
+    public function InsertDt($idimpuestoz,$cod_concepto,$desc_concepto,$base,$retencion,$sustraendo){
+      $this->Idimpuestoz=$idimpuestoz;
+      $this->Cod_concepto=$cod_concepto;
+      $this->Desc_concepto=$desc_concepto;
+      $this->Base=$base;
+      $this->Retencion=$retencion;
+      $this->Sustraendo=$sustraendo;
 
       try{  
-        $queryInsert="INSERT INTO tbimpuestoz(cod_impuestoz, desc_impuestoz,estatus) VALUES(?,?,?)";
-        $arrData=array($this->Cod_impuestoz,$this->Desc_impuestoz,$this->Estatus);
-        $this->Insert($queryInsert,$arrData);
+        $sql="INSERT INTO tbimpuestozd(idimpuestoz,cod_concepto,desc_concepto,base,retencion,sustraendo) 
+        VALUES(?,?,?,?,?,?)";
+        $arrData=array($this->Idimpuestoz,$this->Cod_concepto,$this->Desc_concepto,$this->Base,
+        $this->Retencion,$this->Sustraendo);
+        $this->Insert($sql,$arrData);
         return true;
       } catch(PDOException $e){
-        if($e->getCode()=='23000'){
-          return 'duplicado';
-        } else {
-          return 'error_insert';
-        }
+        $e->getCode();
       }
     }
 
-    public function EditarDt($id, $cod_impuestoz, $desc_impuestoz){
-      $this->Idimpuestoz=$id;
-      $this->Cod_impuestoz=$cod_impuestoz;
-      $this->Desc_impuestoz=$desc_impuestoz;
+    public function EditarDt($id,$cod_concepto,$desc_concepto,$base,$retencion,$sustraendo){
+      $this->Idimpuestozd=$id;
+      $this->Cod_concepto=$cod_concepto;
+      $this->Desc_concepto=$desc_concepto;
+      $this->Base=$base;
+      $this->Retencion=$retencion;
+      $this->Sustraendo=$sustraendo;
+
       try{  
-        $sql="UPDATE tbimpuestoz SET cod_impuestoz=?,desc_impuestoz=? WHERE idimpuestoz='$this->Idimpuestoz'";
-        $arrData=array($this->Cod_impuestoz,$this->Desc_impuestoz);
+        $sql="UPDATE tbimpuestozd 
+        SET cod_concepto=?, desc_concepto=? ,base=? ,retencion=?, sustraendo=?  
+        WHERE idimpuestozd = '$this->Idimpuestozd'";
+        $arrData=array($this->Cod_concepto,$this->Desc_concepto,$this->Base,$this->Retencion, $this->Sustraendo);
         $this->Update($sql,$arrData);
         return true;
       } catch(PDOException $e){
-        if($e->getCode()=='23000'){
-          return 'duplicado';
-        } else {
-          return 'error_update';
-        }
+        $e->getCode();
       }
     }
 

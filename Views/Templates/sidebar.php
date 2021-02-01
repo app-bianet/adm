@@ -176,6 +176,8 @@
             <a href="Operacion" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Tipos de Operaciones</a></li>';}?>
             <?php if ($_SESSION['impuesto']==1){echo'<li class="nav-item">
             <a href="Impuesto" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Impuesto</a></li>';}?>
+            <?php if ($_SESSION['impuestoz']==1){echo'<li class="nav-item">
+            <a href="Impuestoz" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Tabulador de I.S.L.R. </a></li>';}?>
             <?php if ($_SESSION['moneda']==1){echo'<li class="nav-item">
             <a href="Moneda" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Moneda</a></li>';}?>
             <?php if ($_SESSION['pais']==1){echo'<li class="nav-item">

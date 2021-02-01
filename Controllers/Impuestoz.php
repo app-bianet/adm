@@ -28,14 +28,18 @@ class Impuestoz extends Controllers{
   public function Insertar(){
     if(isset($_POST["security"])){
       $idimpuestoz=isset($_POST["idimpuestoz"])? limpiarCadena($_POST["idimpuestoz"]):"";
-      $cod_impuestoz=isset($_POST["cod_impuestoz"])? limpiarCadena($_POST["cod_impuestoz"]):"";
-      $desc_impuestoz=isset($_POST["desc_impuestoz"])? limpiarCadena($_POST["desc_impuestoz"]):"";
+      $idimpuestozd=isset($_POST["idimpuestozd"])? limpiarCadena($_POST["idimpuestozd"]):"";
+      $cod_concepto=isset($_POST["cod_concepto"])? limpiarCadena($_POST["cod_concepto"]):"";
+      $desc_concepto=isset($_POST["desc_concepto"])? limpiarCadena($_POST["desc_concepto"]):"";
+      $base=isset($_POST["base"])? limpiarCadena($_POST["base"]):"";
+      $retencion=isset($_POST["retencion"])? limpiarCadena($_POST["retencion"]):"";
+      $sustraendo=isset($_POST["sustraendo"])? limpiarCadena($_POST["sustraendo"]):"";
 
-      if (empty($idimpuestoz)) {
-        $resquest=$this->model->InsertDt($cod_impuestoz,$desc_impuestoz);
+      if (empty($idimpuestozd)) {
+        $resquest=$this->model->InsertDt($idimpuestoz,$cod_concepto,$desc_concepto,$base,$retencion,$sustraendo);
         $option=1;
       } else {
-       $resquest=$this->model->EditarDt($idimpuestoz,$cod_impuestoz,$desc_impuestoz,$desc_impuestoz);
+       $resquest=$this->model->EditarDt($idimpuestozd,$cod_concepto,$desc_concepto,$base,$retencion,$sustraendo);
         $option=2;
       }
 
@@ -46,13 +50,13 @@ class Impuestoz extends Controllers{
           $arrRspta=array("status"=>true,"msg"=>"Registro Actualizado Correctamente!");
         }
       } else if ($resquest=="duplicado"){
-        $arrRspta=array("status"=>false,"msg"=>"El Código <b>".$cod_impuestoz."</b> ya se encuentra Registrado! 
+        $arrRspta=array("status"=>false,"msg"=>"El Código <b>".$cod_concepto."</b> ya se encuentra Registrado! 
         <br>No es posible ingresar <b>Registros Duplicados!</b>");
       } else {
         if ($resquest=='error_insert') {
-          $arrRspta=array("status"=>false,"msg"=>"Error Insertando Registros!");
+          $arrRspta=array("status"=>false,"msg"=>json_encode($resquest));
         } else {
-          $arrRspta=array("status"=>false,"msg"=>"Error Editando Registros!");
+          $arrRspta=array("status"=>false,"msg"=>json_encode($resquest));
         }
       }
       echo json_encode($arrRspta,JSON_UNESCAPED_UNICODE);    
@@ -103,6 +107,24 @@ class Impuestoz extends Controllers{
     die();   
   }
 
+  public function MostrarDt(){
+    if (isset($_POST['id'])) {
+      $idimpuestozd=intval(limpiarCadena($_POST['id']));
+      if ($idimpuestozd>0) {
+        $arrData=$this->model->ShowRengDt($idimpuestozd);
+        if (empty($arrData)) {
+          $arrRspta=array('status'=>false,'msg'=>'No Existen Registros!');
+        } else {
+          $arrRspta=$arrData;
+        }
+        echo json_encode($arrRspta,JSON_UNESCAPED_UNICODE);
+      }
+    } else{
+      header("Location:".base_URL()."Error404");
+    }
+    die();   
+  }
+
   public function Activar(){
     if (isset($_POST['idimpuestoz'])) {
       $idimpuestoz=intval(limpiarCadena($_POST['idimpuestoz']));
@@ -138,50 +160,33 @@ class Impuestoz extends Controllers{
   }
 
   public function Listar(){
-    if (isset($_POST["security"])) {
-      $arrData=$this->model->SelectDt();
-      $al='style="text-align:';
-      $w='; width:';
-      for ($i=0; $i<count($arrData);$i++) { 
-        if($arrData[$i]['estatus']==1){
-          $arrData[$i]['estatus']='<small class="badge badge-success">Activo</small>';
-          $arrData[$i]['opciones']=
-          '<small '.$al.'center'.$w.'100px;" class="small btn-group">
-          <button type="button" class="btn btn-primary btn-xs" onclick="mostrar('.$arrData[$i]['idimpuestoz'].')" data-toggle="tooltip" data-placement="right" title="Editar"><i class="fa fa-pencil"></i></button>
-          <button type="button" class="btn btn-success btn-xs" onclick="desactivar('.$arrData[$i]['idimpuestoz'].')" data-toggle="tooltip" data-placement="right" title="Desactivar"><i class="fa fa-check"></i></button>
-          </small>';
-        } else {
-          $arrData[$i]['estatus']='<small class="badge badge-danger">Inactivo</small>';
-          $arrData[$i]['opciones']=
-          '<h6 '.$al.'center'.$w.'100px;" class="small btn-group">
-          <button type="button" class="btn btn-primary btn-xs" onclick="mostrar('.$arrData[$i]['idimpuestoz'].')" data-toggle="tooltip" data-placement="right" title="Editar"><i class="fa fa-pencil"></i></button>
-          <button type="button" class="btn btn-warning btn-xs" onclick="activar('.$arrData[$i]['idimpuestoz'].')" data-toggle="tooltip" data-placement="right" title="Activar"><i class="fa fa-exclamation-triangle"></i></button>
-          </small>';   
-        }
-        $arrData[$i]['cod_impuestoz']='<h6 '.$al.'center'.$w.'150px">'.$arrData[$i]['cod_impuestoz'].'</h6>';
-        $arrData[$i]['desc_impuestoz']='<h6 '.$al.''.$w.'">'.$arrData[$i]['desc_impuestoz'].'</h6>';
-        $arrData[$i]['eliminar']='<input type="checkbox" name="eliminar_reg[]" value="'.$arrData[$i]['idimpuestoz'].'">';
+
+      $arrData=$this->model->ListRengDt(POSTT($_POST['id']));
+      for ($x=0; $x <count($arrData) ; $x++) {
+        $arrData[$x]['opciones']='<h6 style="width:100px">
+        <button type="button" class="btn btn-primary btn-xs" onclick="mostrar('.$arrData[$x]['idimpuestozd'].')">Editar</button></h6>';
+        $arrData[$x]['cod_concepto']='<h6 class="text-center" style="width:50px">'.$arrData[$x]['cod_concepto'].'</h6>';
+        $arrData[$x]['desc_concepto']='<h6 style="min-width:400px">'.$arrData[$x]['desc_concepto'].'</h6>';
+        $arrData[$x]['base']='<h6 class="text-right" style="max-width:100px">'.$arrData[$x]['base'].'</h6>';
+        $arrData[$x]['retencion']='<h6 class="text-right" style="max-width:120px">'.$arrData[$x]['retencion'].'</h6>';
+        $arrData[$x]['sustraendo']='<h6 class="text-right" style="max-width:120px">'.$arrData[$x]['sustraendo'].'</h6>';
+        $arrData[$x]['eliminar']='<h6 style="max-width:80px" class="text-center"><input type="checkbox" name="eliminar_reg[]" value="'.$arrData[$x]['idimpuestozd'].'"></h6>';
       }
       echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
       die();
-    } else{
-      header("Location:".base_URL()."Error403");
-    }
   }
 
   public function Selectpicker(){
-    if (isset($_POST["security"])) {
+
       $arrData=$this->model->ListDt();
       if ($arrData) {
         for ($i=0; $i<count($arrData);$i++) { 
-          echo '<option value="'.$arrData[$i]['idimpuestoz'].'">'.$arrData[$i]['cod_impuestoz'].'-'.$arrData[$i]['desc_impuestoz'].'</option>';
+          echo '<option value="'.$arrData[$i]['idimpuestoz'].'">'.$arrData[$i]['desc_impuestoz'].'</option>';
         }
       } else {
         echo '<option readonly>No Existen Registros!</option>';
       }
-    } else {
-      header("Location:".base_URL()."Error403");
-    }
+
   }
   
 }

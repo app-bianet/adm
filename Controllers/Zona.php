@@ -45,15 +45,11 @@ class Zona extends Controllers{
         } else {
           $arrRspta=array("status"=>true,"msg"=>"Registro Actualizado Correctamente!");
         }
-      } else if ($resquest=="duplicado"){
+      } else if ($resquest=="1062"){
         $arrRspta=array("status"=>false,"msg"=>"El Código <b>".$cod_zona."</b> ya se encuentra Registrado! 
         <br>No es posible ingresar <b>Registros Duplicados!</b>");
       } else {
-        if ($resquest=='error_insert') {
-          $arrRspta=array("status"=>false,"msg"=>"Error Insertando Registros!");
-        } else {
-          $arrRspta=array("status"=>false,"msg"=>"Error Editando Registros!");
-        }
+        $arrRspta=array("status"=>false,"msg"=>$resquest);
       }
       echo json_encode($arrRspta,JSON_UNESCAPED_UNICODE);    
     } else{
@@ -71,12 +67,12 @@ class Zona extends Controllers{
         foreach ($idzona as $valor) {
           $resquest = $this->model->EliminarDt($valor);
         }
-        if ($resquest == 'duplicado') {
-          $arrRspta = array("status" => false, "msg" => "No es Posible Eliminar Registros Relacionados!");
-        } else if ($resquest == 1) {
+        if ($resquest == 1) {
           $arrRspta = array("status" => true, "msg" => "Registros Eliminados Correctamente!");
+        } else if ($resquest == '1451') {
+          $arrRspta = array("status" => false, "msg" => "No es Posible Eliminar Registros Relacionados!");
         } else {
-          $arrRspta = array("status" => false, "msg" => "Error eliminado Registros!");
+          $arrRspta = array("status" => false, "msg" =>"Error eliminado Registros!");
         }
       }
       echo json_encode( $arrRspta , JSON_UNESCAPED_UNICODE);

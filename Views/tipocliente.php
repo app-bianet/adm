@@ -12,7 +12,7 @@
       </div>
       <div class="card-body table-responsive no-paddm" id="listado">
         <div class="input-group search col-8">
-          <input type="search" class="filtro_buscar form-control form-control-sm" id="filtro_buscar" placeholder="Buscar">
+          <input type="search" class="filtro_buscar form-control" id="filtro_buscar" placeholder="Buscar">
           <div class="input-group-append">
             <span class="input-group-text"><i class="fas fa-search"></i></span>
           </div>
@@ -39,7 +39,7 @@
             <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
               <label for="cod_tipocliente">Código</label>
               <input type="textc" id="cod_tipocliente" name="cod_tipocliente" 
-              class="form-control form-control-border form-control-sm" placeholder="Código">
+              class="form-control form-control-border" placeholder="Código">
             </div>
             <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
               <label for="idtipoprecio"> Tipo de Precio:</label>
@@ -49,7 +49,7 @@
             <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-8">
               <label for="desc_tipocliente">Descripción</label>
               <input type="text" id="desc_tipocliente" name="desc_tipocliente" 
-              class="form-control form-control-border form-control-sm" placeholder="Descripción">
+              class="form-control form-control-border" placeholder="Descripción">
             </div>
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
             </div>

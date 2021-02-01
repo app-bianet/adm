@@ -12,7 +12,7 @@
       </div>
       <div class="card-body table-responsive no-paddm" id="listado">
         <div class="input-group search col-8">
-          <input type="search" class="filtro_buscar form-control form-control-sm" id="filtro_buscar" placeholder="Buscar">
+          <input type="search" class="filtro_buscar form-control" id="filtro_buscar" placeholder="Buscar">
           <div class="input-group-append">
             <span class="input-group-text"><i class="fas fa-search"></i></span>
           </div>
@@ -38,14 +38,14 @@
             <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
               <label for="cod_zona">Código</label>
               <input type="textc" id="cod_zona" name="cod_zona" 
-              class="form-control form-control-border form-control-sm" placeholder="Código">
+              class="form-control form-control-border" placeholder="Código">
             </div>
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
             </div>
             <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-8">
               <label for="desc_zona">Descripción</label>
               <input type="text" id="desc_zona" name="desc_zona" 
-              class="form-control form-control-border form-control-sm" placeholder="Descripción">
+              class="form-control form-control-border" placeholder="Descripción">
             </div>
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
             </div>

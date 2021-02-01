@@ -171,3 +171,42 @@ function hashpw($password){
 function verifypw($password, $hash) {
   return password_verify($password, $hash);
 }
+
+function PDOError($error_get,$tipo){
+  switch ($error_get->getCode()) {
+    case 23000:
+      $serror= $error_get->getMessage();
+      $eerror= explode(" ", $serror);
+
+      if (in_array("1451",$eerror)){
+          return '1451';//Registros Relacionados
+      } 
+      else if (in_array("1062",$eerror)){
+        return '1062';//Valores Duplicados
+      } 
+      else if (in_array("1054",$eerror)){
+        return '1054';//Campo desconocido
+      } 
+      else {
+        if ($tipo=='insert') {
+          return "Error Insertando Registros!";
+        } else if ($tipo=='update') {
+          return "Error Editando Registros!";
+        } else if ($tipo=='delete') {
+          return "Error Eliminado Registros!";
+        } else {
+          return "Error Procesando el Registro!";
+        }
+      } 
+    default:
+    if ($tipo=='insert') {
+      return "Error Insertando Registros!";
+    } else if ($tipo=='update') {
+      return "Error Editando Registros!";
+    } else if ($tipo=='delete') {
+      return "Error Eliminado Registros!";
+    } else {
+      return "Error Procesando el Registro!";
+    }
+  }
+}
