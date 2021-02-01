@@ -1,5 +1,4 @@
 <?php
-
  class MySql extends Conexion{
     private $conexion;
     private $stringQuery;

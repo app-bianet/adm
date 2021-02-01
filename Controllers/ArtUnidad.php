@@ -70,30 +70,26 @@ class ArtUnidad extends Controllers{
       }
     } else if ($request=="principaldt"){
       $arrRspta=array("status"=>false,"msg"=>"Solo es posible indicar una Unidad como <b>Principal</b>");
-    } else if ($request=="duplicado"){
+    } else if ($request=="1062"){
       $arrRspta=array("status"=>false,"msg"=>"La Unidad Seleccionada ya se encuentra Registrada! 
       <br>No es posible ingresar <b>Registros Duplicados!</b>");
     } else {
-      if ($request) {
-        $arrRspta=array("status"=>false,"msg"=>"Error Insertando Registros!");
-      } else {
-        $arrRspta=array("status"=>false,"msg"=>"Error Editando Registros!");
-      }
+      $arrRspta=array("status"=>false,"msg"=>$request);
     }
     echo json_encode($arrRspta,JSON_UNESCAPED_UNICODE);  
   }
 
   public function Eliminar(){
-    $resquest = $this->model->EliminarDt($_POST['id'],$_POST['principal']);
-      if ($resquest == 'duplicado') {
+    $request = $this->model->EliminarDt($_POST['id'],$_POST['principal']);
+      if ($request == '1062') {
           $arrRspta = array("status" => false, "msg" => "No es Posible Eliminar Registros Relacionados!");
-      } else if ($resquest == 'principaldt') {
+      } else if ($request == 'principaldt') {
           $arrRspta = array("status" => false, "msg" => "No Es posible Eliminar la Unidad Principal!
           <br>Edite la <b>Unidad Pricipal</b> Antes de Eliminar!");
-      } else if ($resquest == 1) {
+      } else if ($request == 1) {
           $arrRspta = array("status" => true, "msg" => "Registros Eliminados Correctamente!");
       } else {
-          $arrRspta = array("status" => false, "msg" => "Error eliminado Registros!");
+        $arrRspta=array("status"=>false,"msg"=>$request);
       }
     echo json_encode( $arrRspta , JSON_UNESCAPED_UNICODE);
   }

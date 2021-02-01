@@ -430,3 +430,107 @@ Stack trace:
 #2 D:\DEVAPP\htdocs\Bianet\index.php(30): require_once('D:\\DEVAPP\\htdoc...')
 #3 {main}
   thrown in D:\DEVAPP\htdocs\Bianet\Models\zonaModel.php on line 85
+[01-Feb-2021 07:09:10 America/Caracas] PHP Notice:  Undefined index: simagen in D:\DEVAPP\htdocs\Bianet\Views\Templates\header_admin.php on line 53
+[01-Feb-2021 07:09:10 America/Caracas] PHP Notice:  Undefined index: sdesc_usuario in D:\DEVAPP\htdocs\Bianet\Views\Templates\header_admin.php on line 54
+[01-Feb-2021 07:09:10 America/Caracas] PHP Notice:  Undefined index: sidusuario in D:\DEVAPP\htdocs\Bianet\Views\Templates\header_admin.php on line 55
+[01-Feb-2021 07:09:10 America/Caracas] PHP Notice:  Undefined index: sdepartamento in D:\DEVAPP\htdocs\Bianet\Views\Templates\header_admin.php on line 58
+[01-Feb-2021 07:09:10 America/Caracas] PHP Notice:  Undefined index: sdesc_usuario in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 15
+[01-Feb-2021 07:09:10 America/Caracas] PHP Notice:  Undefined index: inventario in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 30
+[01-Feb-2021 07:09:10 America/Caracas] PHP Notice:  Undefined index: articulo in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 39
+[01-Feb-2021 07:09:10 America/Caracas] PHP Notice:  Undefined index: categoria in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 40
+[01-Feb-2021 07:09:10 America/Caracas] PHP Notice:  Undefined index: linea in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 41
+[01-Feb-2021 07:09:10 America/Caracas] PHP Notice:  Undefined index: unidad in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 42
+[01-Feb-2021 07:09:10 America/Caracas] PHP Notice:  Undefined index: deposito in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 43
+[01-Feb-2021 07:09:10 America/Caracas] PHP Notice:  Undefined index: opinventario in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 47
+[01-Feb-2021 07:09:10 America/Caracas] PHP Notice:  Undefined index: ajustei in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 51
+[01-Feb-2021 07:09:10 America/Caracas] PHP Notice:  Undefined index: traslado in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 52
+[01-Feb-2021 07:09:10 America/Caracas] PHP Notice:  Undefined index: ajustep in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 53
+[01-Feb-2021 07:09:10 America/Caracas] PHP Notice:  Undefined index: compras in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 60
+[01-Feb-2021 07:09:10 America/Caracas] PHP Notice:  Undefined index: proveedor in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 69
+[01-Feb-2021 07:09:10 America/Caracas] PHP Notice:  Undefined index: tipoproveedor in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 70
+[01-Feb-2021 07:09:10 America/Caracas] PHP Notice:  Undefined index: condpago in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 71
+[01-Feb-2021 07:09:10 America/Caracas] PHP Notice:  Undefined index: zona in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 72
+[01-Feb-2021 07:09:10 America/Caracas] PHP Notice:  Undefined index: opcompras in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 76
+[01-Feb-2021 07:09:10 America/Caracas] PHP Notice:  Undefined index: ventas in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 90
+[01-Feb-2021 07:09:10 America/Caracas] PHP Notice:  Undefined index: cliente in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 99
+[01-Feb-2021 07:09:10 America/Caracas] PHP Notice:  Undefined index: tipocliente in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 102
+[01-Feb-2021 07:09:10 America/Caracas] PHP Notice:  Undefined index: tipoprecio in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 105
+[01-Feb-2021 07:09:10 America/Caracas] PHP Notice:  Undefined index: vendedor in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 108
+[01-Feb-2021 07:09:10 America/Caracas] PHP Notice:  Undefined index: condpago in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 111
+[01-Feb-2021 07:09:10 America/Caracas] PHP Notice:  Undefined index: zona in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 114
+[01-Feb-2021 07:09:10 America/Caracas] PHP Notice:  Undefined index: opventas in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 120
+[01-Feb-2021 07:09:10 America/Caracas] PHP Notice:  Undefined index: bancos in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 134
+[01-Feb-2021 07:09:10 America/Caracas] PHP Notice:  Undefined index: opbancos in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 151
+[01-Feb-2021 07:09:10 America/Caracas] PHP Notice:  Undefined index: config in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 165
+[01-Feb-2021 07:09:10 America/Caracas] PHP Notice:  Undefined index: macceso in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 169
+[01-Feb-2021 07:09:10 America/Caracas] PHP Notice:  Undefined index: usuariotb in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 171
+[01-Feb-2021 07:09:10 America/Caracas] PHP Notice:  Undefined index: correlativo in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 173
+[01-Feb-2021 07:09:10 America/Caracas] PHP Notice:  Undefined index: operacion in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 175
+[01-Feb-2021 07:09:10 America/Caracas] PHP Notice:  Undefined index: impuesto in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 177
+[01-Feb-2021 07:09:10 America/Caracas] PHP Notice:  Undefined index: impuestoz in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 179
+[01-Feb-2021 07:09:10 America/Caracas] PHP Notice:  Undefined index: moneda in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 181
+[01-Feb-2021 07:09:10 America/Caracas] PHP Notice:  Undefined index: pais in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 183
+[01-Feb-2021 07:09:10 America/Caracas] PHP Notice:  Undefined index: sdesc_usuario in D:\DEVAPP\htdocs\Bianet\Views\Templates\header_admin.php on line 79
+[01-Feb-2021 07:09:10 America/Caracas] PHP Notice:  Undefined index: sidusuario in D:\DEVAPP\htdocs\Bianet\Views\Templates\header_admin.php on line 87
+[01-Feb-2021 07:55:58 America/Caracas] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'AS (vd.idvendedor=cl.idvendedor)
+      INNER JOIN tbtipocliente AS tc ON (cl...' at line 40 in D:\DEVAPP\htdocs\Bianet\Core\MySql.php:20
+Stack trace:
+#0 D:\DEVAPP\htdocs\Bianet\Core\MySql.php(20): PDOStatement->execute()
+#1 D:\DEVAPP\htdocs\Bianet\Models\clienteModel.php(79): MySql->SelectAll('SELECT \r\n      ...')
+#2 D:\DEVAPP\htdocs\Bianet\Controllers\Cliente.php(163): clienteModel->SelectDt()
+#3 D:\DEVAPP\htdocs\Bianet\Core\Load.php(10): Cliente->Listar('')
+#4 D:\DEVAPP\htdocs\Bianet\index.php(30): require_once('D:\\DEVAPP\\htdoc...')
+#5 {main}
+  thrown in D:\DEVAPP\htdocs\Bianet\Core\MySql.php on line 20
+[01-Feb-2021 07:56:13 America/Caracas] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'AS (vd.idvendedor=cl.idvendedor)
+      INNER JOIN tbtipocliente AS tc ON (cl...' at line 40 in D:\DEVAPP\htdocs\Bianet\Core\MySql.php:20
+Stack trace:
+#0 D:\DEVAPP\htdocs\Bianet\Core\MySql.php(20): PDOStatement->execute()
+#1 D:\DEVAPP\htdocs\Bianet\Models\clienteModel.php(79): MySql->SelectAll('SELECT \r\n      ...')
+#2 D:\DEVAPP\htdocs\Bianet\Controllers\Cliente.php(163): clienteModel->SelectDt()
+#3 D:\DEVAPP\htdocs\Bianet\Core\Load.php(10): Cliente->Listar('')
+#4 D:\DEVAPP\htdocs\Bianet\index.php(30): require_once('D:\\DEVAPP\\htdoc...')
+#5 {main}
+  thrown in D:\DEVAPP\htdocs\Bianet\Core\MySql.php on line 20
+[01-Feb-2021 08:07:03 America/Caracas] PHP Notice:  Undefined index: simagen in D:\DEVAPP\htdocs\Bianet\Views\Templates\header_admin.php on line 53
+[01-Feb-2021 08:07:03 America/Caracas] PHP Notice:  Undefined index: sdesc_usuario in D:\DEVAPP\htdocs\Bianet\Views\Templates\header_admin.php on line 54
+[01-Feb-2021 08:07:03 America/Caracas] PHP Notice:  Undefined index: sidusuario in D:\DEVAPP\htdocs\Bianet\Views\Templates\header_admin.php on line 55
+[01-Feb-2021 08:07:03 America/Caracas] PHP Notice:  Undefined index: sdepartamento in D:\DEVAPP\htdocs\Bianet\Views\Templates\header_admin.php on line 58
+[01-Feb-2021 08:07:03 America/Caracas] PHP Notice:  Undefined index: sdesc_usuario in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 15
+[01-Feb-2021 08:07:03 America/Caracas] PHP Notice:  Undefined index: inventario in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 30
+[01-Feb-2021 08:07:03 America/Caracas] PHP Notice:  Undefined index: articulo in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 39
+[01-Feb-2021 08:07:03 America/Caracas] PHP Notice:  Undefined index: categoria in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 40
+[01-Feb-2021 08:07:03 America/Caracas] PHP Notice:  Undefined index: linea in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 41
+[01-Feb-2021 08:07:03 America/Caracas] PHP Notice:  Undefined index: unidad in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 42
+[01-Feb-2021 08:07:03 America/Caracas] PHP Notice:  Undefined index: deposito in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 43
+[01-Feb-2021 08:07:03 America/Caracas] PHP Notice:  Undefined index: opinventario in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 47
+[01-Feb-2021 08:07:03 America/Caracas] PHP Notice:  Undefined index: ajustei in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 51
+[01-Feb-2021 08:07:03 America/Caracas] PHP Notice:  Undefined index: traslado in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 52
+[01-Feb-2021 08:07:03 America/Caracas] PHP Notice:  Undefined index: ajustep in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 53
+[01-Feb-2021 08:07:03 America/Caracas] PHP Notice:  Undefined index: compras in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 60
+[01-Feb-2021 08:07:03 America/Caracas] PHP Notice:  Undefined index: proveedor in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 69
+[01-Feb-2021 08:07:03 America/Caracas] PHP Notice:  Undefined index: tipoproveedor in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 70
+[01-Feb-2021 08:07:03 America/Caracas] PHP Notice:  Undefined index: condpago in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 71
+[01-Feb-2021 08:07:03 America/Caracas] PHP Notice:  Undefined index: zona in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 72
+[01-Feb-2021 08:07:03 America/Caracas] PHP Notice:  Undefined index: opcompras in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 76
+[01-Feb-2021 08:07:03 America/Caracas] PHP Notice:  Undefined index: ventas in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 90
+[01-Feb-2021 08:07:03 America/Caracas] PHP Notice:  Undefined index: cliente in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 99
+[01-Feb-2021 08:07:03 America/Caracas] PHP Notice:  Undefined index: tipocliente in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 102
+[01-Feb-2021 08:07:03 America/Caracas] PHP Notice:  Undefined index: tipoprecio in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 105
+[01-Feb-2021 08:07:03 America/Caracas] PHP Notice:  Undefined index: vendedor in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 108
+[01-Feb-2021 08:07:03 America/Caracas] PHP Notice:  Undefined index: condpago in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 111
+[01-Feb-2021 08:07:03 America/Caracas] PHP Notice:  Undefined index: zona in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 114
+[01-Feb-2021 08:07:03 America/Caracas] PHP Notice:  Undefined index: opventas in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 120
+[01-Feb-2021 08:07:03 America/Caracas] PHP Notice:  Undefined index: bancos in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 134
+[01-Feb-2021 08:07:03 America/Caracas] PHP Notice:  Undefined index: opbancos in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 151
+[01-Feb-2021 08:07:03 America/Caracas] PHP Notice:  Undefined index: config in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 165
+[01-Feb-2021 08:07:03 America/Caracas] PHP Notice:  Undefined index: macceso in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 169
+[01-Feb-2021 08:07:03 America/Caracas] PHP Notice:  Undefined index: usuariotb in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 171
+[01-Feb-2021 08:07:03 America/Caracas] PHP Notice:  Undefined index: correlativo in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 173
+[01-Feb-2021 08:07:03 America/Caracas] PHP Notice:  Undefined index: operacion in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 175
+[01-Feb-2021 08:07:03 America/Caracas] PHP Notice:  Undefined index: impuesto in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 177
+[01-Feb-2021 08:07:03 America/Caracas] PHP Notice:  Undefined index: impuestoz in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 179
+[01-Feb-2021 08:07:03 America/Caracas] PHP Notice:  Undefined index: moneda in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 181
+[01-Feb-2021 08:07:03 America/Caracas] PHP Notice:  Undefined index: pais in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 183
+[01-Feb-2021 08:07:03 America/Caracas] PHP Notice:  Undefined index: sdesc_usuario in D:\DEVAPP\htdocs\Bianet\Views\Templates\header_admin.php on line 79
+[01-Feb-2021 08:07:03 America/Caracas] PHP Notice:  Undefined index: sidusuario in D:\DEVAPP\htdocs\Bianet\Views\Templates\header_admin.php on line 87

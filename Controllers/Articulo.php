@@ -89,21 +89,17 @@ class Articulo extends Controllers{
         $lotes,$lotesv,$seriales,$costoprecio,$imagen,formatDate($fechareg));
         $option=2;
       }
-      if($request>0){
+      if($request==1){
         if ($option==1) {
-          $arrRspta=array("status"=>true,"msg"=>"Registro Ingresado Correctamente!","RetornoId"=>$request);
+          $arrRspta=array("status"=>true,"msg"=>"Registro Ingresado Correctamente!");
         } else {
-          $arrRspta=array("status"=>true,"msg"=>"Registro Actualizado Correctamente!","RetornoId"=>0);
+          $arrRspta=array("status"=>true,"msg"=>"Registro Actualizado Correctamente!");
         }
-      } else if ($request=="duplicado"){
+      } else if ($request=="1062"){
         $arrRspta=array("status"=>false,"msg"=>"El Código <b>".$cod_articulo."</b> ya se encuentra Registrado! 
         <br>No es posible ingresar <b>Registros Duplicados!</b>");
       } else {
-        if ($request=='error_insert') {
-          $arrRspta=array("status"=>false,"msg"=>"Error Insertando Registros!");
-        } else {
-          $arrRspta=array("status"=>false,"msg"=>"Error Editando Registros!");
-        }
+        $arrRspta=array("status"=>false,"msg"=>$request);
       }
       echo json_encode($arrRspta,JSON_UNESCAPED_UNICODE);   
     } else{
@@ -121,12 +117,12 @@ class Articulo extends Controllers{
         foreach ($idarticulo as $valor) {
           $request = $this->model->EliminarDt($valor);
         }
-        if ($request == 'duplicado') {
-          $arrRspta = array("status" => false, "msg" => "No es Posible Eliminar Registros Relacionados!");
-        } else if ($request == 1) {
+        if ($request == 1) {
           $arrRspta = array("status" => true, "msg" => "Registros Eliminados Correctamente!");
+        } else if ($request == '1451') {
+          $arrRspta = array("status" => false, "msg" => "No es Posible Eliminar Registros Relacionados!");
         } else {
-          $arrRspta = array("status" => false, "msg" => "Error eliminado Registros!");
+          $arrRspta = array("status" => false, "msg" =>$request);
         }
       }
       echo json_encode( $arrRspta , JSON_UNESCAPED_UNICODE);

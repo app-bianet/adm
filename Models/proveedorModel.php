@@ -171,11 +171,7 @@
         $this->Insert($queryInsert,$arrData);
         return true;
       } catch(PDOException $e){
-        if($e->getCode()=='23000'){
-          return 'duplicado';
-        } else {
-          return 'error_insert';
-        }
+        return PDOError($e,'insert');
       }
     }
 
@@ -195,11 +191,7 @@
         $this->Insert($sql,$arrData);
         return true;
       } catch(PDOException $e){
-        if($e->getCode()=='23000'){
-          return 'duplicado';
-        } else {
-          return 'error_insert';
-        }
+        return PDOError($e,'insert');
       }
     }
 
@@ -238,11 +230,7 @@
         $this->Update($sql,$arrData);
         return true;
       } catch(PDOException $e){
-        if($e->getCode()=='23000'){
-          return 'duplicado';
-        } else {
-          return 'error_update';
-        }
+        return PDOError($e,'update');
       }
     }
 
@@ -255,11 +243,7 @@
         $returnData =$this->Delete($sql,$arrData);
         return $returnData;
       } catch (PDOException $e) {
-        if($e->getCode()=='23000'){
-          return 'duplicado';
-        } else {
-          return 'error_delete';
-        }
+        return PDOError($e,'delete');
       }
     }
 

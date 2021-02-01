@@ -106,11 +106,7 @@
       }
         return true;
       } catch(PDOException $e){
-        if($e->getCode()=='23000'){
-          return 'duplicado';
-        } else {
-          return 'error_insert';
-        }
+        return PDOError($e,'insert');
       }
     }
 
@@ -141,11 +137,7 @@
         }
         return true;
       } catch(PDOException $e){
-        if($e->getCode()=='23000'){
-          return 'duplicado';
-        } else {
-          return 'error_update';
-        }
+        return PDOError($e,'update');
       }
     }
 
@@ -159,11 +151,7 @@
         $returnData =$this->Delete($sql,$arrData);
         return $returnData;
       } catch (PDOException $e) {
-        if($e->getCode()=='23000'){
-          return 'duplicado';
-        } else {
-          return 'error_delete';
-        }
+        return PDOError($e,'delete');
       }
     }
 

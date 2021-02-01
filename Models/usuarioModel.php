@@ -66,11 +66,7 @@ class usuarioModel extends MySql{
         $this->Insert($queryInsert, $arrData);
       return true;
     } catch (PDOException $e) {
-      if ($e->getCode() == '23000') {
-        return 'duplicado';
-      } else {
-        return 'error_insert';
-      }
+      return PDOError($e,'insert');
     }
   }
 
@@ -97,11 +93,7 @@ class usuarioModel extends MySql{
         $this->Update($sql, $arrData);
       return true;
     } catch (PDOException $e) {
-      if ($e->getCode() == '23000') {
-        return 'duplicado';
-      } else {
-        return 'error_update';
-      }
+      return PDOError($e,'update');
     }
   }
 
@@ -135,11 +127,7 @@ class usuarioModel extends MySql{
       $returnData =$this->Delete($sql,$arrData);
       return $returnData;
     } catch (PDOException $e) {
-      if($e->getCode()=='23000'){
-        return 'duplicado';
-      } else {
-        return 'error_delete';
-      }
+      return PDOError($e,'delete');
     }
   }
 

@@ -35,31 +35,27 @@ class Moneda extends Controllers{
       $base=isset($_POST["base"])? limpiarCadena($_POST["base"]):"";
 
       if ($idmoneda==0) {
-        $resquest=$this->model->InsertDt($cod_moneda,$desc_moneda,$simbolo,$factor,$base);
+        $request=$this->model->InsertDt($cod_moneda,$desc_moneda,$simbolo,$factor,$base);
         $option=1;
       } else {
-        $resquest=$this->model->EditarDt($idmoneda,$cod_moneda,$desc_moneda,$simbolo,$factor,$base);
+        $request=$this->model->EditarDt($idmoneda,$cod_moneda,$desc_moneda,$simbolo,$factor,$base);
         $option=2;
       }
 
-      if($resquest==1){
+      if($request==1){
         if ($option==1) {
           $arrRspta=array("status"=>true,"msg"=>"Registro Ingresado Correctamente!");
         } else {
           $arrRspta=array("status"=>true,"msg"=>"Registro Actualizado Correctamente!");
         }
-      } else if ($resquest=="duplicado"){
+      } else if ($request=="1062"){
         $arrRspta=array("status"=>false,"msg"=>"El Código <b>".$cod_moneda."</b> ya se encuentra Registrado! 
         <br>No es posible ingresar <b>Registros Duplicados!</b>");
-      } else if($resquest=="moneda_base"){
+      } else if($request=="moneda_base"){
         $arrRspta=array("status"=>false,"msg"=>"Error al Registrar!
         <br>Solo es Posible Indicar una Moneda como <b>Moneda Base</b>!");
       } else {
-        if ($resquest=='error_insert') {
-          $arrRspta=array("status"=>false,"msg"=>"Error Insertando Registros!");
-        } else {
-          $arrRspta=array("status"=>false,"msg"=>"Error Editando Registros!");
-        }
+        $arrRspta=array("status"=>false,"msg"=>$request);
       }
     echo json_encode($arrRspta,JSON_UNESCAPED_UNICODE);
       
@@ -71,20 +67,20 @@ class Moneda extends Controllers{
 
   public function Eliminar(){
     if (isset($_POST["security"])) {
-      $resquest = '';
+      $request = '';
       if (empty($_POST['eliminar_reg'])) {
         $arrRspta = array("status" => false, "msg" => "No Seleccionó ningún Registro para Eliminar!");
       } else {
         $idmoneda = $_POST['eliminar_reg'];
         foreach ($idmoneda as $valor) {
-          $resquest = $this->model->EliminarDt($valor);
+          $request = $this->model->EliminarDt($valor);
         }
-        if ($resquest == 'duplicado') {
-          $arrRspta = array("status" => false, "msg" => "No es Posible Eliminar Registros Relacionados!");
-        } else if ($resquest == 1) {
+        if ($request == 1) {
           $arrRspta = array("status" => true, "msg" => "Registros Eliminados Correctamente!");
+        } else if ($request == '1451') {
+          $arrRspta = array("status" => false, "msg" => "No es Posible Eliminar Registros Relacionados!");
         } else {
-          $arrRspta = array("status" => false, "msg" => "Error eliminado Registros!");
+          $arrRspta = array("status" => false, "msg" =>$request);
         }
       }
       echo json_encode( $arrRspta , JSON_UNESCAPED_UNICODE);
@@ -115,8 +111,8 @@ class Moneda extends Controllers{
     if (isset($_POST['idmoneda'])) {
       $idmoneda=intval(limpiarCadena($_POST['idmoneda']));
       $estatus=intval(1);
-      $resquest=$this->model->EstatusDt($idmoneda,$estatus);
-        if($resquest>0){
+      $request=$this->model->EstatusDt($idmoneda,$estatus);
+        if($request>0){
           $arrRspta=array("status"=>true,"msg"=>"Registro Activado Correctamente!");
         }else {
           $arrRspta=array("status"=>false,"msg"=>"Error al Activar el Registro!");
@@ -133,8 +129,8 @@ class Moneda extends Controllers{
     if (isset($_POST['idmoneda'])) {
       $idmoneda=intval(limpiarCadena($_POST['idmoneda']));
       $estatus=intval(0);
-      $resquest=$this->model->EstatusDt($idmoneda,$estatus);
-        if($resquest>0){
+      $request=$this->model->EstatusDt($idmoneda,$estatus);
+        if($request>0){
           $arrRspta=array("status"=>true,"msg"=>"Registro Desctivado Correctamente!");
         }else {
           $arrRspta=array("status"=>false,"msg"=>"Error al Desactivar el Registro!");
@@ -185,8 +181,12 @@ class Moneda extends Controllers{
   public function Selectpicker(){
     if (isset($_POST["security"])) {
       $arrData=$this->model->ListDt();
+      if ($arrData){
       for ($i=0; $i<count($arrData);$i++) { 
         echo '<option value="'.$arrData[$i]['idmoneda'].'">'.$arrData[$i]['cod_moneda'].'-'.$arrData[$i]['desc_moneda'].'</option>';
+      }
+      } else {
+        echo '<option readonly>No Existen Registros!</option>';
       }
     } else {
       header("Location:".base_URL()."Error403");

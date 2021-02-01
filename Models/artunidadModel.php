@@ -67,11 +67,7 @@ class artunidadModel extends MySql{
         $this->Insert($sql,$arrData);
         return true;
       } catch (PDOException $e) {
-        if($e->getCode()=='23000'){
-          return 'duplicado';
-        } else {
-          return 'error_insert';
-        }
+        return PDOError($e,'insert');
       }
     }
   }
@@ -95,11 +91,7 @@ class artunidadModel extends MySql{
         $this->Insert($sql,$arrData);
         return true;
       } catch (PDOException $e) {
-        if($e->getCode()=='23000'){
-          return 'duplicado';
-        } else {
-          return 'error_insert';
-        }
+        return PDOError($e,'insert');
       }
     }
   }
@@ -117,11 +109,7 @@ class artunidadModel extends MySql{
         $returnData =$this->Delete($sql,$arrData);
         return $returnData;
       } catch (PDOException $e) {
-        if($e->getCode()=='23000'){
-          return 'duplicado';
-        } else {
-          return 'error_delete';
-        }
+        return PDOError($e,'delete');
       }
     }
   }

@@ -40,30 +40,26 @@ class Vendedor extends Controllers{
       $fechareg=isset($_POST["fechareg"])? limpiarCadena($_POST["fechareg"]):"";
 
       if (empty($idvendedor)) {
-        $resquest=$this->model->InsertDt($cod_vendedor,$desc_vendedor,$rif,$direccion,$telefono,$comisionv, 
+        $request=$this->model->InsertDt($cod_vendedor,$desc_vendedor,$rif,$direccion,$telefono,$comisionv, 
         $comisionc,$esvendedor,$escobrador,formatDate($fechareg));
         $option=1;
       } else {
-        $resquest=$this->model->EditarDt($idvendedor,$cod_vendedor,$desc_vendedor,$rif,$direccion,$telefono,$comisionv, 
+        $request=$this->model->EditarDt($idvendedor,$cod_vendedor,$desc_vendedor,$rif,$direccion,$telefono,$comisionv, 
         $comisionc,$esvendedor,$escobrador,formatDate($fechareg));
         $option=2;
       }
 
-      if($resquest==1){
+      if($request==1){
         if ($option==1) {
           $arrRspta=array("status"=>true,"msg"=>"Registro Ingresado Correctamente!");
         } else {
           $arrRspta=array("status"=>true,"msg"=>"Registro Actualizado Correctamente!");
         }
-      } else if ($resquest=="duplicado"){
+      } else if ($request=="1062"){
         $arrRspta=array("status"=>false,"msg"=>"El Código <b>".$cod_vendedor."</b> ya se encuentra Registrado! 
         <br>No es posible ingresar <b>Registros Duplicados!</b>");
       } else {
-        if ($resquest=='error_insert') {
-          $arrRspta=array("status"=>false,"msg"=>"Error Insertando Registros!");
-        } else {
-          $arrRspta=array("status"=>false,"msg"=>"Error Editando Registros!");
-        }
+        $arrRspta=array("status"=>false,"msg"=>$request);
       }
       echo json_encode($arrRspta,JSON_UNESCAPED_UNICODE);    
     } else{
@@ -73,20 +69,20 @@ class Vendedor extends Controllers{
 
   public function Eliminar(){
     if (isset($_POST["security"])) {
-      $resquest = '';
+      $request = '';
       if (empty($_POST['eliminar_reg'])) {
         $arrRspta = array("status" => false, "msg" => "No Seleccionó ningún Registro para Eliminar!");
       } else {
         $idvendedor = $_POST['eliminar_reg'];
         foreach ($idvendedor as $valor) {
-          $resquest = $this->model->EliminarDt($valor);
+          $request = $this->model->EliminarDt($valor);
         }
-        if ($resquest == 'duplicado') {
-          $arrRspta = array("status" => false, "msg" => "No es Posible Eliminar Registros Relacionados!");
-        } else if ($resquest == 1) {
+        if ($request == 1) {
           $arrRspta = array("status" => true, "msg" => "Registros Eliminados Correctamente!");
+        } else if ($request == '1451') {
+          $arrRspta = array("status" => false, "msg" => "No es Posible Eliminar Registros Relacionados!");
         } else {
-          $arrRspta = array("status" => false, "msg" => "Error eliminado Registros!");
+          $arrRspta = array("status" => false, "msg" =>$request);
         }
       }
       echo json_encode( $arrRspta , JSON_UNESCAPED_UNICODE);
@@ -117,8 +113,8 @@ class Vendedor extends Controllers{
     if (isset($_POST['idvendedor'])) {
       $idvendedor=intval(limpiarCadena($_POST['idvendedor']));
       $estatus=intval(1);
-      $resquest=$this->model->EstatusDt($idvendedor,$estatus);
-        if($resquest>0){
+      $request=$this->model->EstatusDt($idvendedor,$estatus);
+        if($request>0){
           $arrRspta=array("status"=>true,"msg"=>"Registro Activado Correctamente!");
         }else {
           $arrRspta=array("status"=>false,"msg"=>"Error al Activar el Registro!");
@@ -135,8 +131,8 @@ class Vendedor extends Controllers{
     if (isset($_POST['idvendedor'])) {
       $idvendedor=intval(limpiarCadena($_POST['idvendedor']));
       $estatus=intval(0);
-      $resquest=$this->model->EstatusDt($idvendedor,$estatus);
-        if($resquest>0){
+      $request=$this->model->EstatusDt($idvendedor,$estatus);
+        if($request>0){
           $arrRspta=array("status"=>true,"msg"=>"Registro Desctivado Correctamente!");
         }else {
           $arrRspta=array("status"=>false,"msg"=>"Error al Desactivar el Registro!");
@@ -185,8 +181,12 @@ class Vendedor extends Controllers{
   public function Selectpicker(){
     if (isset($_POST["security"])) {
       $arrData=$this->model->ListDt();
-      for ($i=0; $i<count($arrData);$i++) { 
-        echo '<option value="'.$arrData[$i]['idvendedor'].'">'.$arrData[$i]['cod_vendedor'].'-'.$arrData[$i]['desc_vendedor'].'</option>';
+      if ($arrData){
+        for ($i=0; $i<count($arrData);$i++) { 
+          echo '<option value="'.$arrData[$i]['idvendedor'].'">'.$arrData[$i]['cod_vendedor'].'-'.$arrData[$i]['desc_vendedor'].'</option>';
+        }
+      } else {
+        echo '<option readonly>No Existen Registros!</option>';
       }
     } else {
       header("Location:".base_URL()."Error403");

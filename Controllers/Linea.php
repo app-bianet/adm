@@ -33,28 +33,24 @@ class Linea extends Controllers{
       $desc_linea=isset($_POST["desc_linea"])? limpiarCadena($_POST["desc_linea"]):"";
 
       if ($idlinea==0) {
-        $resquest=$this->model->InsertDt($idcategoria,$cod_linea,$desc_linea);
+        $request=$this->model->InsertDt($idcategoria,$cod_linea,$desc_linea);
         $option=1;
       } else {
-        $resquest=$this->model->EditarDt($idlinea,$idcategoria,$cod_linea,$desc_linea);
+        $request=$this->model->EditarDt($idlinea,$idcategoria,$cod_linea,$desc_linea);
         $option=2;
       }
 
-      if($resquest==1){
+      if($request==1){
         if ($option==1) {
           $arrRspta=array("status"=>true,"msg"=>"Registro Ingresado Correctamente!");
         } else {
           $arrRspta=array("status"=>true,"msg"=>"Registro Actualizado Correctamente!");
         }
-      } else if ($resquest=="duplicado"){
+      } else if ($request=="1062"){
         $arrRspta=array("status"=>false,"msg"=>"El Código <b>".$cod_linea."</b> ya se encuentra Registrado! 
         <br>No es posible ingresar <b>Registros Duplicados!</b>");
       } else {
-        if ($resquest=='error_insert') {
-          $arrRspta=array("status"=>false,"msg"=>"Error Insertando Registros!");
-        } else {
-          $arrRspta=array("status"=>false,"msg"=>"Error Editando Registros!");
-        }
+        $arrRspta=array("status"=>false,"msg"=>$request);
       }
     echo json_encode($arrRspta,JSON_UNESCAPED_UNICODE);
       
@@ -66,20 +62,20 @@ class Linea extends Controllers{
  
   public function Eliminar(){
     if (isset($_POST["security"])) {
-      $resquest = '';
+      $request = '';
       if (empty($_POST['eliminar_reg'])) {
         $arrRspta = array("status" => false, "msg" => "No Seleccionó ningún Registro para Eliminar!");
       } else {
         $idlinea = $_POST['eliminar_reg'];
         foreach ($idlinea as $valor) {
-          $resquest = $this->model->EliminarDt($valor);
+          $request = $this->model->EliminarDt($valor);
         }
-        if ($resquest == 'duplicado') {
-          $arrRspta = array("status" => false, "msg" => "No es Posible Eliminar Registros Relacionados!");
-        } else if ($resquest == 1) {
+        if ($request == 1) {
           $arrRspta = array("status" => true, "msg" => "Registros Eliminados Correctamente!");
+        } else if ($request == '1451') {
+          $arrRspta = array("status" => false, "msg" => "No es Posible Eliminar Registros Relacionados!");
         } else {
-          $arrRspta = array("status" => false, "msg" => "Error eliminado Registros!");
+          $arrRspta = array("status" => false, "msg" =>$request);
         }
       }
       echo json_encode($arrRspta,JSON_UNESCAPED_UNICODE);
@@ -110,8 +106,8 @@ class Linea extends Controllers{
     if (isset($_POST['idlinea'])) {
       $idlinea=intval(limpiarCadena($_POST['idlinea']));
       $estatus=intval(1);
-      $resquest=$this->model->EstatusDt($idlinea,$estatus);
-        if($resquest>0){
+      $request=$this->model->EstatusDt($idlinea,$estatus);
+        if($request>0){
           $arrRspta=array("status"=>true,"msg"=>"Registro Activado Correctamente!");
         }else {
           $arrRspta=array("status"=>false,"msg"=>"Error al Activar el Registro!");
@@ -128,8 +124,8 @@ class Linea extends Controllers{
     if (isset($_POST['idlinea'])) {
       $idlinea=intval(limpiarCadena($_POST['idlinea']));
       $estatus=intval(0);
-      $resquest=$this->model->EstatusDt($idlinea,$estatus);
-        if($resquest>0){
+      $request=$this->model->EstatusDt($idlinea,$estatus);
+        if($request>0){
           $arrRspta=array("status"=>true,"msg"=>"Registro Desctivado Correctamente!");
         }else {
           $arrRspta=array("status"=>false,"msg"=>"Error al Desactivar el Registro!");

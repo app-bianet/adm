@@ -32,28 +32,24 @@ class TipoProveedor extends Controllers{
       $desc_tipoproveedor=isset($_POST["desc_tipoproveedor"])? limpiarCadena($_POST["desc_tipoproveedor"]):"";
 
       if (empty($idtipoproveedor)) {
-        $resquest=$this->model->InsertDt($cod_tipoproveedor,$desc_tipoproveedor);
+        $request=$this->model->InsertDt($cod_tipoproveedor,$desc_tipoproveedor);
         $option=1;
       } else {
-       $resquest=$this->model->EditarDt($idtipoproveedor,$cod_tipoproveedor,$desc_tipoproveedor,$desc_tipoproveedor);
+       $request=$this->model->EditarDt($idtipoproveedor,$cod_tipoproveedor,$desc_tipoproveedor,$desc_tipoproveedor);
         $option=2;
       }
 
-      if($resquest==1){
+      if($request==1){
         if ($option==1) {
           $arrRspta=array("status"=>true,"msg"=>"Registro Ingresado Correctamente!");
         } else {
           $arrRspta=array("status"=>true,"msg"=>"Registro Actualizado Correctamente!");
         }
-      } else if ($resquest=="duplicado"){
+      } else if ($request=="1062"){
         $arrRspta=array("status"=>false,"msg"=>"El Código <b>".$cod_tipoproveedor."</b> ya se encuentra Registrado! 
         <br>No es posible ingresar <b>Registros Duplicados!</b>");
       } else {
-        if ($resquest=='error_insert') {
-          $arrRspta=array("status"=>false,"msg"=>"Error Insertando Registros!");
-        } else {
-          $arrRspta=array("status"=>false,"msg"=>"Error Editando Registros!");
-        }
+        $arrRspta=array("status"=>false,"msg"=>$request);
       }
       echo json_encode($arrRspta,JSON_UNESCAPED_UNICODE);    
     } else{
@@ -63,20 +59,20 @@ class TipoProveedor extends Controllers{
 
   public function Eliminar(){
     if (isset($_POST["security"])) {
-      $resquest = '';
+      $request = '';
       if (empty($_POST['eliminar_reg'])) {
         $arrRspta = array("status" => false, "msg" => "No Seleccionó ningún Registro para Eliminar!");
       } else {
         $idtipoproveedor = $_POST['eliminar_reg'];
         foreach ($idtipoproveedor as $valor) {
-          $resquest = $this->model->EliminarDt($valor);
+          $request = $this->model->EliminarDt($valor);
         }
-        if ($resquest == 'duplicado') {
-          $arrRspta = array("status" => false, "msg" => "No es Posible Eliminar Registros Relacionados!");
-        } else if ($resquest == 1) {
+        if ($request == 1) {
           $arrRspta = array("status" => true, "msg" => "Registros Eliminados Correctamente!");
+        } else if ($request == '1451') {
+          $arrRspta = array("status" => false, "msg" => "No es Posible Eliminar Registros Relacionados!");
         } else {
-          $arrRspta = array("status" => false, "msg" => "Error eliminado Registros!");
+          $arrRspta = array("status" => false, "msg" =>$request);
         }
       }
       echo json_encode( $arrRspta , JSON_UNESCAPED_UNICODE);
@@ -107,8 +103,8 @@ class TipoProveedor extends Controllers{
     if (isset($_POST['idtipoproveedor'])) {
       $idtipoproveedor=intval(limpiarCadena($_POST['idtipoproveedor']));
       $estatus=intval(1);
-      $resquest=$this->model->EstatusDt($idtipoproveedor,$estatus);
-        if($resquest>0){
+      $request=$this->model->EstatusDt($idtipoproveedor,$estatus);
+        if($request>0){
           $arrRspta=array("status"=>true,"msg"=>"Registro Activado Correctamente!");
         }else {
           $arrRspta=array("status"=>false,"msg"=>"Error al Activar el Registro!");
@@ -124,8 +120,8 @@ class TipoProveedor extends Controllers{
     if (isset($_POST['idtipoproveedor'])) {
       $idtipoproveedor=intval(limpiarCadena($_POST['idtipoproveedor']));
       $estatus=intval(0);
-      $resquest=$this->model->EstatusDt($idtipoproveedor,$estatus);
-        if($resquest>0){
+      $request=$this->model->EstatusDt($idtipoproveedor,$estatus);
+        if($request>0){
           $arrRspta=array("status"=>true,"msg"=>"Registro Desctivado Correctamente!");
         }else {
           $arrRspta=array("status"=>false,"msg"=>"Error al Desactivar el Registro!");
@@ -172,8 +168,12 @@ class TipoProveedor extends Controllers{
   public function Selectpicker(){
     if (isset($_POST["security"])) {
       $arrData=$this->model->ListDt();
-      for ($i=0; $i<count($arrData);$i++) { 
-        echo '<option value="'.$arrData[$i]['idtipoproveedor'].'">'.$arrData[$i]['cod_tipoproveedor'].'-'.$arrData[$i]['desc_tipoproveedor'].'</option>';
+      if($arrData){
+          for ($i=0; $i<count($arrData);$i++) { 
+            echo '<option value="'.$arrData[$i]['idtipoproveedor'].'">'.$arrData[$i]['cod_tipoproveedor'].'-'.$arrData[$i]['desc_tipoproveedor'].'</option>';
+          }
+      } else {
+          echo '<option readonly>No Existen Registros!</option>';
       }
     } else {
       header("Location:".base_URL()."Error403");

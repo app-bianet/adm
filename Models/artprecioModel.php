@@ -101,11 +101,7 @@ class artprecioModel extends MySql{
         $this->Insert($sql,$arrData);
         return true;
       } catch (PDOException $e) {
-        if($e->getCode()=='23000'){
-          return 'duplicado';
-        } else {
-          return 'error_update';
-        }
+        return PDOError($e,'update');
       }
     }
 
@@ -126,11 +122,7 @@ class artprecioModel extends MySql{
         $this->Update($sql,$arrData);
         return true;
       } catch(PDOException $e){
-        if($e->getCode()=='23000'){
-          return 'duplicado';
-        } else {
-          return 'error_update';
-        }
+        return PDOError($e,'update');
       }
     }
 
@@ -143,11 +135,7 @@ class artprecioModel extends MySql{
         $returnData =$this->Delete($sql,$arrData);
         return $returnData;
       } catch (PDOException $e) {
-        if($e->getCode()=='23000'){
-          return 'duplicado';
-        } else {
-          return 'error_delete';
-        }
+        return PDOError($e,'delete');
       }
     }
 

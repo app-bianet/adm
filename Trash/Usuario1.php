@@ -55,23 +55,23 @@ class Usuario extends Controllers{
     }
   
       if ($idusuario==0) {
-        $resquest=$this->model->InsertDt($idmacceso,$cod_usuario,$desc_usuario,$direccion,$telefono,$email,
+        $request=$this->model->InsertDt($idmacceso,$cod_usuario,$desc_usuario,$direccion,$telefono,$email,
         ($clave),$imagen,formatDate($fechareg));
         $option=1;
       } else {
-        $resquest=$this->model->EditarDt($idusuario,$idmacceso,$cod_usuario,$desc_usuario,$direccion,$telefono,$email,
+        $request=$this->model->EditarDt($idusuario,$idmacceso,$cod_usuario,$desc_usuario,$direccion,$telefono,$email,
         ($clave),$imagen,formatDate($fechareg));
         error_log(formatDate($fechareg));
         $option=2;
       }
 
-    if($resquest > 0){
+    if($request > 0){
       if ($option==1) {
         $arrRspta=array("status"=>true,"msg"=>"Registro Ingresado Correctamente!");
       } else {
         $arrRspta=array("status"=>true,"msg"=>"Registro Actualizado Correctamente!");
       }
-    } else if ($resquest=="existe"){
+    } else if ($request=="existe"){
       $arrRspta=array("status"=>false,"msg"=>"El Código <b>".$cod_usuario."</b> ya se encuentra Registrado! 
       <br>No es posible ingresar <b>Registros Duplicados!</b>");
     } else {
@@ -81,7 +81,7 @@ class Usuario extends Controllers{
   }
 
   public function Eliminar(){
-    $resquest='';
+    $request='';
 
     if (empty($_POST['eliminar_reg'])) {
       $arrRspta=array("status"=>false,"msg"=>"No Seleccionó ningún Registro para Eliminar!");
@@ -90,11 +90,11 @@ class Usuario extends Controllers{
 
       foreach($idusuario as $valor){
 
-        $resquest=$this->model->EliminarDt($valor);
+        $request=$this->model->EliminarDt($valor);
       }
-      if($resquest > 0){
+      if($request > 0){
           $arrRspta=array("status"=>true,"msg"=>"Registros Eliminados Correctamente!");
-      } else if ($resquest=="existe"){
+      } else if ($request=="existe"){
           $arrRspta=array("status"=>false,"msg"=>"No es Posible Eliminar Registros Relacionados!");
       }else {
           $arrRspta=array("status"=>false,"msg"=>"No es Posible Eliminar algunos Registros!");
@@ -125,8 +125,8 @@ class Usuario extends Controllers{
     if (isset($_POST['idusuario'])) {
       $idusuario=intval(limpiarCadena($_POST['idusuario']));
       $estatus=intval(1);
-      $resquest=$this->model->EstatusDt($idusuario,$estatus);
-      if($resquest>0){
+      $request=$this->model->EstatusDt($idusuario,$estatus);
+      if($request>0){
         $arrRspta=array("status"=>true,"msg"=>"Registro Activado Correctamente!");
       }else {
         $arrRspta=array("status"=>false,"msg"=>"Error al Activar el Registro!");
@@ -141,8 +141,8 @@ class Usuario extends Controllers{
     if (isset($_POST['idusuario'])) {
       $idusuario=intval(limpiarCadena($_POST['idusuario']));
       $estatus=intval(0);
-      $resquest=$this->model->EstatusDt($idusuario,$estatus);
-      if($resquest>0){
+      $request=$this->model->EstatusDt($idusuario,$estatus);
+      if($request>0){
         $arrRspta=array("status"=>true,"msg"=>"Registro Desactivado Correctamente!");
       }else {
         $arrRspta=array("status"=>false,"msg"=>"Error al Desactivar el Registro!");
@@ -200,8 +200,8 @@ class Usuario extends Controllers{
   //   //   $idusuario=intval(limpiarCadena($_POST['idusuario']));
   //   //   $clave=hashpw($_POST['clave']);
 
-  //   //   $resquest=$this->model->EditarClave($idusuario,$clave);
-  //   //   if($resquest>0){
+  //   //   $request=$this->model->EditarClave($idusuario,$clave);
+  //   //   if($request>0){
   //   //     $arrRspta=array("status"=>true,"msg"=>"Clave Actualizada Exitosamente!");
   //   //   }else {
   //   //     $arrRspta=array("status"=>false,"msg"=>"Error al Actualizar la Clave!");

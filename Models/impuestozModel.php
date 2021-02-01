@@ -131,11 +131,7 @@
         $returnData =$this->Delete($sql,$arrData);
         return $returnData;
       } catch (PDOException $e) {
-        if($e->getCode()=='23000'){
-          return 'duplicado';
-        } else {
-          return 'error_delete';
-        }
+        return PDOError($e,'delete');
       }
     }
 
