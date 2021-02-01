@@ -219,7 +219,7 @@ function Operacion(operacion) {
     break;
 
     case "nuevo":
-      $("#btnGuardar,#btnCancelar").attr("disabled", false);
+      $("#btnGuardar,#btnCancelar,select").attr("disabled", false);
       $("#btnEditar").attr("disabled", true);
       $("input[type=text],input[type=textc]").val("").attr("readonly", false);
       MostrarForm(true);
@@ -229,14 +229,14 @@ function Operacion(operacion) {
       $('[data-toggle="tooltip"]').tooltip();
       $("input[type=text],input[type=textc]").attr("readonly", true);
       $("#btnEditar,#btnCancelar").attr("disabled", false);
-      $("#btnGuardar").attr("disabled", true);
+      $("#btnGuardar,select").attr("disabled", true);
       MostrarForm(true);
     break;
 
     case "editar":
       $("input[type=text],input[type=textc]").attr("readonly", false);
       $("#btnEditar").attr("disabled", true);
-      $("#btnGuardar,#btnCancelar").attr("disabled", false);
+      $("#btnGuardar,#btnCancelar,select").attr("disabled", false);
       break;
 
     case "cancelar":
@@ -267,9 +267,10 @@ function InsertarEditar() {
   document.addEventListener('submit', function (e) {
     e.preventDefault();
     form = document.querySelector("#dataForm");
-    let strCampo = document.querySelectorAll("#cod_proveedor,#desc_proveedor");
+    let strCampo = document.querySelectorAll("#cod_proveedor,#desc_proveedor,#rif,#direccion,#fechareg");
 
-    if (empty(strCampo[0].value) && empty(strCampo[1].value)) {
+    if (empty(strCampo[0].value) && empty(strCampo[1].value) && empty(strCampo[2].value) 
+        && empty(strCampo[3].value)&& empty(strCampo[4].value)) {
       Swal.fire({
         icon: "info",title: 'Atención!',
         html: 'Debe Llenar los Campos Obligatorios <i class="fa fa-exclamation-circle text-red"></i>',

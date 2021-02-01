@@ -200,7 +200,7 @@
                   <span class="input-group-text small">Saldo: </span>
                 </div>  
                 <input type="textn" id="saldo" name="saldo" 
-                class="form-control nformat" placeholder="0.00">
+                class="form-control nformat" placeholder="0.00" readonly>
               </div>
             </div>
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">

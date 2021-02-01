@@ -39,3 +39,4 @@
 [30-Jan-2021 13:16:42 America/Caracas] PHP Notice:  Undefined index: pais in D:\DEVAPP\htdocs\Bianet\Views\Templates\sidebar.php on line 181
 [30-Jan-2021 13:16:42 America/Caracas] PHP Notice:  Undefined index: sdesc_usuario in D:\DEVAPP\htdocs\Bianet\Views\Templates\header_admin.php on line 79
 [30-Jan-2021 13:16:42 America/Caracas] PHP Notice:  Undefined index: sidusuario in D:\DEVAPP\htdocs\Bianet\Views\Templates\header_admin.php on line 87
+[31-Jan-2021 20:12:52 America/Caracas] PHP Warning:  session_destroy(): Trying to destroy uninitialized session in D:\DEVAPP\htdocs\Bianet\Controllers\Usuario.php on line 234
