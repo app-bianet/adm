@@ -159,9 +159,9 @@ class TipoCliente extends Controllers{
           '<button type="button" class="btn btn-warning btn-xs" onclick="activar('.$arrData[$i]['idtipocliente'].')" data-toggle="tooltip" data-placement="right" title="Activar"><i class="fa fa-exclamation-triangle"></i></button>
           </small>';   
         }
-        $arrData[$i]['cod_tipocliente']='<h6 '.$al.'center'.$w.'150px">'.$arrData[$i]['cod_tipocliente'].'</h6>';
-        $arrData[$i]['desc_tipocliente']='<h6 '.$al.''.$w.'">'.$arrData[$i]['desc_tipocliente'].'</h6>';
-        $arrData[$i]['tipoprecio']='<h6 '.$al.''.$w.'150px">'.$arrData[$i]['cod_tipoprecio'].'-'.$arrData[$i]['desc_tipoprecio'].'</h6>';;
+        $arrData[$i]['cod_tipocliente']='<h6>'.$arrData[$i]['cod_tipocliente'].'</h6>';
+        $arrData[$i]['desc_tipocliente']='<h6>'.$arrData[$i]['desc_tipocliente'].'</h6>';
+        $arrData[$i]['tipoprecio']='<h6>'.$arrData[$i]['cod_tipoprecio'].'-'.$arrData[$i]['desc_tipoprecio'].'</h6>';;
         $arrData[$i]['eliminar']='<input type="checkbox" name="eliminar_reg[]" value="'.$arrData[$i]['idtipocliente'].'">';
       }
       echo json_encode($arrData,JSON_UNESCAPED_UNICODE);

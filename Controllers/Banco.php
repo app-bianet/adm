@@ -1,5 +1,5 @@
 <?php
-class Vendedor extends Controllers{
+class Banco extends Controllers{
 
   public function __construct(){
     session_start();
@@ -9,7 +9,7 @@ class Vendedor extends Controllers{
       session_unset();
       session_destroy();
     } else{
-      if($_SESSION['vendedor']!=1)  {
+      if($_SESSION['bancop']!=1)  {
         header("Location:".base_URL()."error403");
       } 
     }
@@ -17,46 +17,40 @@ class Vendedor extends Controllers{
     parent::__construct();
   }
 
-  public function vendedor(){
-    $data['page_tag']="Vendedor";
-    $data['page_title']=".:: Vendedor ::.";
-    $data['page_name']="vendedor";
-    $data['func']="functions_vendedor.js";
-    $this->views->getView($this,"vendedor",$data);
+  public function banco(){
+    $data['page_tag']="Banco";
+    $data['page_title']=".:: Banco ::.";
+    $data['page_name']="banco";
+    $data['func']="functions_banco.js";
+    $this->views->getView($this,"banco",$data);
   }
 
   public function Insertar(){
     if(isset($_POST["security"])){
-      $idvendedor=isset($_POST["idvendedor"])? limpiarCadena($_POST["idvendedor"]):"";
-      $cod_vendedor=isset($_POST["cod_vendedor"])? limpiarCadena($_POST["cod_vendedor"]):"";
-      $desc_vendedor=isset($_POST["desc_vendedor"])? limpiarCadena($_POST["desc_vendedor"]):"";
-      $rif=isset($_POST["rif"])? limpiarCadena($_POST["rif"]):"";
-      $direccion=isset($_POST["direccion"])? limpiarCadena($_POST["direccion"]):"";
+      $idbanco=isset($_POST["idbanco"])? limpiarCadena($_POST["idbanco"]):"";
+      $idmoneda=isset($_POST["idmoneda"])? limpiarCadena($_POST["idmoneda"]):"";
+      $cod_banco=isset($_POST["cod_banco"])? limpiarCadena($_POST["cod_banco"]):"";
+      $desc_banco=isset($_POST["desc_banco"])? limpiarCadena($_POST["desc_banco"]):"";
       $telefono=isset($_POST["telefono"])? limpiarCadena($_POST["telefono"]):"";
-      $comisionv=isset($_POST["comisionv"])? limpiarCadena($_POST["comisionv"]):"";
-      $comisionc=isset($_POST["comisionc"])? limpiarCadena($_POST["comisionc"]):"";
-      $esvendedor=isset($_POST["esvendedor"])? limpiarCadena($_POST["esvendedor"]):"";
-      $escobrador=isset($_POST["escobrador"])? limpiarCadena($_POST["escobrador"]):"";
-      $fechareg=isset($_POST["fechareg"])? limpiarCadena($_POST["fechareg"]):"";
+      $plazo1=isset($_POST["plazo1"])? limpiarCadena($_POST["plazo1"]):"";
+      $plazo2=isset($_POST["plazo2"])? limpiarCadena($_POST["plazo2"]):"";
 
-      if (empty($idvendedor)) {
-        $request=$this->model->InsertDt($cod_vendedor,$desc_vendedor,$rif,$direccion,$telefono,$comisionv, 
-        $comisionc,$esvendedor,$escobrador,formatDate($fechareg));
+      if (empty($idbanco)) {
+        $request=$this->model->InsertDt($idmoneda,$cod_banco,$desc_banco,$telefono,$plazo1,$plazo2);
         $option=1;
       } else {
-        $request=$this->model->EditarDt($idvendedor,$cod_vendedor,$desc_vendedor,$rif,$direccion,$telefono,$comisionv, 
-        $comisionc,$esvendedor,$escobrador,formatDate($fechareg));
+       $request=$this->model->EditarDt($idbanco,$idmoneda,$cod_banco,$desc_banco,$desc_banco,$telefono,$plazo1,$plazo2);
         $option=2;
       }
 
-      if($request==1){
+      if($request>0){
         if ($option==1) {
           $arrRspta=array("status"=>true,"msg"=>"Registro Ingresado Correctamente!");
         } else {
           $arrRspta=array("status"=>true,"msg"=>"Registro Actualizado Correctamente!");
         }
       } else if ($request=="1062"){
-        $arrRspta=array("status"=>false,"msg"=>"El Código <b>".$cod_vendedor."</b> ya se encuentra Registrado! 
+        $arrRspta=array("status"=>false,"msg"=>"El Código <b>".$cod_banco."</b> ya se encuentra Registrado! 
         <br>No es posible ingresar <b>Registros Duplicados!</b>");
       } else {
         $arrRspta=array("status"=>false,"msg"=>$request);
@@ -73,8 +67,8 @@ class Vendedor extends Controllers{
       if (empty($_POST['eliminar_reg'])) {
         $arrRspta = array("status" => false, "msg" => "No Seleccionó ningún Registro para Eliminar!");
       } else {
-        $idvendedor = $_POST['eliminar_reg'];
-        foreach ($idvendedor as $valor) {
+        $idbanco = $_POST['eliminar_reg'];
+        foreach ($idbanco as $valor) {
           $request = $this->model->EliminarDt($valor);
         }
         if ($request == 1) {
@@ -92,10 +86,10 @@ class Vendedor extends Controllers{
   }
 
   public function Mostrar(){
-    if (isset($_POST['idvendedor'])) {
-      $idvendedor=intval(limpiarCadena($_POST['idvendedor']));
-      if ($idvendedor>0) {
-        $arrData=$this->model->ShowDt($idvendedor);
+    if (isset($_POST['idbanco'])) {
+      $idbanco=intval(limpiarCadena($_POST['idbanco']));
+      if ($idbanco>0) {
+        $arrData=$this->model->ShowDt($idbanco);
         if (empty($arrData)) {
           $arrRspta=array('status'=>false,'msg'=>'No Existen Registros!');
         } else {
@@ -110,10 +104,10 @@ class Vendedor extends Controllers{
   }
 
   public function Activar(){
-    if (isset($_POST['idvendedor'])) {
-      $idvendedor=intval(limpiarCadena($_POST['idvendedor']));
+    if (isset($_POST['idbanco'])) {
+      $idbanco=intval(limpiarCadena($_POST['idbanco']));
       $estatus=intval(1);
-      $request=$this->model->EstatusDt($idvendedor,$estatus);
+      $request=$this->model->EstatusDt($idbanco,$estatus);
         if($request>0){
           $arrRspta=array("status"=>true,"msg"=>"Registro Activado Correctamente!");
         }else {
@@ -123,15 +117,14 @@ class Vendedor extends Controllers{
     } else{
       header("Location:".base_URL()."Error404");
     }
-    die(); 
-
+    die();
   }
 
   public function Desactivar(){
-    if (isset($_POST['idvendedor'])) {
-      $idvendedor=intval(limpiarCadena($_POST['idvendedor']));
+    if (isset($_POST['idbanco'])) {
+      $idbanco=intval(limpiarCadena($_POST['idbanco']));
       $estatus=intval(0);
-      $request=$this->model->EstatusDt($idvendedor,$estatus);
+      $request=$this->model->EstatusDt($idbanco,$estatus);
         if($request>0){
           $arrRspta=array("status"=>true,"msg"=>"Registro Desctivado Correctamente!");
         }else {
@@ -153,23 +146,22 @@ class Vendedor extends Controllers{
         if($arrData[$i]['estatus']==1){
           $arrData[$i]['estatus']='<small class="badge badge-success">Activo</small>';
           $arrData[$i]['opciones']=
-        '<small '.$al.'center'.$w.'100px;" class="small btn-group">
-        <button type="button" class="btn btn-primary btn-xs" onclick="mostrar('.$arrData[$i]['idvendedor'].')" data-toggle="tooltip" data-placement="right" title="Editar"><i class="fa fa-pencil"></i></button>'.
-        '<button type="button" class="btn btn-success btn-xs" onclick="desactivar('.$arrData[$i]['idvendedor'].')" data-toggle="tooltip" data-placement="right" title="Desactivar"><i class="fa fa-check"></i></button>
-        </small>';
+          '<small '.$al.'center'.$w.'100px;" class="small btn-group">
+          <button type="button" class="btn btn-primary btn-xs" onclick="mostrar('.$arrData[$i]['idbanco'].')" data-toggle="tooltip" data-placement="right" title="Editar"><i class="fa fa-pencil"></i></button>
+          <button type="button" class="btn btn-success btn-xs" onclick="desactivar('.$arrData[$i]['idbanco'].')" data-toggle="tooltip" data-placement="right" title="Desactivar"><i class="fa fa-check"></i></button>
+          </small>';
         } else {
           $arrData[$i]['estatus']='<small class="badge badge-danger">Inactivo</small>';
           $arrData[$i]['opciones']=
-          '<small '.$al.'center'.$w.'100px;" class="small btn-group">
-          <button type="button" class="btn btn-primary btn-xs" onclick="mostrar('.$arrData[$i]['idvendedor'].')" data-toggle="tooltip" data-placement="right" title="Editar"><i class="fa fa-pencil"></i></button>'.
-          '<button type="button" class="btn btn-warning btn-xs" onclick="activar('.$arrData[$i]['idvendedor'].')" data-toggle="tooltip" data-placement="right" title="Activar"><i class="fa fa-exclamation-triangle"></i></button>
+          '<h6 '.$al.'center'.$w.'100px;" class="small btn-group">
+          <button type="button" class="btn btn-primary btn-xs" onclick="mostrar('.$arrData[$i]['idbanco'].')" data-toggle="tooltip" data-placement="right" title="Editar"><i class="fa fa-pencil"></i></button>
+          <button type="button" class="btn btn-warning btn-xs" onclick="activar('.$arrData[$i]['idbanco'].')" data-toggle="tooltip" data-placement="right" title="Activar"><i class="fa fa-exclamation-triangle"></i></button>
           </small>';   
         }
-        $arrData[$i]['cod_vendedor']='<h6>'.$arrData[$i]['cod_vendedor'].'</h6>';
-        $arrData[$i]['desc_vendedor']='<h6>'.$arrData[$i]['desc_vendedor'].'</h6>';
-        $arrData[$i]['eliminar']='<input type="checkbox" name="eliminar_reg[]" value="'.$arrData[$i]['idvendedor'].'">';
-        $arrData[$i]['esvendedor']=$arrData[$i]['esvendedor']?'<i class=" fa fa-check text-success"></i>':'<i class=" fa fa-remove text-red"></i>';
-        $arrData[$i]['escobrador']=$arrData[$i]['escobrador']?'<i class=" fa fa-check text-success"></i>':'<i class=" fa fa-remove text-red"></i>';
+        $arrData[$i]['cod_banco']='<h6>'.$arrData[$i]['cod_banco'].'</h6>';
+        $arrData[$i]['desc_banco']='<h6>'.$arrData[$i]['desc_banco'].'</h6>';
+        $arrData[$i]['moneda']='<h6>'.$arrData[$i]['simbolo'].'</h6>';
+        $arrData[$i]['eliminar']='<input type="checkbox" name="eliminar_reg[]" value="'.$arrData[$i]['idbanco'].'">';
       }
       echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
       die();
@@ -181,9 +173,9 @@ class Vendedor extends Controllers{
   public function Selectpicker(){
     if (isset($_POST["security"])) {
       $arrData=$this->model->ListDt();
-      if ($arrData){
+      if ($arrData) {
         for ($i=0; $i<count($arrData);$i++) { 
-          echo '<option value="'.$arrData[$i]['idvendedor'].'">'.$arrData[$i]['cod_vendedor'].'-'.$arrData[$i]['desc_vendedor'].'</option>';
+          echo '<option value="'.$arrData[$i]['idbanco'].'">'.$arrData[$i]['cod_banco'].'-'.$arrData[$i]['desc_banco'].'</option>';
         }
       } else {
         echo '<option readonly>No Existen Registros!</option>';

@@ -105,8 +105,6 @@ function SelecOp() {
         });
 }
 
-
-
 function ListarTabla() {
     //#region
     tabla = $("#tbdetalle")
@@ -117,7 +115,7 @@ function ListarTabla() {
             dom: "Bfrtilp", //Definimos los elementos del control de tabla
             columnDefs: [{
                     targets: 0, // Tu primera columna
-                    width: "10%",
+                    width: "110px",
                     className: "text-center",
                 },
                 {
@@ -140,21 +138,21 @@ function ListarTabla() {
                     text: '<i class="fa fa-file-excel"></i> Excel ',
                     titleAttr: "Exportar a Excel",
                     className: "btn btnx btn-sm btn-success",
-                    exportOptions: { columns: [1, 2, 4] },
+                    exportOptions: { columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13] },
                 },
                 {
                     extend: "csvHtml5",
                     text: '<i class="fa fa-file-archive"></i> CSV ',
                     titleAttr: "Exportar a Texto",
                     className: "btn btnx btn-sm btn-info",
-                    exportOptions: { columns: [1, 2, 4] },
+                    exportOptions: { columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13] },
                 },
                 {
                     extend: "pdf",
                     text: '<i class="fa fa-file-pdf"></i> PDF ',
                     titleAttr: "Exportar a PDF",
                     className: "btn btnx btn-sm btn-danger",
-                    exportOptions: { columns: [1, 2, 4] },
+                    exportOptions: { columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13] },
                 },
             ],
             ajax: {
@@ -162,6 +160,9 @@ function ListarTabla() {
                 method: "POST", //usamos el metodo POST
                 data: { security: "listar" },
                 dataSrc: "",
+                error: function(e) {
+                    console.log(e);
+                }
             },
             columns: [
                 { data: "opciones" },

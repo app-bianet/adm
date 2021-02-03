@@ -149,13 +149,13 @@ class Categoria extends Controllers{
         } else {
           $arrData[$i]['estatus']='<small class="badge badge-danger">Inactivo</small>';
           $arrData[$i]['opciones']=
-          '<h6 '.$al.'center'.$w.'100px;" class="small btn-group">
+          '<small '.$al.'center'.$w.'100px;" class="small btn-group">
           <button type="button" class="btn btn-primary btn-xs" onclick="mostrar('.$arrData[$i]['idcategoria'].')" data-toggle="tooltip" data-placement="right" title="Editar"><i class="fa fa-pencil"></i></button>
           <button type="button" class="btn btn-warning btn-xs" onclick="activar('.$arrData[$i]['idcategoria'].')" data-toggle="tooltip" data-placement="right" title="Activar"><i class="fa fa-exclamation-triangle"></i></button>
           </small>';   
         }
-        $arrData[$i]['cod_categoria']='<h6 '.$al.'center'.$w.'150px">'.$arrData[$i]['cod_categoria'].'</h6>';
-        $arrData[$i]['desc_categoria']='<h6 '.$al.''.$w.'">'.$arrData[$i]['desc_categoria'].'</h6>';
+        $arrData[$i]['cod_categoria']='<h6>'.$arrData[$i]['cod_categoria'].'</h6>';
+        $arrData[$i]['desc_categoria']='<h6>'.$arrData[$i]['desc_categoria'].'</h6>';
         $arrData[$i]['eliminar']='<input type="checkbox" name="eliminar_reg[]" value="'.$arrData[$i]['idcategoria'].'">';
       }
       echo json_encode($arrData,JSON_UNESCAPED_UNICODE);

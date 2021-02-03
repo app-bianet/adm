@@ -35,10 +35,10 @@ class Impuesto extends Controllers{
       $fechareg=isset($_POST["fechareg"])? limpiarCadena($_POST["fechareg"]):"";
 
       if (empty($idimpuesto)) {
-        $request=$this->model->InsertDt($cod_impuesto,$desc_impuesto,$simbolo,$tasa,$fechareg);
+        $request=$this->model->InsertDt($cod_impuesto,$desc_impuesto,$simbolo,$tasa,formatDate($fechareg));
         $option=1;
       } else {
-       $request=$this->model->EditarDt($idimpuesto,$cod_impuesto,$desc_impuesto,$simbolo,$tasa,$fechareg);
+       $request=$this->model->EditarDt($idimpuesto,$cod_impuesto,$desc_impuesto,$simbolo,$tasa,formatDate($fechareg));
         $option=2;
       }
 
@@ -146,10 +146,10 @@ class Impuesto extends Controllers{
         if($arrData[$i]['estatus']==1){
           $arrData[$i]['estatus']='<small class="badge badge-success">Activo</small>';
           $arrData[$i]['opciones']=
-        '<small '.$al.'center'.$w.'100px;" class="small btn-group">
-        <button type="button" class="btn btn-primary btn-xs" onclick="mostrar('.$arrData[$i]['idimpuesto'].')" data-toggle="tooltip" data-placement="right" title="Editar"><i class="fa fa-pencil"></i></button>'.
-        '<button type="button" class="btn btn-success btn-xs" onclick="desactivar('.$arrData[$i]['idimpuesto'].')" data-toggle="tooltip" data-placement="right" title="Desactivar"><i class="fa fa-check"></i></button>
-        </small>';
+          '<small '.$al.'center'.$w.'100px;" class="small btn-group">
+          <button type="button" class="btn btn-primary btn-xs" onclick="mostrar('.$arrData[$i]['idimpuesto'].')" data-toggle="tooltip" data-placement="right" title="Editar"><i class="fa fa-pencil"></i></button>'.
+          '<button type="button" class="btn btn-success btn-xs" onclick="desactivar('.$arrData[$i]['idimpuesto'].')" data-toggle="tooltip" data-placement="right" title="Desactivar"><i class="fa fa-check"></i></button>
+          </small>';
         } else {
           $arrData[$i]['estatus']='<small class="badge badge-danger">Inactivo</small>';
           $arrData[$i]['opciones']=
@@ -158,9 +158,10 @@ class Impuesto extends Controllers{
           '<button type="button" class="btn btn-warning btn-xs" onclick="activar('.$arrData[$i]['idimpuesto'].')" data-toggle="tooltip" data-placement="right" title="Activar"><i class="fa fa-exclamation-triangle"></i></button>
           </small>';   
         }
-        $arrData[$i]['cod_impuesto']='<h6 '.$al.'center'.$w.'150px">'.$arrData[$i]['cod_impuesto'].'</h6>';
-        $arrData[$i]['desc_impuesto']='<h6 '.$al.''.$w.'">'.$arrData[$i]['desc_impuesto'].'</h6>';
-        $arrData[$i]['tasa']='<h6 '.$al.'right'.$w.'80">'.formatMoneyP($arrData[$i]['tasa'],2).'</h6>';
+        $arrData[$i]['cod_impuesto']='<h6>'.$arrData[$i]['cod_impuesto'].'</h6>';
+        $arrData[$i]['desc_impuesto']='<h6>'.$arrData[$i]['desc_impuesto'].'</h6>';
+        $arrData[$i]['simbolo']='<h6>'.$arrData[$i]['simbolo'].'</h6>';
+        $arrData[$i]['tasa']='<h6>'.formatMoneyP($arrData[$i]['tasa'],2).'</h6>';
         $arrData[$i]['eliminar']='<input type="checkbox" name="eliminar_reg[]" value="'.$arrData[$i]['idimpuesto'].'">';
       }
       echo json_encode($arrData,JSON_UNESCAPED_UNICODE);

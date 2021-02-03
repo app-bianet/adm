@@ -164,11 +164,11 @@ class Moneda extends Controllers{
           '<button type="button" class="btn btn-warning btn-xs" onclick="activar('.$arrData[$i]['idmoneda'].')" data-toggle="tooltip" data-placement="right" title="Activar"><i class="fa fa-exclamation-triangle"></i></button>
           </small>';   
         }
-        $arrData[$i]['cod_moneda']='<h6 '.$al.'center'.$w.'150px">'.$arrData[$i]['cod_moneda'].'</h6>';
-        $arrData[$i]['desc_moneda']='<h6 '.$al.''.$w.'">'.$arrData[$i]['desc_moneda'].'</h6>';
-        $arrData[$i]['eliminar']='<input type="checkbox" name="eliminar_reg[]" value="'.$arrData[$i]['idmoneda'].'">';
-        $arrData[$i]['factor']='<h6 '.$al.'right'.$w.'120px">'.formatMoney($arrData[$i]['factor']).'</h6>';;
+        $arrData[$i]['cod_moneda']='<h6>'.$arrData[$i]['cod_moneda'].'</h6>';
+        $arrData[$i]['desc_moneda']='<h6>'.$arrData[$i]['desc_moneda'].'</h6>';
+        $arrData[$i]['factor']='<h6>'.formatMoney($arrData[$i]['factor']).'</h6>';;
         $arrData[$i]['base']=$arrData[$i]['base']?'<i class=" fa fa-check text-success"></i>':'<i class=" fa fa-remove text-red"></i>';
+        $arrData[$i]['eliminar']='<input type="checkbox" name="eliminar_reg[]" value="'.$arrData[$i]['idmoneda'].'">';
       }
       echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
       die();

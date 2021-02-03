@@ -94,7 +94,7 @@ class Login extends Controllers{
           in_array(97,$valores)?$_SESSION['tpventa']=1:$_SESSION['tpventa']=0;
             
           in_array(100,$valores)?$_SESSION['bancos']=1:$_SESSION['bancos']=0;
-          in_array(101,$valores)?$_SESSION['banco']=1:$_SESSION['banco']=0;
+          in_array(101,$valores)?$_SESSION['bancop']=1:$_SESSION['bancop']=0;
           in_array(102,$valores)?$_SESSION['caja']=1:$_SESSION['caja']=0;
           in_array(103,$valores)?$_SESSION['cuenta']=1:$_SESSION['cuenta']=0;
           in_array(104,$valores)?$_SESSION['ipago']=1:$_SESSION['ipago']=0;	

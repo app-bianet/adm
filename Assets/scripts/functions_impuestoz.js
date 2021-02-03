@@ -75,7 +75,7 @@ function ListarTabla(id) {
             }, ],
             columnDefs: [{
                     targets: 0, // Tu primera columna
-                    width: "10%",
+                    width: "110px",
                     className: "text-center",
                     orderable: false,
                 },

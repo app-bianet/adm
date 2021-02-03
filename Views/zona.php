@@ -38,14 +38,13 @@
             <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
               <label for="cod_zona">Código</label>
               <input type="textc" id="cod_zona" name="cod_zona" 
-              class="form-control form-control-border" placeholder="Código">
+              class="form-control" placeholder="Código">
             </div>
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
             </div>
             <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-8">
               <label for="desc_zona">Descripción</label>
-              <input type="text" id="desc_zona" name="desc_zona" 
-              class="form-control form-control-border" placeholder="Descripción">
+              <input type="text" id="desc_zona" name="desc_zona" class="form-control" placeholder="Descripción">
             </div>
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
             </div>

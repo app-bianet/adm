@@ -68,12 +68,12 @@
             </div>
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
               <div class="card card-header-pills">
-                <ul class="nav nav-tabs nav-compact nav-pills nav-justified">   
-                  <li><a class="nav-link active" data-toggle="tab" href="#tab1"><B>General</B></a></li>
-                  <li><a class="nav-link" data-toggle="tab" href="#tab2"><B>Precios</B></a></li>
-                  <li><a class="nav-link" data-toggle="tab" href="#tab3"><B>Caracteristicas</B></a></li>
-                  <li><a class="nav-link" data-toggle="tab" href="#tab4"><B>Parametros Adicionales</B></a></li>
-                </ul>
+                <div class="nav nav-tabs nav-compact nav-pills nav-justified">   
+                  <a class="nav-link active btn" data-toggle="tab" href="#tab1"><B>General</B></a>
+                  <a class="nav-link btn" data-toggle="tab" href="#tab2"><B>Precios</B></a>
+                  <a class="nav-link btn" data-toggle="tab" href="#tab3"><B>Caracteristicas</B></a>
+                  <a class="nav-link btn" data-toggle="tab" href="#tab4"><B>Parametros Adicionales</B></a>
+                </div>
                   <div class="tab-content">
                     <div role="tab-pane fade" class="tab-pane active" id="tab1">
                       <div class="form-group">

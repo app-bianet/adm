@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
     InsertarEditar();
     eliminar();
     Nuevo();
+    SelectOp();
 
     $("input.filtro_buscar").on("keyup click", function() {
         filterGlobal();
@@ -17,6 +18,23 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
+function SelectOp() {
+    let formData = new FormData();
+    formData.append("security", "listar");
+    let ajaxUrl = url_baseL + "Moneda/Selectpicker";
+    fetch(ajaxUrl, {
+            method: "POST",
+            body: formData,
+        })
+        .then((response) => response.text())
+        .catch((error) => {
+            console.error("Error:", error);
+        })
+        .then((resp) => {
+            $("#idmoneda").html(resp);
+        });
+}
+
 function ListarTabla() {
     //#region
     tabla = $("#tbdetalle")
@@ -26,38 +44,27 @@ function ListarTabla() {
             aServerSide: true, //Paginación y filtrado realizados por el servidor
             dom: "Bfrtilp", //Definimos los elementos del control de tabla
             columnDefs: [{
-                targets: "nd", //clase para definir las columnas a tratar
-                orderable: false, //Definimos no ordenar por esta columna
-                searchable: false, //Definimos no buscar por esta columna
-            }, ],
-            columnDefs: [{
                     targets: 0, // Tu primera columna
-                    width: "110px",
+                    width: "100px",
                     className: "text-center",
                     orderable: false,
                 },
                 {
                     targets: 1,
-                    width: "150px",
+                    width: "120px",
                     className: "text-center",
                 },
                 {
                     targets: 2,
-                    width: "350px",
+                    width: "450px",
                 },
                 {
                     targets: 3,
-                    width: "100px",
-                    className: "text-center",
+                    width: "80px",
                 },
                 {
-                    targets: 4,
-                    width: "100px",
-                    className: "text-right",
-                },
-                {
-                    targets: [5, 6],
-                    width: "60px",
+                    targets: [4, 5],
+                    width: "50px",
                     className: "text-center",
                     orderable: false,
                 },
@@ -67,38 +74,37 @@ function ListarTabla() {
                     text: '<i class="fa fa-file-excel"></i> Excel ',
                     titleAttr: "Exportar a Excel",
                     className: "btn btnx btn-sm btn-success",
-                    exportOptions: { columns: [1, 2, 3, 4, 6] },
+                    exportOptions: { columns: [1, 2, 3, 5] },
                 },
                 {
                     extend: "csvHtml5",
                     text: '<i class="fa fa-file-archive"></i> CSV ',
                     titleAttr: "Exportar a Texto",
                     className: "btn btnx btn-sm btn-info",
-                    exportOptions: { columns: [1, 2, 3, 4, 6] },
+                    exportOptions: { columns: [1, 2, 3, 5] },
                 },
                 {
                     extend: "pdf",
                     text: '<i class="fa fa-file-pdf"></i> PDF ',
                     titleAttr: "Exportar a PDF",
                     className: "btn btnx btn-sm btn-danger",
-                    exportOptions: { columns: [1, 2, 3, 4, 6] },
+                    exportOptions: { columns: [1, 2, 3, 5] },
                 },
             ],
             ajax: {
                 url: url_base + "/Listar",
-                method: 'POST', //usamos el metodo POST
-                data: { 'security': 'listar' },
+                method: "POST", //usamos el metodo POST
+                data: { security: "listar" },
                 dataSrc: "",
                 error: function(e) {
                     console.log(e);
-                }
+                },
             },
             columns: [
                 { data: "opciones" },
-                { data: "cod_impuesto" },
-                { data: "desc_impuesto" },
-                { data: "simbolo" },
-                { data: "tasa" },
+                { data: "cod_banco" },
+                { data: "desc_banco" },
+                { data: "moneda" },
                 { data: "eliminar" },
                 { data: "estatus" },
             ],
@@ -115,7 +121,8 @@ function ListarTabla() {
             order: [
                 [1, "asc"]
             ], //Ordenar (columna,orden)
-        }).css("width", "100% !important");
+        })
+        .css("width", "100% !important");
     $("div.dataTables_filter").css("display", "none");
     $("div.dt-buttons").prependTo("div.input-group.search");
     //#endregion
@@ -126,7 +133,7 @@ function filterGlobal() {
 }
 
 function Nuevo() {
-    document.querySelector("#btnAgregar").addEventListener('click', function() {
+    document.querySelector("#btnAgregar").addEventListener("click", function() {
         proceso = "nuevo";
         Operacion(proceso);
         Cancelar();
@@ -134,14 +141,14 @@ function Nuevo() {
 }
 
 function Cancelar() {
-    document.querySelector("#btnCancelar").addEventListener('click', function() {
+    document.querySelector("#btnCancelar").addEventListener("click", function() {
         proceso = "cancelar";
         Operacion(proceso);
     });
 }
 
 function Editar() {
-    document.querySelector("#btnEditar").addEventListener('click', function() {
+    document.querySelector("#btnEditar").addEventListener("click", function() {
         proceso = "editar";
         Operacion(proceso);
     });
@@ -155,17 +162,9 @@ function Operacion(operacion) {
             break;
 
         case "nuevo":
-            $("#btnGuardar,#btnCancelar").attr("disabled", false);
+            $("#btnGuardar,#btnCancelar,select").attr("disabled", false);
             $("#btnEditar").attr("disabled", true);
             $("input[type=text],input[type=textc]").val("").attr("readonly", false);
-            $('.input-group.date').datepicker({
-                format: "dd/mm/yyyy",
-                language: "es",
-                daysOfWeekHighlighted: "0",
-                autoclose: true,
-                todayHighlight: true,
-                toggleActive: true
-            }).datepicker("setDate", new Date());
             MostrarForm(true);
             break;
 
@@ -173,14 +172,14 @@ function Operacion(operacion) {
             $('[data-toggle="tooltip"]').tooltip();
             $("input[type=text],input[type=textc]").attr("readonly", true);
             $("#btnEditar,#btnCancelar").attr("disabled", false);
-            $("#btnGuardar").attr("disabled", true);
+            $("#btnGuardar,select").attr("disabled", true);
             MostrarForm(true);
             break;
 
         case "editar":
             $("input[type=text],input[type=textc]").attr("readonly", false);
             $("#btnEditar").attr("disabled", true);
-            $("#btnGuardar,#btnCancelar").attr("disabled", false);
+            $("#btnGuardar,#btnCancelar,select").attr("disabled", false);
             break;
 
         case "cancelar":
@@ -207,15 +206,15 @@ function MostrarForm(flag) {
 }
 
 function InsertarEditar() {
-    document.addEventListener('submit', function(e) {
+    document.addEventListener("submit", function(e) {
         e.preventDefault();
         form = document.querySelector("#dataForm");
-        let strCampo = document.querySelectorAll("#cod_impuesto,#desc_impuesto");
+        let strCampo = document.querySelectorAll("#cod_banco,#desc_banco");
 
         if (empty(strCampo[0].value) && empty(strCampo[1].value)) {
             Swal.fire({
                 icon: "info",
-                title: 'Atención!',
+                title: "Atención!",
                 html: 'Debe Llenar los Campos Obligatorios <i class="fa fa-exclamation-circle text-red"></i>',
                 showConfirmButton: false,
                 timer: 1500,
@@ -225,21 +224,21 @@ function InsertarEditar() {
             }
         } else {
             let formData = new FormData(form);
-            formData.append('security', 'datos');
+            formData.append("security", "datos");
             let urlAjax = url_base + "/Insertar";
             fetch(urlAjax, {
-                    method: 'POST',
-                    body: formData
+                    method: "POST",
+                    body: formData,
                 })
-                .then(response => response.json())
-                .catch(error => console.error('Error:', error))
-                .then(objData => {
+                .then((response) => response.json())
+                .catch((error) => console.error("Error:", error))
+                .then((objData) => {
                     if (objData.status) {
                         proceso = "listar";
                         Operacion(proceso);
                         Swal.fire({
                             icon: "success",
-                            title: 'Exito!',
+                            title: "Exito!",
                             html: objData.msg,
                             showConfirmButton: false,
                             timer: 1500,
@@ -247,7 +246,7 @@ function InsertarEditar() {
                     } else {
                         Swal.fire({
                             icon: "error",
-                            title: 'Error!',
+                            title: "Error!",
                             html: objData.msg,
                             customClass: {
                                 confirmButton: "btn btn-sm btnsw btn-primary",
@@ -262,47 +261,46 @@ function InsertarEditar() {
 }
 
 //Función para Mostrar registros
-function mostrar(idimpuesto) {
+function mostrar(idbanco) {
     const form = document.querySelector("#dataForm");
     let dataset = new FormData(form);
-    dataset.append('idimpuesto', idimpuesto);
+    dataset.append("idbanco", idbanco);
     let urlAjax = url_base + "/Mostrar";
     fetch(urlAjax, {
-            method: 'POST',
-            body: dataset
+            method: "POST",
+            body: dataset,
         })
-        .then(response => response.json())
-        .then(response => {
+        .then((response) => response.json())
+        .then((response) => {
             $.each(response, function(label, valor) {
                 $("#" + label).val(valor);
-            })
+            });
             Editar();
             Cancelar();
             proceso = "mostrar";
             Operacion(proceso);
         });
-
 }
 
 //Función para Activar registros
-function activar(idimpuesto) {
+function activar(idbanco) {
     msgOpcion("¿Desea <b>Activar</b> el Registro?", "warning").then((result) => {
         if (result.isConfirmed) {
             const form = document.querySelector("#dataForm");
             let dataset = new FormData(form);
-            dataset.append('idimpuesto', idimpuesto);
+            dataset.append("idbanco", idbanco);
             let urlAjax = url_base + "/Activar";
             fetch(urlAjax, {
-                    method: 'POST',
-                    body: dataset
+                    method: "POST",
+                    body: dataset,
                 })
-                .then(response => response.json())
-                .catch(error => console.error('Error:', error))
-                .then(objData => {
+                .then((response) => response.json())
+                .catch((error) => console.error("Error:", error))
+                .then((objData) => {
                     if (objData.status) {
                         Swal.fire({
                             icon: "success",
-                            title: 'Exito!',
+                            title: "Exito!",
                             html: objData.msg,
                             showConfirmButton: false,
                             timer: 1500,
@@ -310,7 +308,7 @@ function activar(idimpuesto) {
                     } else {
                         Swal.fire({
                             icon: "error",
-                            title: 'Error!',
+                            title: "Error!",
                             html: objData.msg,
                             customClass: {
                                 confirmButton: "btn btn-sm btnsw btn-primary",
@@ -334,73 +332,76 @@ function activar(idimpuesto) {
 }
 
 //Función para Desactivar registros
-function desactivar(idimpuesto) {
-    msgOpcion("¿Desea <b>Desactivar</b> el Registro?", "warning").then((result) => {
-        if (result.isConfirmed) {
-            const form = document.querySelector("#dataForm");
-            let dataset = new FormData(form);
-            dataset.append('idimpuesto', idimpuesto);
-            let urlAjax = url_base + "/Desactivar";
-            fetch(urlAjax, {
-                    method: 'POST',
-                    body: dataset
-                })
-                .then(response => response.json())
-                .catch(error => console.error('Error:', error))
-                .then(objData => {
-                    if (objData.status) {
-                        Swal.fire({
-                            icon: "success",
-                            title: 'Exito!',
-                            html: objData.msg,
-                            showConfirmButton: false,
-                            timer: 1500,
-                        });
-                    } else {
-                        Swal.fire({
-                            icon: "error",
-                            title: 'Error!',
-                            html: objData.msg,
-                            customClass: {
-                                confirmButton: "btn btn-sm btnsw btn-primary",
-                                icon: "color:red",
-                            },
-                            buttonsStyling: false,
-                        });
-                    }
-                    proceso = "listar";
-                    Operacion(proceso);
+function desactivar(idbanco) {
+    msgOpcion("¿Desea <b>Desactivar</b> el Registro?", "warning").then(
+        (result) => {
+            if (result.isConfirmed) {
+                const form = document.querySelector("#dataForm");
+                let dataset = new FormData(form);
+                dataset.append("idbanco", idbanco);
+                let urlAjax = url_base + "/Desactivar";
+                fetch(urlAjax, {
+                        method: "POST",
+                        body: dataset,
+                    })
+                    .then((response) => response.json())
+                    .catch((error) => console.error("Error:", error))
+                    .then((objData) => {
+                        if (objData.status) {
+                            Swal.fire({
+                                icon: "success",
+                                title: "Exito!",
+                                html: objData.msg,
+                                showConfirmButton: false,
+                                timer: 1500,
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Error!",
+                                html: objData.msg,
+                                customClass: {
+                                    confirmButton: "btn btn-sm btnsw btn-primary",
+                                    icon: "color:red",
+                                },
+                                buttonsStyling: false,
+                            });
+                        }
+                        proceso = "listar";
+                        Operacion(proceso);
+                    });
+            } else {
+                Swal.fire({
+                    icon: "info",
+                    title: "Desactivación Cancelada!",
+                    showConfirmButton: false,
+                    timer: 1000,
                 });
-        } else {
-            Swal.fire({
-                icon: "info",
-                title: "Desactivación Cancelada!",
-                showConfirmButton: false,
-                timer: 1000,
-            });
+            }
         }
-    });
+    );
 }
 
 //Función para Eliminar registros
 function eliminar() {
-    document.querySelector(".btnEliminar").addEventListener('click', function() {
+    document.querySelector(".btnEliminar").addEventListener("click", function() {
         msgOpcion(
-            "¿Esta Seguro de <b>Eliminar</b> los Registros Seleccionados?", "warning"
+            "¿Esta Seguro de <b>Eliminar</b> los Registros Seleccionados?",
+            "warning"
         ).then((result) => {
             if (result.isConfirmed) {
-                ProgressShow('Eliminando Registros...');
+                ProgressShow("Eliminando Registros...");
                 const form = document.querySelector("#tableForm");
                 let dataset = new FormData(form);
-                dataset.append('security', 'eliminar')
+                dataset.append("security", "eliminar");
                 let urlAjax = url_base + "/Eliminar";
                 fetch(urlAjax, {
-                        method: 'POST',
-                        body: dataset
+                        method: "POST",
+                        body: dataset,
                     })
-                    .then(response => response.json())
-                    .catch(error => console.error('Error:', error))
-                    .then(objData => {
+                    .then((response) => response.json())
+                    .catch((error) => console.error("Error:", error))
+                    .then((objData) => {
                         if (objData.status) {
                             Swal.fire({
                                 icon: "success",

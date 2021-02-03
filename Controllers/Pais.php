@@ -157,9 +157,9 @@ class Pais extends Controllers{
           '<button type="button" class="btn btn-warning btn-xs" onclick="activar('.$arrData[$i]['idpais'].')" data-toggle="tooltip" data-placement="right" title="Activar"><i class="fa fa-exclamation-triangle"></i></button>
           </small>';   
         }
-        $arrData[$i]['cod_pais']='<h6 '.$al.'center'.$w.'150px">'.$arrData[$i]['cod_pais'].'</h6>';
-        $arrData[$i]['desc_pais']='<h6 '.$al.''.$w.'">'.$arrData[$i]['desc_pais'].'</h6>';
-        $arrData[$i]['moneda']='<h6 '.$al.'center'.$w.'150px">'.$arrData[$i]['cod_moneda'].'-'.$arrData[$i]['desc_moneda'].'</h6>';;
+        $arrData[$i]['cod_pais']='<h6>'.$arrData[$i]['cod_pais'].'</h6>';
+        $arrData[$i]['desc_pais']='<h6>'.$arrData[$i]['desc_pais'].'</h6>';
+        $arrData[$i]['moneda']='<h6>'.$arrData[$i]['cod_moneda'].'-'.$arrData[$i]['desc_moneda'].'</h6>';;
         $arrData[$i]['eliminar']='<input type="checkbox" name="eliminar_reg[]" value="'.$arrData[$i]['idpais'].'">';
       }
       echo json_encode($arrData,JSON_UNESCAPED_UNICODE);

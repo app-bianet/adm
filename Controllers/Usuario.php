@@ -9,9 +9,9 @@ class Usuario extends Controllers{
       session_unset();
       session_destroy();
     } else{
-      if($_SESSION['usuariotb']!=1)  {
+      if($_SESSION['unidad']!=1)  {
         header("Location:".base_URL()."error403");
-      } 
+      }
     }
     ob_end_flush();     
     parent::__construct();
@@ -227,15 +227,14 @@ class Usuario extends Controllers{
   }
 
   public function SessionOut(){
-    if (isset($_POST["security"])) {
+
       session_unset();//Destruìmos la sesión
       $_SESSION = array(); // Destroy the variables 
       unset($_SESSION);
       session_destroy(); // Destroy the session 
       setcookie('PHPSESSID', ", time()-3600,'/', ", 0, 0);//Destroy the cookie 
-    } else {
-      header("Location:".base_URL()."Error403");
-    }
+      header("Location:".base_URL()."Login");
+
   }
   
 }

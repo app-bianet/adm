@@ -150,21 +150,21 @@ class Deposito extends Controllers{
         if($arrData[$i]['estatus']==1){
           $arrData[$i]['estatus']='<small class="badge badge-success">Activo</small>';
           $arrData[$i]['opciones']=
-        '<small '.$al.'center'.$w.'100px;" class="small btn-group">
-        <button type="button" class="btn btn-primary btn-xs" onclick="mostrar('.$arrData[$i]['iddeposito'].')" data-toggle="tooltip" data-placement="right" title="Editar"><i class="fa fa-pencil"></i></button>'.
-        '<button type="button" class="btn btn-success btn-xs" onclick="desactivar('.$arrData[$i]['iddeposito'].')" data-toggle="tooltip" data-placement="right" title="Desactivar"><i class="fa fa-check"></i></button>
-        </small>';
+          '<small '.$al.'center'.$w.'100px;" class="small btn-group">
+          <button type="button" class="btn btn-primary btn-xs" onclick="mostrar('.$arrData[$i]['iddeposito'].')" data-toggle="tooltip" data-placement="right" title="Editar"><i class="fa fa-pencil"></i></button>
+          <button type="button" class="btn btn-success btn-xs" onclick="desactivar('.$arrData[$i]['iddeposito'].')" data-toggle="tooltip" data-placement="right" title="Desactivar"><i class="fa fa-check"></i></button>
+          </small>';
         } else {
           $arrData[$i]['estatus']='<small class="badge badge-danger">Inactivo</small>';
           $arrData[$i]['opciones']=
           '<small '.$al.'center'.$w.'100px;" class="small btn-group">
-          <button type="button" class="btn btn-primary btn-xs" onclick="mostrar('.$arrData[$i]['iddeposito'].')" data-toggle="tooltip" data-placement="right" title="Editar"><i class="fa fa-pencil"></i></button>'.
-          '<button type="button" class="btn btn-warning btn-xs" onclick="activar('.$arrData[$i]['iddeposito'].')" data-toggle="tooltip" data-placement="right" title="Activar"><i class="fa fa-exclamation-triangle"></i></button>
+          <button type="button" class="btn btn-primary btn-xs" onclick="mostrar('.$arrData[$i]['iddeposito'].')" data-toggle="tooltip" data-placement="right" title="Editar"><i class="fa fa-pencil"></i></button>
+          <button type="button" class="btn btn-warning btn-xs" onclick="activar('.$arrData[$i]['iddeposito'].')" data-toggle="tooltip" data-placement="right" title="Activar"><i class="fa fa-exclamation-triangle"></i></button>
           </small>';   
         }
-        $arrData[$i]['cod_deposito']='<h6 '.$al.'center'.$w.'150px">'.$arrData[$i]['cod_deposito'].'</h6>';
-        $arrData[$i]['desc_deposito']='<h6 '.$al.''.$w.'">'.$arrData[$i]['desc_deposito'].'</h6>';
-        $arrData[$i]['responsable']='<h6 '.$al.''.$w.'200">'.$arrData[$i]['respons able'].'</h6>';
+        $arrData[$i]['cod_deposito']='<h6>'.$arrData[$i]['cod_deposito'].'</h6>';
+        $arrData[$i]['desc_deposito']='<h6>'.$arrData[$i]['desc_deposito'].'</h6>';
+        $arrData[$i]['responsable']='<h6>'.$arrData[$i]['responsable'].'</h6>';
         $arrData[$i]['eliminar']='<input type="checkbox" name="eliminar_reg[]" value="'.$arrData[$i]['iddeposito'].'">';
         $arrData[$i]['solocompra']=$arrData[$i]['solocompra']?'<i class=" fa fa-check text-success"></i>':'<i class=" fa fa-remove text-red"></i>';
         $arrData[$i]['soloventa']=$arrData[$i]['soloventa']?'<i class=" fa fa-check text-success"></i>':'<i class=" fa fa-remove text-red"></i>';

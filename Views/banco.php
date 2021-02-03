@@ -23,6 +23,7 @@
             <th style="width:120px" class="text-center nd">Opciones</th>
             <th style="width:150px" class="text-center">Código</th>
             <th class="text-center">Descripción</th>
+            <th style="width:50px" class="text-center">Moneda</th>
             <th style="width:80px" class="text-center nd">
             <button type="button" class="btn btn-xs btn-danger btnEliminar" 
             data-toggle="tooltip" data-placement="right" title="Eliminar">Eliminar</button>
@@ -36,21 +37,56 @@
         <form id="dataForm" name="dataForm">
           <div class="form-row">
             <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
-              <label for="cod_unidad">Código</label>
-              <input type="textc" id="cod_unidad" name="cod_unidad" 
+              <label for="cod_banco">Código</label>
+              <input type="textc" id="cod_banco" name="cod_banco" 
               class="form-control" placeholder="Código">
             </div>
-            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            </div>
+            <div class="form-group col-lg-4 col-md-4 col-sm-12 col-xs-12">
+              <label>Moneda:</label>
+              <select name="idmoneda" id="idmoneda" class="form-control"></select>
+            </div>
+            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12 nomargin">
             </div>
             <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-8">
-              <label for="desc_unidad">Descripción</label>
-              <input type="text" id="desc_unidad" name="desc_unidad" 
-              class="form-control" placeholder="Descripción">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text small">Descripción:</span>
+                </div>
+                <input type="text" id="desc_banco" name="desc_banco" class="form-control" placeholder="Descripción">
+              </div>
+            </div>
+            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12 nomargin">
+            </div>
+            <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text small">Misma Plaza:</span>
+                </div>
+                <input type="text" id="plazo1" name="plazo1" class="form-control nformatm">
+              </div>
+            </div>
+            <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text small">Otra Plaza:</span>
+                </div>
+                <input type="text" id="plazo2" name="plazo2" class="form-control nformatm">
+              </div>
+            </div>
+            <div class="form-group col-lg-4 col-md-4 col-sm-8 col-xs-12">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text small">Teléfono:</span>
+                </div>
+                <input type="text" id="telefono" name="telefono" class="form-control">
+              </div>
             </div>
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
             </div>
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12 padd-top">
-              <input type="text" id="idunidad" name="idunidad" class="hidden">
+              <input type="text" id="idbanco" name="idbanco" class="hidden">
               <button class="btn btn-primary btn-sm btnm" type="submit" id="btnGuardar"><i class="fa fa-arrow-circle-up"></i> Guardar</button>
               <button class="btn btn-success btn-sm btnm" type="button" id="btnEditar"><i class="fa fa-arrow-circle-left"></i>  Editar </button>
               <button class="btn btn-danger btn-sm btnm" type="button" id="btnCancelar"><i class="fa  fa-arrow-circle-down"></i> Cancelar</button> 
