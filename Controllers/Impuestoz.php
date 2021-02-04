@@ -2,27 +2,26 @@
 class Impuestoz extends Controllers{
 
   public function __construct(){
-    session_start();
-    ob_start();
-    if (!isset($_SESSION['sidusuario'])){
-      header("Location:".base_URL()."login");
-      session_unset();
-      session_destroy();
-    } else{
-      if($_SESSION['impuestoz']!=1)  {
-        header("Location:".base_URL()."error403");
-      } 
-    }
-    ob_end_flush();     
     parent::__construct();
   }
 
   public function impuestoz(){
-    $data['page_tag']="Impuestoz";
-    $data['page_title']=".:: Impuestoz ::.";
-    $data['page_name']="impuestoz";
-    $data['func']="functions_impuestoz.js";
-    $this->views->getView($this,"impuestoz",$data);
+    ob_start();
+    session_start();
+    if (!isset($_SESSION["sidusuario"])){
+      header("Location:".base_URL()."login");
+    } else {
+      if ($_SESSION['impuestoz']==1){     
+        $data['page_tag']="Tabulador de I.S.L.R.";
+        $data['page_title']=".:: Tab. I.S.L.R. ::.";
+        $data['page_name']="impuestoz";
+        $data['func']="functions_impuestoz.js";
+        $this->views->getView($this,"impuestoz",$data);
+      } else {
+        header("Location:".base_URL()."error403");
+      }
+    }
+    ob_end_flush();
   }
 
   public function Insertar(){
@@ -43,7 +42,7 @@ class Impuestoz extends Controllers{
         $option=2;
       }
 
-      if($request==1){
+      if($request){
         if ($option==1) {
           $arrRspta=array("status"=>true,"msg"=>"Registro Ingresado Correctamente!");
         } else {
@@ -53,11 +52,7 @@ class Impuestoz extends Controllers{
         $arrRspta=array("status"=>false,"msg"=>"El Código <b>".$cod_concepto."</b> ya se encuentra Registrado! 
         <br>No es posible ingresar <b>Registros Duplicados!</b>");
       } else {
-        if ($request=='error_insert') {
-          $arrRspta=array("status"=>false,"msg"=>json_encode($request));
-        } else {
-          $arrRspta=array("status"=>false,"msg"=>json_encode($request));
-        }
+        $arrRspta=array("status"=>false,"msg"=>$request);
       }
       echo json_encode($arrRspta,JSON_UNESCAPED_UNICODE);    
     } else{

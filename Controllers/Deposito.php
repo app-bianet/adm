@@ -1,28 +1,27 @@
 <?php
 class Deposito extends Controllers{
 
-  public function __construct(){
-    session_start();
-    ob_start();
-    if (!isset($_SESSION['sidusuario'])){
-      header("Location:".base_URL()."login");
-      session_unset();
-      session_destroy();
-    } else{
-      if($_SESSION['deposito']!=1)  {
-        header("Location:".base_URL()."error403");
-      } 
-    }
-    ob_end_flush();     
+  public function __construct(){   
     parent::__construct();
   }
 
   public function deposito(){
-    $data['page_tag']="Deposito";
-    $data['page_title']=".:: Deposito ::.";
-    $data['page_name']="deposito";
-    $data['func']="functions_deposito.js";
-    $this->views->getView($this,"deposito",$data);
+    ob_start();
+    session_start();
+    if (!isset($_SESSION["sidusuario"])){
+      header("Location:".base_URL()."login");
+    } else {
+      if ($_SESSION['deposito']==1){     
+        $data['page_tag']="Deposito";
+        $data['page_title']=".:: Deposito ::.";
+        $data['page_name']="deposito";
+        $data['func']="functions_deposito.js";
+        $this->views->getView($this,"deposito",$data);
+      } else {
+        header("Location:".base_URL()."error403");
+      }
+    }
+    ob_end_flush();
   }
 
   public function Insertar(){
@@ -46,7 +45,7 @@ class Deposito extends Controllers{
         $option=2;
       }
 
-      if($request==1){
+      if($request){
         if ($option==1) {
           $arrRspta=array("status"=>true,"msg"=>"Registro Ingresado Correctamente!");
         } else {

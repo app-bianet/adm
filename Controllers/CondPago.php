@@ -1,28 +1,27 @@
 <?php
 class CondPago extends Controllers{
 
-  public function __construct(){
-    session_start();
-    ob_start();
-    if (!isset($_SESSION['sidusuario'])){
-      header("Location:".base_URL()."login");
-      session_unset();
-      session_destroy();
-    } else{
-      if($_SESSION['condpago']!=1)  {
-        header("Location:".base_URL()."error403");
-      } 
-    }
-    ob_end_flush();     
+  public function __construct(){    
     parent::__construct();
   }
 
   public function condpago(){
-    $data['page_tag']="Condición de Pago";
-    $data['page_title']=".:: Condición de Pago ::.";
-    $data['page_name']="condpago";
-    $data['func']="functions_condpago.js";
-    $this->views->getView($this,"condpago",$data);
+    ob_start();
+    session_start();
+    if (!isset($_SESSION["sidusuario"])){
+      header("Location:".base_URL()."login");
+    } else {
+      if ($_SESSION['condpago']==1){     
+        $data['page_tag']="Condiciones de Pago";
+        $data['page_title']=".:: Cond. de Pago ::.";
+        $data['page_name']="condpago";
+        $data['func']="functions_condpago.js";
+        $this->views->getView($this,"condpago",$data);
+      } else {
+        header("Location:".base_URL()."error403");
+      }
+    }
+    ob_end_flush();
   }
 
   public function Insertar(){
@@ -32,7 +31,7 @@ class CondPago extends Controllers{
       $desc_condpago=isset($_POST["desc_condpago"])? limpiarCadena($_POST["desc_condpago"]):"";
       $dias=isset($_POST["dias"])? limpiarCadena($_POST["dias"]):"";
 
-      if ($idcondpago==0) {
+      if (empty($idcondpago)) {
         $request=$this->model->InsertDt($cod_condpago,$desc_condpago,$dias);
         $option=1;
       } else {
@@ -40,7 +39,7 @@ class CondPago extends Controllers{
         $option=2;
       }
 
-      if($request==1){
+      if($request){
         if ($option==1) {
           $arrRspta=array("status"=>true,"msg"=>"Registro Ingresado Correctamente!");
         } else {

@@ -53,7 +53,7 @@ class Usuario extends Controllers{
         }
       }
 
-      if ($idusuario==0) {
+      if (empty($idusuario)) {
         $request=$this->model->InsertDt($idmacceso,$cod_usuario,$desc_usuario,$direccion,$telefono,$email,
         hashpw($clave),$imagen,formatDate($fechareg));
         $option=1;
@@ -63,7 +63,7 @@ class Usuario extends Controllers{
         $option=2;
       }
 
-      if($request==1){
+      if($request){
         if ($option==1) {
           $arrRspta=array("status"=>true,"msg"=>"Registro Ingresado Correctamente!");
         } else {

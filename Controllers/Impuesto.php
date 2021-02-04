@@ -2,27 +2,26 @@
 class Impuesto extends Controllers{
 
   public function __construct(){
-    session_start();
-    ob_start();
-    if (!isset($_SESSION['sidusuario'])){
-      header("Location:".base_URL()."login");
-      session_unset();
-      session_destroy();
-    } else{
-      if($_SESSION['impuesto']!=1)  {
-        header("Location:".base_URL()."error403");
-      } 
-    }
-    ob_end_flush();     
     parent::__construct();
   }
 
   public function impuesto(){
-    $data['page_tag']="Impuesto";
-    $data['page_title']=".:: Impuesto ::.";
-    $data['page_name']="impuesto";
-    $data['func']="functions_impuesto.js";
-    $this->views->getView($this,"impuesto",$data);
+    ob_start();
+    session_start();
+    if (!isset($_SESSION["sidusuario"])){
+      header("Location:".base_URL()."login");
+    } else {
+      if ($_SESSION['impuesto']==1){     
+        $data['page_tag']="Impuestos";
+        $data['page_title']=".:: Impuestos ::.";
+        $data['page_name']="impuesto";
+        $data['func']="functions_impuesto.js";
+        $this->views->getView($this,"impuesto",$data);
+      } else {
+        header("Location:".base_URL()."error403");
+      }
+    }
+    ob_end_flush();
   }
 
   public function Insertar(){
@@ -42,7 +41,7 @@ class Impuesto extends Controllers{
         $option=2;
       }
 
-      if($request==1){
+      if($request){
         if ($option==1) {
           $arrRspta=array("status"=>true,"msg"=>"Registro Ingresado Correctamente!");
         } else {

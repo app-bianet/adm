@@ -2,27 +2,26 @@
 class Moneda extends Controllers{
 
   public function __construct(){
-    session_start();
-    ob_start();
-    if (!isset($_SESSION['sidusuario'])){
-      header("Location:".base_URL()."login");
-      session_unset();
-      session_destroy();
-    } else{
-      if($_SESSION['moneda']!=1)  {
-        header("Location:".base_URL()."error403");
-      }
-    }
-    ob_end_flush();     
     parent::__construct();
   }
 
   public function moneda(){
-    $data['page_tag']="Moneda";
-    $data['page_title']=".:: Moneda ::.";
-    $data['page_name']="moneda";
-    $data['func']="functions_moneda.js";
-    $this->views->getView($this,"moneda",$data);
+    ob_start();
+    session_start();
+    if (!isset($_SESSION["sidusuario"])){
+      header("Location:".base_URL()."login");
+    } else {
+      if ($_SESSION['moneda']==1){     
+        $data['page_tag']="Monedas";
+        $data['page_title']=".:: Monedas ::.";
+        $data['page_name']="moneda";
+        $data['func']="functions_moneda.js";
+        $this->views->getView($this,"moneda",$data);
+      } else {
+        header("Location:".base_URL()."error403");
+      }
+    }
+    ob_end_flush();
   }
 
   public function Insertar(){
@@ -34,7 +33,7 @@ class Moneda extends Controllers{
       $factor=isset($_POST["factor"])? limpiarCadena($_POST["factor"]):"";
       $base=isset($_POST["base"])? limpiarCadena($_POST["base"]):"";
 
-      if ($idmoneda==0) {
+      if (empty($idmoneda)) {
         $request=$this->model->InsertDt($cod_moneda,$desc_moneda,$simbolo,$factor,$base);
         $option=1;
       } else {
@@ -42,7 +41,7 @@ class Moneda extends Controllers{
         $option=2;
       }
 
-      if($request==1){
+      if($request){
         if ($option==1) {
           $arrRspta=array("status"=>true,"msg"=>"Registro Ingresado Correctamente!");
         } else {

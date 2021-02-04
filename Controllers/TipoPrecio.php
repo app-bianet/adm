@@ -2,27 +2,26 @@
 class TipoPrecio extends Controllers{
 
   public function __construct(){
-    session_start();
-    ob_start();
-    if (!isset($_SESSION['sidusuario'])){
-      header("Location:".base_URL()."login");
-      session_unset();
-      session_destroy();
-    } else{
-      if($_SESSION['tipoprecio']!=1)  {
-        header("Location:".base_URL()."error403");
-      } 
-    }
-    ob_end_flush();     
     parent::__construct();
   }
 
   public function tipoprecio(){
-    $data['page_tag']="Tipos de Precios";
-    $data['page_title']=".:: Tipo de Precio ::.";
-    $data['page_name']="tipoprecio";
-    $data['func']="functions_tipoprecio.js";
-    $this->views->getView($this,"tipoprecio",$data);
+    ob_start();
+    session_start();
+    if (!isset($_SESSION["sidusuario"])){
+      header("Location:".base_URL()."login");
+    } else {
+      if ($_SESSION['tipoprecio']==1){     
+        $data['page_tag']="Tipos de Precios";
+        $data['page_title']=".:: Tipos de Precios ::.";
+        $data['page_name']="tipoprecio";
+        $data['func']="functions_tipoprecio.js";
+        $this->views->getView($this,"tipoprecio",$data);
+      } else {
+        header("Location:".base_URL()."error403");
+      }
+    }
+    ob_end_flush();
   }
 
   public function Insertar(){

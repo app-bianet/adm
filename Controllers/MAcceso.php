@@ -1,29 +1,27 @@
 <?php
 class MAcceso extends Controllers{
 
-  public function __construct(){
-    session_start();
-    ob_start();
-    if (empty($_SESSION['login'])){
-      header("Location:".base_URL()."Login");
-      session_unset();
-      session_destroy();
-    } else{
-      if($_SESSION['macceso']!=1)  {
-        header("Location:".base_URL()."error403");
-      }
-    }
-    ob_end_flush();     
+  public function __construct(){ 
     parent::__construct();
   }
 
   public function macceso(){
-    $data['item']=$_SESSION["macceso"];
-    $data['page_tag']="Perfil de Acceso";
-    $data['page_title']=".:: Perfil de Acceso ::.";
-    $data['page_name']="macceso";
-    $data['func']="functions_macceso.js";
-    $this->views->getView($this,"macceso",$data);
+    ob_start();
+    session_start();
+    if (!isset($_SESSION["sidusuario"])){
+      header("Location:".base_URL()."login");
+    } else {
+      if ($_SESSION['macceso']==1){     
+        $data['page_tag']="Perfiles de Acceso";
+        $data['page_title']=".:: Perfiles ::.";
+        $data['page_name']="macceso";
+        $data['func']="functions_macceso.js";
+        $this->views->getView($this,"macceso",$data);
+      } else {
+        header("Location:".base_URL()."error403");
+      }
+    }
+    ob_end_flush();
   }
 
   public function Insertar(){
@@ -32,7 +30,8 @@ class MAcceso extends Controllers{
       $cod_macceso=isset($_POST["cod_macceso"])? limpiarCadena($_POST["cod_macceso"]):"";
       $desc_macceso=isset($_POST["desc_macceso"])? limpiarCadena($_POST["desc_macceso"]):"";
       $departamento=isset($_POST["departamento"])? limpiarCadena($_POST["departamento"]):"";
-        if ($idmacceso==0) {
+      
+        if (empty($idmacceso)) {
           $request=$this->model->InsertDt($cod_macceso,$desc_macceso,$departamento,$_POST["accesos"]);
           $option=1;
         } else {
@@ -40,7 +39,7 @@ class MAcceso extends Controllers{
           $option=2;
         }
   
-        if($request==1){
+        if($request){
           if ($option==1) {
             $arrRspta=array("status"=>true,"msg"=>"Registro Ingresado Correctamente!");
           } else {
@@ -50,11 +49,7 @@ class MAcceso extends Controllers{
           $arrRspta=array("status"=>false,"msg"=>"El Código <b>".$cod_macceso."</b> ya se encuentra Registrado! 
           <br>No es posible ingresar <b>Registros Duplicados!</b>");
         } else {
-          if ($request=='error_insert') {
-            $arrRspta=array("status"=>false,"msg"=>"Error Insertando Registros!");
-          } else {
-            $arrRspta=array("status"=>false,"msg"=>"Error Editando Registros!");
-          }
+          $arrRspta=array("status"=>false,"msg"=>$request);
         }
       echo json_encode($arrRspta,JSON_UNESCAPED_UNICODE);
     } else{

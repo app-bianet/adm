@@ -2,27 +2,26 @@
 class Correlativo extends Controllers{
 
   public function __construct(){
-    session_start();
-    ob_start();
-    if (!isset($_SESSION['sidusuario'])){
-      header("Location:".base_URL()."login");
-      session_unset();
-      session_destroy();
-    } else{
-      if($_SESSION['correlativo']!=1)  {
-        header("Location:".base_URL()."error403");
-      } 
-    }
-    ob_end_flush();     
     parent::__construct();
   }
 
   public function correlativo(){
-    $data['page_tag']="Correlativo";
-    $data['page_title']=".:: Correlativo ::.";
-    $data['page_name']="correlativo";
-    $data['func']="functions_correlativo.js";
-    $this->views->getView($this,"correlativo",$data);
+    ob_start();
+    session_start();
+    if (!isset($_SESSION["sidusuario"])){
+      header("Location:".base_URL()."login");
+    } else {
+      if ($_SESSION['correlativo']==1){     
+        $data['page_tag']="Series de Operaciones";
+        $data['page_title']=".:: Series ::.";
+        $data['page_name']="correlativo";
+        $data['func']="functions_correlativo.js";
+        $this->views->getView($this,"correlativo",$data);
+      } else {
+        header("Location:".base_URL()."error403");
+      }
+    }
+    ob_end_flush();
   }
 
   public function Insertar(){
@@ -47,7 +46,7 @@ class Correlativo extends Controllers{
         $option=2;
       }
 
-      if($request==1){
+      if($request){
         if ($option==1) {
           $arrRspta=array("status"=>true,"msg"=>"Registro Ingresado Correctamente!");
         } else {

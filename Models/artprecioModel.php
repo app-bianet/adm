@@ -101,7 +101,7 @@ class artprecioModel extends MySql{
         $this->Insert($sql,$arrData);
         return true;
       } catch (PDOException $e) {
-        return PDOError($e,'update');
+        return PDOError($e,'insert');
       }
     }
 

@@ -2,27 +2,26 @@
 class Articulo extends Controllers{
 
   public function __construct(){
-    session_start();
-    ob_start();
-    if (!isset($_SESSION['sidusuario'])){
-      header("Location:".base_URL()."login");
-      session_unset();
-      session_destroy();
-    } else{
-      if($_SESSION['articulo']!=1)  {
-        header("Location:".base_URL()."error403");
-      } 
-    }
-    ob_end_flush();     
     parent::__construct();
   }
 
   public function articulo(){
-    $data['page_tag']="Articulo";
-    $data['page_title']=".:: Articulo ::.";
-    $data['page_name']="articulo";
-    $data['func']="functions_articulo.js";
-    $this->views->getView($this,"articulo",$data);
+    ob_start();
+    session_start();
+    if (!isset($_SESSION["sidusuario"])){
+      header("Location:".base_URL()."login");
+    } else {
+      if ($_SESSION['articulo']==1){     
+        $data['page_tag']="Articulo";
+        $data['page_title']=".:: Articulo ::.";
+        $data['page_name']="articulo";
+        $data['func']="functions_articulo.js";
+        $this->views->getView($this,"articulo",$data);
+      } else {
+        header("Location:".base_URL()."error403");
+      }
+    }
+    ob_end_flush();
   }
 
   public function Insertar(){
@@ -89,9 +88,9 @@ class Articulo extends Controllers{
         $lotes,$lotesv,$seriales,$costoprecio,$imagen,formatDate($fechareg));
         $option=2;
       }
-      if($request==1){
+      if($request){
         if ($option==1) {
-          $arrRspta=array("status"=>true,"msg"=>"Registro Ingresado Correctamente!");
+          $arrRspta=array("status"=>true,"msg"=>"Registro Ingresado Correctamente!","RetornoId"=>$request);
         } else {
           $arrRspta=array("status"=>true,"msg"=>"Registro Actualizado Correctamente!");
         }

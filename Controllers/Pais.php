@@ -2,27 +2,26 @@
 class Pais extends Controllers{
 
   public function __construct(){
-    session_start();
-    ob_start();
-    if (!isset($_SESSION['sidusuario'])){
-      header("Location:".base_URL()."login");
-      session_unset();
-      session_destroy();
-    } else{
-      if($_SESSION['pais']!=1)  {
-        header("Location:".base_URL()."error403");
-      } 
-    }
-    ob_end_flush();     
     parent::__construct();
   }
 
   public function pais(){
-    $data['page_tag']="Pais";
-    $data['page_title']=".:: Pais ::.";
-    $data['page_name']="pais";
-    $data['func']="functions_pais.js";
-    $this->views->getView($this,"pais",$data);
+    ob_start();
+    session_start();
+    if (!isset($_SESSION["sidusuario"])){
+      header("Location:".base_URL()."login");
+    } else {
+      if ($_SESSION['pais']==1){     
+        $data['page_tag']="Paises";
+        $data['page_title']=".:: Paises ::.";
+        $data['page_name']="pais";
+        $data['func']="functions_pais.js";
+        $this->views->getView($this,"pais",$data);
+      } else {
+        header("Location:".base_URL()."error403");
+      }
+    }
+    ob_end_flush();
   }
 
   public function Insertar(){
@@ -32,7 +31,7 @@ class Pais extends Controllers{
       $cod_pais=isset($_POST["cod_pais"])? limpiarCadena($_POST["cod_pais"]):"";
       $desc_pais=isset($_POST["desc_pais"])? limpiarCadena($_POST["desc_pais"]):"";
 
-      if ($idpais==0) {
+      if (empty($idpais)) {
         $request=$this->model->InsertDt($idmoneda,$cod_pais,$desc_pais);
         $option=1;
       } else {
@@ -40,7 +39,7 @@ class Pais extends Controllers{
         $option=2;
       }
 
-      if($request==1){
+      if($request){
         if ($option==1) {
           $arrRspta=array("status"=>true,"msg"=>"Registro Ingresado Correctamente!");
         } else {

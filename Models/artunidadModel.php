@@ -91,7 +91,7 @@ class artunidadModel extends MySql{
         $this->Insert($sql,$arrData);
         return true;
       } catch (PDOException $e) {
-        return PDOError($e,'insert');
+        return PDOError($e,'update');
       }
     }
   }

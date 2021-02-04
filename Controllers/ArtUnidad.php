@@ -2,19 +2,26 @@
 class ArtUnidad extends Controllers{
 
   public function __construct(){
-    session_start();
-    ob_start();
-    if (!isset($_SESSION['sidusuario'])){
-      header("Location:".base_URL()."login");
-      session_unset();
-      session_destroy();
-    } 
-    ob_end_flush();     
     parent::__construct();
   }
 
    public function artunidad(){
-    $this->views->getView($this,"artunidad");
+    ob_start();
+    session_start();
+    if (!isset($_SESSION["sidusuario"])){
+      header("Location:".base_URL()."login");
+    } else {
+      if ($_SESSION['articulo']==1){     
+        $data['page_tag']="Unidad";
+        $data['page_title']=".:: Unidad ::.";
+        $data['page_name']="unidad";
+        $data['func']="functions_unidad.js";
+        $this->views->getView($this,"artunidad");
+      } else {
+        header("Location:".base_URL()."error403");
+      }
+    }
+    ob_end_flush();
   }
 
   public function MostrarUnidad(){
@@ -62,7 +69,7 @@ class ArtUnidad extends Controllers{
       $option=2;
     }
 
-    if($request==1){
+    if($request){
       if ($option==1) {
         $arrRspta=array("status"=>true,"msg"=>"Registro Ingresado Correctamente!");
       } else {

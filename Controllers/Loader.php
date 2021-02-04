@@ -6,7 +6,6 @@ class Loader extends Controllers{
   }
 
   public function loader(){
-
     $this->views->getView($this,"loader");
   }
 }

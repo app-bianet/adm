@@ -1,28 +1,27 @@
 <?php
 class TipoProveedor extends Controllers{
 
-  public function __construct(){
-    session_start();
-    ob_start();
-    if (!isset($_SESSION['sidusuario'])){
-      header("Location:".base_URL()."login");
-      session_unset();
-      session_destroy();
-    } else{
-      if($_SESSION['tipoproveedor']!=1)  {
-        header("Location:".base_URL()."error403");
-      } 
-    }
-    ob_end_flush();     
+  public function __construct(){ 
     parent::__construct();
   }
 
   public function tipoproveedor(){
-    $data['page_tag']="Tipo de Proveedor";
-    $data['page_title']=".:: Tipo de Proveedor ::.";
-    $data['page_name']="tipoproveedor";
-    $data['func']="functions_tipoproveedor.js";
-    $this->views->getView($this,"tipoproveedor",$data);
+    ob_start();
+    session_start();
+    if (!isset($_SESSION["sidusuario"])){
+      header("Location:".base_URL()."login");
+    } else {
+      if ($_SESSION['tipoproveedor']==1){     
+        $data['page_tag']="Tipos de Proveedor";
+        $data['page_title']=".:: Tipos de Proveedor ::.";
+        $data['page_name']="tipoproveedor";
+        $data['func']="functions_tipoproveedor.js";
+        $this->views->getView($this,"tipoproveedor",$data);
+      } else {
+        header("Location:".base_URL()."error403");
+      }
+    }
+    ob_end_flush();
   }
 
   public function Insertar(){
@@ -39,7 +38,7 @@ class TipoProveedor extends Controllers{
         $option=2;
       }
 
-      if($request==1){
+      if($request){
         if ($option==1) {
           $arrRspta=array("status"=>true,"msg"=>"Registro Ingresado Correctamente!");
         } else {

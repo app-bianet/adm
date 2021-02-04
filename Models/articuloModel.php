@@ -179,11 +179,7 @@
       $lastId = $this->Insert($sql, $arrData);
       return $lastId;
     } catch (PDOException $e) {
-      if ($e->getCode() == '23000') {
-        return 'duplicado';
-      } else {
-        return 'error_insert';
-      }
+      return PDOError($e,'insert');
       }
     }
 

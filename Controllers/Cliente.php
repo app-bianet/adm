@@ -1,30 +1,27 @@
 <?php
 class Cliente extends \Controllers{
 
-
-
-  public function __construct(){
-    session_start();
-    ob_start();
-    if (!isset($_SESSION['sidusuario'])){
-      header("Location:".base_URL()."login");
-      session_unset();
-      session_destroy();
-    } else{
-      if($_SESSION['cliente']!=1)  {
-        header("Location:".base_URL()."error403");
-      } 
-    }
-    ob_end_flush();     
+  public function __construct(){    
     parent::__construct();
   }
 
   public function cliente(){
-    $data['page_tag']="Cliente";
-    $data['page_title']=".:: Cliente ::.";
-    $data['page_name']="cliente";
-    $data['func']="functions_cliente.js";
-    $this->views->getView($this,"cliente",$data);
+    ob_start();
+    session_start();
+    if (!isset($_SESSION["sidusuario"])){
+      header("Location:".base_URL()."login");
+    } else {
+      if ($_SESSION['cliente']==1){     
+        $data['page_tag']="Clientes";
+        $data['page_title']=".:: Clientes ::.";
+        $data['page_name']="cliente";
+        $data['func']="functions_cliente.js";
+        $this->views->getView($this,"cliente",$data);
+      } else {
+        header("Location:".base_URL()."error403");
+      }
+    }
+    ob_end_flush();
   }
 
   public function Insertar(){
@@ -64,7 +61,7 @@ class Cliente extends \Controllers{
         $option=2;
       }
 
-      if($request==1){
+      if($request){
         if ($option==1) {
           $arrRspta=array("status"=>true,"msg"=>"Registro Ingresado Correctamente!");
         } else {

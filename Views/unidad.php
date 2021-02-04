@@ -4,7 +4,6 @@
       <div class="card">
       <div class="card-header">
         <span class="card-text" style="margin-right: 10px;"><b><?= $data['page_tag'];?></b></span>
-        <?= $_SESSION['sdesc_usuario']?> 
         <div class="btnhead card-tools">
           <button class="btn btn-sm btn-success btnm" id="btnAgregar"> Agregar <i class="fa fa-plus-circle"></i></button>
           <button class="btn btn-sm btn-primary btnm" id="btnReporte">Reporte <i class="fa fa-file"></i></button>

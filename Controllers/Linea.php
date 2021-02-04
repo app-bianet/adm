@@ -1,28 +1,27 @@
 <?php
 class Linea extends Controllers{
 
-  public function __construct(){
-    session_start();
-    ob_start();
-    if (!isset($_SESSION['sidusuario'])){
-      header("Location:".base_URL()."login");
-      session_unset();
-      session_destroy();
-    } else{
-      if($_SESSION['linea']!=1)  {
-        header("Location:".base_URL()."error403");
-      } 
-    }
-    ob_end_flush();     
+  public function __construct(){    
     parent::__construct();
   }
 
   public function linea(){
-    $data['page_tag']="Linea";
-    $data['page_title']=".:: Linea ::.";
-    $data['page_name']="linea";
-    $data['func']="functions_linea.js";
-    $this->views->getView($this,"linea",$data);
+    ob_start();
+    session_start();
+    if (!isset($_SESSION["sidusuario"])){
+      header("Location:".base_URL()."login");
+    } else {
+      if ($_SESSION['linea']==1){     
+        $data['page_tag']="Líneas";
+        $data['page_title']=".:: Lineas ::.";
+        $data['page_name']="linea";
+        $data['func']="functions_linea.js";
+        $this->views->getView($this,"linea",$data);
+      } else {
+        header("Location:".base_URL()."error403");
+      }
+    }
+    ob_end_flush();
   }
 
   public function Insertar(){
@@ -32,7 +31,7 @@ class Linea extends Controllers{
       $cod_linea=isset($_POST["cod_linea"])? limpiarCadena($_POST["cod_linea"]):"";
       $desc_linea=isset($_POST["desc_linea"])? limpiarCadena($_POST["desc_linea"]):"";
 
-      if ($idlinea==0) {
+      if (empty($idlinea)) {
         $request=$this->model->InsertDt($idcategoria,$cod_linea,$desc_linea);
         $option=1;
       } else {
@@ -40,7 +39,7 @@ class Linea extends Controllers{
         $option=2;
       }
 
-      if($request==1){
+      if($request){
         if ($option==1) {
           $arrRspta=array("status"=>true,"msg"=>"Registro Ingresado Correctamente!");
         } else {
