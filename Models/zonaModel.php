@@ -44,7 +44,6 @@
       $this->Cod_zona=$cod_zona;
       $this->Desc_zona=$desc_zona;
       $this->Estatus='1';
-
       try{  
         $queryInsert="INSERT INTO tbzona(cod_zona, desc_zona,estatus) VALUES(?,?,?)";
         $arrData=array($this->Cod_zona,$this->Desc_zona,$this->Estatus);
@@ -79,8 +78,6 @@
         return $returnData;
       } catch (PDOException $e) {
         return PDOError($e,'delete');
-      }
-      
+      }   
     }
-
   }

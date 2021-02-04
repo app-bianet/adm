@@ -20,20 +20,20 @@
         <form name="tableForm" id="tableForm">
           <table id="tbdetalle" class="table table-bordered table-hover table-sm table-striped display nowrap" style="width:100%">
             <thead class="bg-blue">
-              <th style="width:120px" class="text-center nd">Opciones</th>
+              <th style="width:120px" class="text-center">Opciones</th>
               <th style="width:150px" class="text-center">Código</th>
               <th class="text-center">Descripción</th>
               <th class="text-center">Operación</th>
               <th class="text-center" style="width:100px;">Tabla</th>
-              <th class="text-center nd" style="width:50px;">Prefijo</th>  
-              <th class="text-center nd" style="width:50px;">Cadena</th>
-              <th class="text-center nd" style="width:50px;font-size:12px">Correlativo</th>
-              <th class="text-center nd" style="width:50px;">Largo</th>
-              <th style="width:80px" class="text-center nd">
+              <th class="text-center" style="width:50px;">Prefijo</th>  
+              <th class="text-center" style="width:50px;">Cadena</th>
+              <th class="text-center" style="width:50px;font-size:12px">Correlativo</th>
+              <th class="text-center" style="width:50px;">Largo</th>
+              <th style="width:80px" class="text-center">
               <button type="button" class="btn btn-xs btn-danger btnEliminar" 
               data-toggle="tooltip" data-placement="right" title="Eliminar">Eliminar</button>
               </th>
-              <th style="width:100px" class="text-center nd">Estado</th>
+              <th style="width:100px" class="text-center">Estado</th>
             </thead>      
           </table>
         </form>

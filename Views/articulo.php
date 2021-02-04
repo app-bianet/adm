@@ -20,17 +20,16 @@
         <form name="tableForm" id="tableForm">
           <table id="tbdetalle" class="table table-bordered table-hover compact table-sm table-striped" style="width:100% !important;">
           <thead class="bg-blue">
-            <th style="width:150px" class="text-center nd">Opciones</th>
+            <th style="width:150px" class="text-center">Opciones</th>
             <th style="width:150px" class="text-center">Código</th>
             <th class="text-center">Descripción</th>
             <th style="width:200px" class="text-center">Categoría</th>
             <th style="width:150px" class="text-center">Referencia</th>
             <th style="width:150px" class="text-center">Stock</th>
-            <th style="width:80px" class="text-center nd">
-            <button type="button" class="btn btn-xs btn-danger btnEliminar" 
-            data-toggle="tooltip" data-placement="right" title="Eliminar">Eliminar</button>
+            <th style="width:80px" class="text-center">
+            <button type="button" class="btn btn-xs btn-danger btnEliminar">Eliminar</button>
             </th>
-            <th style="width:100px" class="text-center nd">Estado</th>
+            <th style="width:100px" class="text-center">Estado</th>
           </thead>      
         </table>
         </form>
@@ -259,9 +258,9 @@
                               <table id="tblListadoDep" class="table table-bordered 
                                 table-hover compact table-sm table-striped paneltb" style="width:100%">
                                 <thead class="bg-gray">
-                                  <th style="width:10%" class="text-center nd">Reng</th>
+                                  <th style="width:10%" class="text-center">Reng</th>
                                   <th style="width:65%"class="nd text-center">Deposito</th>
-                                  <th style="width:25%" class="text-center nd">Stock</th>
+                                  <th style="width:25%" class="text-center">Stock</th>
                                 </thead>
                               </table>
                             </div>

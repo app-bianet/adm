@@ -35,11 +35,6 @@ function ListarTabla() {
             aServerSide: true, //Paginación y filtrado realizados por el servidor
             dom: "Bfrtilp", //Definimos los elementos del control de tabla
             columnDefs: [{
-                targets: "nd", //clase para definir las columnas a tratar
-                orderable: false, //Definimos no ordenar por esta columna
-                searchable: false, //Definimos no buscar por esta columna
-            }, ],
-            columnDefs: [{
                     targets: 0, // Tu primera columna
                     width: "100px",
                     className: "text-center",
@@ -214,7 +209,7 @@ function InsertarEditar() {
         form = document.querySelector("#dataForm");
         let strCampo = document.querySelectorAll("#cod_moneda,#desc_moneda");
 
-        if (empty(strCampo[0].value) && empty(strCampo[1].value)) {
+        if (empty(strCampo[0].value && strCampo[1].value)) {
             Swal.fire({
                 icon: "info",
                 title: 'Atención!',

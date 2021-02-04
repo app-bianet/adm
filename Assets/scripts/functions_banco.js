@@ -211,7 +211,7 @@ function InsertarEditar() {
         form = document.querySelector("#dataForm");
         let strCampo = document.querySelectorAll("#cod_banco,#desc_banco");
 
-        if (empty(strCampo[0].value) && empty(strCampo[1].value)) {
+        if (empty(strCampo[0].value && strCampo[1].value)) {
             Swal.fire({
                 icon: "info",
                 title: "Atención!",

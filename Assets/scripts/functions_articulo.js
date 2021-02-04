@@ -177,11 +177,6 @@ function ListarTabla() {
             aProcessing: true, //Activamos el procesamiento del datatables
             aServerSide: true, //Paginación y filtrado realizados por el servidor
             dom: "Bfrtilp", //Definimos los elementos del control de tabla
-            columnDefs: [{
-                targets: "nd", //clase para definir las columnas a tratar
-                orderable: false, //Definimos no ordenar por esta columna
-                searchable: false, //Definimos no buscar por esta columna
-            }, ],
             buttons: [{
                     extend: "excelHtml5",
                     text: '<i class="fa fa-file-excel"></i> Excel ',
@@ -345,9 +340,9 @@ function InsertarEditar() {
     document.addEventListener('submit', function(e) {
         e.preventDefault();
         form = document.querySelector("#dataForm");
-        let strCampo = document.querySelectorAll("#cod_articulo,#desc_articulo");
+        let strCampo = document.querySelectorAll("#cod_articulo,#desc_articulo,#fechareg");
 
-        if (empty(strCampo[0].value) && empty(strCampo[1].value)) {
+        if (empty(strCampo[0].value && strCampo[1].value && strCampo[3].value)) {
             Swal.fire({
                 icon: "info",
                 title: 'Atención!',

@@ -11,9 +11,9 @@ class Banco extends Controllers{
         if (!isset($_SESSION["sidusuario"])){
           header("Location:".base_URL()."login");
         } else {
-          if ($_SESSION['banco']==1){  
-          $data['page_tag']="Banco";
-          $data['page_title']=".:: Banco ::.";
+          if ($_SESSION['bancop']==1){  
+          $data['page_tag']="Bancos";
+          $data['page_title']=".:: Bancos ::.";
           $data['page_name']="banco";
           $data['func']="functions_banco.js";
           $this->views->getView($this,"banco",$data);

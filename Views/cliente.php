@@ -33,8 +33,7 @@
             <th style="width:130px" class="text-center">Limite</th>
             <th style="width:150px" class="text-center">Saldo</th>
             <th style="width:80px" class="text-center">
-            <button type="button" class="btn btn-xs btn-danger btnEliminar" 
-            data-toggle="tooltip" data-placement="right" title="Eliminar">Eliminar</button>
+            <button type="button" class="btn btn-xs btn-danger btnEliminar">Eliminar</button>
             </th>
             <th style="width:100px" class="text-center">Estado</th>
           </thead>      
@@ -115,13 +114,13 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text small">Ciudad: </span>
                 </div>  
-                <input type="textc" id="ciudad" name="ciudad" 
+                <input type="text" id="ciudad" name="ciudad" 
                 class="form-control" placeholder="Ciudad">
               </div>
             </div>
             <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
               <div class="input-group">  
-                <input type="textc" id="codpostal" name="codpostal" 
+                <input type="text" id="codpostal" name="codpostal" 
                 class="form-control" placeholder="Codigo Postal">
               </div>
             </div>
@@ -138,19 +137,19 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text small">Contacto: </span>
                 </div>  
-                <input type="textc" id="contacto" name="contacto" 
+                <input type="text" id="contacto" name="contacto" 
                 class="form-control" placeholder="Persona de Contacto">
               </div>
             </div>
             <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
               <div class="input-group">  
-                <input type="textc" id="telefono" name="telefono" 
+                <input type="text" id="telefono" name="telefono" 
                 class="form-control" placeholder="Teléfono">
               </div>
             </div>
             <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
               <div class="input-group">  
-                <input type="textc" id="movil" name="movil" 
+                <input type="text" id="movil" name="movil" 
                 class="form-control" placeholder="Teléfono Movil">
               </div>
             </div>
@@ -159,7 +158,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text small">Email: </span>
                 </div>  
-                <input type="textc" id="email" name="email" 
+                <input type="text" id="email" name="email" 
                 class="form-control" placeholder="Persona de Contacto">
               </div>
             </div>
@@ -168,7 +167,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text small">Web: </span>
                 </div>  
-                <input type="textc" id="web" name="web" 
+                <input type="text" id="web" name="web" 
                 class="form-control" placeholder="Página Web">
               </div>
             </div>

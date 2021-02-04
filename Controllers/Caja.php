@@ -1,22 +1,22 @@
 <?php
-class CondPago extends Controllers{
+class Caja extends Controllers{
 
-  public function __construct(){    
+  public function __construct(){   
     parent::__construct();
   }
 
-  public function condpago(){
+  public function caja(){
     ob_start();
     session_start();
     if (!isset($_SESSION["sidusuario"])){
       header("Location:".base_URL()."login");
     } else {
-      if ($_SESSION['condpago']==1){     
-        $data['page_tag']="Condiciones de Pago";
-        $data['page_title']=".:: Cond. de Pago ::.";
-        $data['page_name']="condpago";
-        $data['func']="functions_condpago.js";
-        $this->views->getView($this,"condpago",$data);
+      if ($_SESSION['caja']==1){     
+        $data['page_tag']="Cajas";
+        $data['page_title']=".:: Cajas ::.";
+        $data['page_name']="caja";
+        $data['func']="functions_caja.js";
+        $this->views->getView($this,"caja",$data);
       } else {
         header("Location:".base_URL()."error403");
       }
@@ -26,16 +26,17 @@ class CondPago extends Controllers{
 
   public function Insertar(){
     if(isset($_POST["security"])){
-      $idcondpago=isset($_POST["idcondpago"])? limpiarCadena($_POST["idcondpago"]):"";
-      $cod_condpago=isset($_POST["cod_condpago"])? limpiarCadena($_POST["cod_condpago"]):"";
-      $desc_condpago=isset($_POST["desc_condpago"])? limpiarCadena($_POST["desc_condpago"]):"";
-      $dias=isset($_POST["dias"])? limpiarCadena($_POST["dias"]):"";
+      $idcaja=isset($_POST["idcaja"])? limpiarCadena($_POST["idcaja"]):"";
+      $idmoneda=isset($_POST["idmoneda"])? limpiarCadena($_POST["idmoneda"]):"";
+      $cod_caja=isset($_POST["cod_caja"])? limpiarCadena($_POST["cod_caja"]):"";
+      $desc_caja=isset($_POST["desc_caja"])? limpiarCadena($_POST["desc_caja"]):"";
+      $fechareg=isset($_POST["fechareg"])? limpiarCadena($_POST["fechareg"]):"";
 
-      if (empty($idcondpago)) {
-        $request=$this->model->InsertDt($cod_condpago,$desc_condpago,$dias);
+      if (empty($idcaja)) {
+        $request=$this->model->InsertDt($idmoneda,$cod_caja,$desc_caja,formatDate($fechareg));
         $option=1;
       } else {
-        $request=$this->model->EditarDt($idcondpago,$cod_condpago,$desc_condpago,$dias);
+        $request=$this->model->EditarDt($idcaja,$idmoneda,$cod_caja,$desc_caja,formatDate($fechareg));
         $option=2;
       }
 
@@ -46,13 +47,12 @@ class CondPago extends Controllers{
           $arrRspta=array("status"=>true,"msg"=>"Registro Actualizado Correctamente!");
         }
       } else if ($request=="1062"){
-        $arrRspta=array("status"=>false,"msg"=>"El Código <b>".$cod_condpago."</b> ya se encuentra Registrado! 
+        $arrRspta=array("status"=>false,"msg"=>"El Código <b>".$cod_caja."</b> ya se encuentra Registrado! 
         <br>No es posible ingresar <b>Registros Duplicados!</b>");
       } else {
         $arrRspta=array("status"=>false,"msg"=>$request);
       }
-    echo json_encode($arrRspta,JSON_UNESCAPED_UNICODE);
-      
+      echo json_encode($arrRspta,JSON_UNESCAPED_UNICODE);    
     } else{
       header("Location:".base_URL()."Error404");
     }
@@ -64,8 +64,8 @@ class CondPago extends Controllers{
       if (empty($_POST['eliminar_reg'])) {
         $arrRspta = array("status" => false, "msg" => "No Seleccionó ningún Registro para Eliminar!");
       } else {
-        $idcondpago = $_POST['eliminar_reg'];
-        foreach ($idcondpago as $valor) {
+        $idcaja = $_POST['eliminar_reg'];
+        foreach ($idcaja as $valor) {
           $request = $this->model->EliminarDt($valor);
         }
         if ($request == 1) {
@@ -83,10 +83,10 @@ class CondPago extends Controllers{
   }
 
   public function Mostrar(){
-    if (isset($_POST['idcondpago'])) {
-      $idcondpago=limpiarCadena($_POST['idcondpago']);
-      if ($idcondpago>0) {
-        $arrData=$this->model->ShowDt($idcondpago);
+    if (isset($_POST['idcaja'])) {
+      $idcaja=intval(limpiarCadena($_POST['idcaja']));
+      if ($idcaja>0) {
+        $arrData=$this->model->ShowDt($idcaja);
         if (empty($arrData)) {
           $arrRspta=array('status'=>false,'msg'=>'No Existen Registros!');
         } else {
@@ -101,10 +101,10 @@ class CondPago extends Controllers{
   }
 
   public function Activar(){
-    if (isset($_POST['idcondpago'])) {
-      $idcondpago=intval(limpiarCadena($_POST['idcondpago']));
+    if (isset($_POST['idcaja'])) {
+      $idcaja=intval(limpiarCadena($_POST['idcaja']));
       $estatus=intval(1);
-      $request=$this->model->EstatusDt($idcondpago,$estatus);
+      $request=$this->model->EstatusDt($idcaja,$estatus);
         if($request>0){
           $arrRspta=array("status"=>true,"msg"=>"Registro Activado Correctamente!");
         }else {
@@ -114,15 +114,14 @@ class CondPago extends Controllers{
     } else{
       header("Location:".base_URL()."Error404");
     }
-    die(); 
-
+    die();
   }
 
   public function Desactivar(){
-    if (isset($_POST['idcondpago'])) {
-      $idcondpago=intval(limpiarCadena($_POST['idcondpago']));
+    if (isset($_POST['idcaja'])) {
+      $idcaja=intval(limpiarCadena($_POST['idcaja']));
       $estatus=intval(0);
-      $request=$this->model->EstatusDt($idcondpago,$estatus);
+      $request=$this->model->EstatusDt($idcaja,$estatus);
         if($request>0){
           $arrRspta=array("status"=>true,"msg"=>"Registro Desctivado Correctamente!");
         }else {
@@ -144,40 +143,43 @@ class CondPago extends Controllers{
         if($arrData[$i]['estatus']==1){
           $arrData[$i]['estatus']='<small class="badge badge-success">Activo</small>';
           $arrData[$i]['opciones']=
-        '<small '.$al.'center'.$w.'100px;" class="small btn-group">
-        <button type="button" class="btn btn-primary btn-xs" onclick="mostrar('.$arrData[$i]['idcondpago'].')" data-toggle="tooltip" data-placement="right" title="Editar"><i class="fa fa-pencil"></i></button>'.
-        '<button type="button" class="btn btn-success btn-xs" onclick="desactivar('.$arrData[$i]['idcondpago'].')" data-toggle="tooltip" data-placement="right" title="Desactivar"><i class="fa fa-check"></i></button>
-        </small>';
+          '<small '.$al.'center'.$w.'100px;" class="small btn-group">
+          <button type="button" class="btn btn-primary btn-xs" onclick="mostrar('.$arrData[$i]['idcaja'].')" data-toggle="tooltip" data-placement="right" title="Editar"><i class="fa fa-pencil"></i></button>
+          <button type="button" class="btn btn-success btn-xs" onclick="desactivar('.$arrData[$i]['idcaja'].')" data-toggle="tooltip" data-placement="right" title="Desactivar"><i class="fa fa-check"></i></button>
+          </small>';
         } else {
           $arrData[$i]['estatus']='<small class="badge badge-danger">Inactivo</small>';
           $arrData[$i]['opciones']=
-          '<small '.$al.'center'.$w.'100px;" class="small btn-group">
-          <button type="button" class="btn btn-primary btn-xs" onclick="mostrar('.$arrData[$i]['idcondpago'].')" data-toggle="tooltip" data-placement="right" title="Editar"><i class="fa fa-pencil"></i></button>'.
-          '<button type="button" class="btn btn-warning btn-xs" onclick="activar('.$arrData[$i]['idcondpago'].')" data-toggle="tooltip" data-placement="right" title="Activar"><i class="fa fa-exclamation-triangle"></i></button>
+          '<h6 '.$al.'center'.$w.'100px;" class="small btn-group">
+          <button type="button" class="btn btn-primary btn-xs" onclick="mostrar('.$arrData[$i]['idcaja'].')" data-toggle="tooltip" data-placement="right" title="Editar"><i class="fa fa-pencil"></i></button>
+          <button type="button" class="btn btn-warning btn-xs" onclick="activar('.$arrData[$i]['idcaja'].')" data-toggle="tooltip" data-placement="right" title="Activar"><i class="fa fa-exclamation-triangle"></i></button>
           </small>';   
         }
-        $arrData[$i]['cod_condpago']='<h6>'.$arrData[$i]['cod_condpago'].'</h6>';
-        $arrData[$i]['desc_condpago']='<h6>'.$arrData[$i]['desc_condpago'].'</h6>';
-        $arrData[$i]['dias']='<h6>'.$arrData[$i]['dias'].'</h6>';
-        $arrData[$i]['eliminar']='<input type="checkbox" name="eliminar_reg[]" value="'.$arrData[$i]['idcondpago'].'">';
+        $arrData[$i]['cod_caja']='<h6>'.$arrData[$i]['cod_caja'].'</h6>';
+        $arrData[$i]['desc_caja']='<h6>'.$arrData[$i]['desc_caja'].'</h6>';
+        $arrData[$i]['moneda']='<h6>'.$arrData[$i]['simbolo'].'</h6>';
+        $arrData[$i]['saldototal']='<h6>'.formatMoneyP($arrData[$i]['saldototal'],2).'</h6>';
+        $arrData[$i]['eliminar']='<input type="checkbox" name="eliminar_reg[]" value="'.$arrData[$i]['idcaja'].'">';
       }
       echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
       die();
     } else{
       header("Location:".base_URL()."Error403");
     }
-
   }
 
   public function Selectpicker(){
     if (isset($_POST["security"])) {
       $arrData=$this->model->ListDt();
-      for ($i=0; $i<count($arrData);$i++) { 
-        echo '<option value="'.$arrData[$i]['idcondpago'].'">'.$arrData[$i]['cod_condpago'].'-'.$arrData[$i]['desc_condpago'].'</option>';
+      if ($arrData) {
+        for ($i=0; $i<count($arrData);$i++) { 
+          echo '<option value="'.$arrData[$i]['idcaja'].'">'.$arrData[$i]['cod_caja'].'-'.$arrData[$i]['desc_caja'].'</option>';
+        }
+      } else {
+        echo '<option readonly>No Existen Registros!</option>';
       }
     } else {
       header("Location:".base_URL()."Error403");
     }
   }
-  
 }

@@ -199,8 +199,7 @@ function InsertarEditar() {
         form = document.querySelector("#dataForm");
         let strCampo = document.querySelectorAll("#cod_correlativo,#desc_correlativo,#cadena,#cod_num,#largo,#tabla");
 
-        if (empty(strCampo[0].value) && empty(strCampo[1].value) && empty(strCampo[2].value) &&
-            empty(strCampo[3].value) && empty(strCampo[4].value) && empty(strCampo[5].value)) {
+        if (empty(strCampo[0].value && strCampo[1].value && strCampo[2].value && strCampo[3].value && strCampo[4].value && strCampo[5].value)) {
             Swal.fire({
                 icon: "info",
                 title: 'Atención!',

@@ -161,6 +161,13 @@ function Operacion(operacion) {
             $("#btnGuardar,#btnCancelar,.chk").attr("disabled", false);
             $("#btnEditar").attr("disabled", true);
             $("input[type=text],input[type=textc]").val("").attr("readonly", false);
+            $(".ffecha").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                showWeek: true,
+                autoclose: "false",
+                format: "dd/mm/yyyy"
+              }).datepicker("setDate", new Date());
             EventoCheckBox();
             MostrarForm(true);
             break;
@@ -209,7 +216,7 @@ function InsertarEditar() {
         form = document.querySelector("#dataForm");
         let strCampo = document.querySelectorAll("#cod_deposito,#desc_deposito");
 
-        if (empty(strCampo[0].value) && empty(strCampo[1].value)) {
+        if (empty(strCampo[0].value && strCampo[1].value)) {
             Swal.fire({
                 icon: "info",
                 title: 'Atención!',

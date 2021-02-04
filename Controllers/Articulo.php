@@ -241,9 +241,9 @@ class Articulo extends Controllers{
     $totalst=0;
     $data = array();
     echo '<thead class="bg-gray">
-      <th style="width:10%" class="text-center nd">Reng</th>
+      <th style="width:10%" class="text-center">Reng</th>
       <th style="width:65%"class="nd text-center">Deposito</th>
-      <th style="width:15%" class="text-center nd">Stock</th>
+      <th style="width:15%" class="text-center">Stock</th>
       </thead>';
       foreach ($arrData as $row) {
         $data[] =

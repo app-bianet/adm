@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
   InsertarEditar();
   eliminar();
   Nuevo();
+  SelecOp();
 
   $("input.filtro_buscar").on("keyup click", function () {
     filterGlobal();
@@ -15,18 +16,12 @@ document.addEventListener("DOMContentLoaded", function () {
   $("input.column_filter").on("keyup click", function () {
     filterColumn($(this).parents("tr").attr("data-column"));
   });
-
-  $("#idimpuestozh").on("change", function () {
-    SelectImp($("#idimpuestozh").val());
-    ListarTabla($("#idimpuestozh").val());
-  });
 });
 
-function SelecP() {
+function SelecOp() {
   let formData = new FormData();
   formData.append("security", "listar");
-
-  let ajaxUrl = url_base + "/Selectpicker";
+  let ajaxUrl = url_baseL + "Impuestoz/Selectpicker";
   fetch(ajaxUrl, {
     method: "POST",
     body: formData,
@@ -36,47 +31,28 @@ function SelecP() {
       console.error("Error:", error);
     })
     .then((resp) => {
-      $("#idimpuestozh").html(resp);
-      SelectImp($("#idimpuestozh").val());
-      ListarTabla($("#idimpuestozh").val());
+      $("#idimpuestoz").html(resp);
     });
 }
 
-function SelectImp(id) {
-  let formData = new FormData();
-  formData.append("idimpuestoz", id);
-  let ajaxUrl = url_base + "/Mostrar";
-  fetch(ajaxUrl, {
-    method: "POST",
-    body: formData,
-  })
-    .then((response) => response.json())
-    .catch((error) => {
-      console.error("Error:", error);
-    })
-    .then((resp) => {
-      $("#cod_impuestoz").val(resp.cod_impuestoz);
-    });
-}
-
-function ListarTabla(id) {
+function ListarTabla() {
   //#region
   tabla = $("#tbdetalle")
     .dataTable({
       language: language_dt(),
       aProcessing: true, //Activamos el procesamiento del datatables
       aServerSide: true, //Paginación y filtrado realizados por el servidor
-      dom: "frtilp", //Definimos los elementos del control de tabla
+      dom: "Bfrtilp", //Definimos los elementos del control de tabla
       columnDefs: [
         {
           targets: 0, // Tu primera columna
-          width: "60px",
+          width: "100px",
           className: "text-center",
           orderable: false,
         },
         {
           targets: 1,
-          width: "100px",
+          width: "120px",
           className: "text-center",
         },
         {
@@ -85,35 +61,60 @@ function ListarTabla(id) {
         },
         {
           targets: 3,
-          width: "50px",
-          className: "text-right",
-        },
-        {
-          targets: [4, 5],
           width: "100px",
+        },
+        {
+          targets: 4,
+          width: "120px",
           className: "text-right",
         },
         {
-          targets: 6,
+          targets: [5, 6],
           width: "50px",
           className: "text-center",
           orderable: false,
         },
       ],
+      buttons: [
+        {
+          extend: "excelHtml5",
+          text: '<i class="fa fa-file-excel"></i> Excel ',
+          titleAttr: "Exportar a Excel",
+          className: "btn btnx btn-sm btn-success",
+          exportOptions: { columns: [1, 2, 3, 4, 6] },
+        },
+        {
+          extend: "csvHtml5",
+          text: '<i class="fa fa-file-archive"></i> CSV ',
+          titleAttr: "Exportar a Texto",
+          className: "btn btnx btn-sm btn-info",
+          exportOptions: { columns: [1, 2, 3, 4, 6] },
+        },
+        {
+          extend: "pdf",
+          text: '<i class="fa fa-file-pdf"></i> PDF ',
+          titleAttr: "Exportar a PDF",
+          className: "btn btnx btn-sm btn-danger",
+          exportOptions: { columns: [1, 2, 3, 4, 6] },
+        },
+      ],
       ajax: {
         url: url_base + "/Listar",
         method: "POST", //usamos el metodo POST
-        data: { id: id },
+        data: { security: "listar" },
         dataSrc: "",
+        error: function (e) {
+          console.log(e);
+        },
       },
       columns: [
         { data: "opciones" },
-        { data: "cod_concepto" },
-        { data: "desc_concepto" },
-        { data: "base" },
-        { data: "retencion" },
-        { data: "sustraendo" },
+        { data: "cod_beneficiario" },
+        { data: "desc_beneficiario" },
+        { data: "rif" },
+        { data: "saldo" },
         { data: "eliminar" },
+        { data: "estatus" },
       ],
       scrollY: "44.5vh",
       responsive: true,
@@ -129,6 +130,7 @@ function ListarTabla(id) {
     })
     .css("width", "100% !important");
   $("div.dataTables_filter").css("display", "none");
+  $("div.dt-buttons").prependTo("div.input-group.search");
   //#endregion
 }
 
@@ -161,14 +163,23 @@ function Editar() {
 function Operacion(operacion) {
   switch (operacion) {
     case "listar":
-      SelecP();
+      ListarTabla();
       MostrarForm(false);
       break;
 
     case "nuevo":
-      $("#btnGuardar,#btnCancelar").attr("disabled", false);
+      $("#btnGuardar,#btnCancelar,select").attr("disabled", false);
       $("#btnEditar").attr("disabled", true);
       $("input[type=text],input[type=textc]").val("").attr("readonly", false);
+      $(".ffecha")
+        .datepicker({
+          changeMonth: true,
+          changeYear: true,
+          showWeek: true,
+          autoclose: "false",
+          format: "dd/mm/yyyy",
+        })
+        .datepicker("setDate", new Date());
       MostrarForm(true);
       break;
 
@@ -176,14 +187,14 @@ function Operacion(operacion) {
       $('[data-toggle="tooltip"]').tooltip();
       $("input[type=text],input[type=textc]").attr("readonly", true);
       $("#btnEditar,#btnCancelar").attr("disabled", false);
-      $("#btnGuardar").attr("disabled", true);
+      $("#btnGuardar,select").attr("disabled", true);
       MostrarForm(true);
       break;
 
     case "editar":
       $("input[type=text],input[type=textc]").attr("readonly", false);
       $("#btnEditar").attr("disabled", true);
-      $("#btnGuardar,#btnCancelar").attr("disabled", false);
+      $("#btnGuardar,#btnCancelar,select").attr("disabled", false);
       break;
 
     case "cancelar":
@@ -213,9 +224,10 @@ function InsertarEditar() {
   document.addEventListener("submit", function (e) {
     e.preventDefault();
     form = document.querySelector("#dataForm");
-    let strCampo = document.querySelectorAll("#cod_impuestoz,#desc_impuestoz");
+    let strCampo = document.querySelectorAll(
+      "#cod_beneficiario,#desc_beneficiario,#rif,#fechareg");
 
-    if (empty(strCampo[0].value && strCampo[1].value)) {
+    if (empty(strCampo[0].value && strCampo[1].value && strCampo[2].value && strCampo[3].value)) {
       Swal.fire({
         icon: "info",
         title: "Atención!",
@@ -266,11 +278,11 @@ function InsertarEditar() {
 }
 
 //Función para Mostrar registros
-function mostrar(idimpuestozd) {
+function mostrar(idbeneficiario) {
   const form = document.querySelector("#dataForm");
   let dataset = new FormData(form);
-  dataset.append("id", idimpuestozd);
-  let urlAjax = url_base + "/MostrarDt";
+  dataset.append("idbeneficiario", idbeneficiario);
+  let urlAjax = url_base + "/Mostrar";
   fetch(urlAjax, {
     method: "POST",
     body: dataset,
@@ -288,12 +300,12 @@ function mostrar(idimpuestozd) {
 }
 
 //Función para Activar registros
-function activar(idimpuestoz) {
+function activar(idbeneficiario) {
   msgOpcion("¿Desea <b>Activar</b> el Registro?", "warning").then((result) => {
     if (result.isConfirmed) {
       const form = document.querySelector("#dataForm");
       let dataset = new FormData(form);
-      dataset.append("idimpuestoz", idimpuestoz);
+      dataset.append("idbeneficiario", idbeneficiario);
       let urlAjax = url_base + "/Activar";
       fetch(urlAjax, {
         method: "POST",
@@ -337,13 +349,13 @@ function activar(idimpuestoz) {
 }
 
 //Función para Desactivar registros
-function desactivar(idimpuestoz) {
+function desactivar(idbeneficiario) {
   msgOpcion("¿Desea <b>Desactivar</b> el Registro?", "warning").then(
     (result) => {
       if (result.isConfirmed) {
         const form = document.querySelector("#dataForm");
         let dataset = new FormData(form);
-        dataset.append("idimpuestoz", idimpuestoz);
+        dataset.append("idbeneficiario", idbeneficiario);
         let urlAjax = url_base + "/Desactivar";
         fetch(urlAjax, {
           method: "POST",

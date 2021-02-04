@@ -1,7 +1,7 @@
 let tabla;
 let proceso;
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     proceso = "listar";
     Operacion(proceso);
     InsertarEditar();
@@ -9,15 +9,15 @@ document.addEventListener("DOMContentLoaded", function() {
     Nuevo();
     SelecOp();
 
-    $("input.filtro_buscar").on("keyup click", function() {
+    $("input.filtro_buscar").on("keyup click", function () {
         filterGlobal();
     });
 
-    $("input.column_filter").on("keyup click", function() {
+    $("input.column_filter").on("keyup click", function () {
         filterColumn($(this).parents("tr").attr("data-column"));
     });
 
-    $("#cod_cliente").change(function() {
+    $("#cod_cliente").change(function () {
         $("#rif").val("J-" + $("#cod_cliente").val());
     });
 });
@@ -26,11 +26,11 @@ function SelecOp() {
     let formData = new FormData();
     formData.append("security", "listar");
 
-    let ajaxUrl1 = url_baseL + "TipoProveedor/Selectpicker";
+    let ajaxUrl1 = url_baseL + "TipoCliente/Selectpicker";
     fetch(ajaxUrl1, {
-            method: "POST",
-            body: formData,
-        })
+        method: "POST",
+        body: formData,
+    })
         .then((response) => response.text())
         .catch((error) => {
             console.error("Error:", error);
@@ -42,9 +42,9 @@ function SelecOp() {
     formData.append("op", "Venta");
     let ajaxUrl2 = url_baseL + "Operacion/Selectpicker";
     fetch(ajaxUrl2, {
-            method: "POST",
-            body: formData,
-        })
+        method: "POST",
+        body: formData,
+    })
         .then((response) => response.text())
         .catch((error) => {
             console.error("Error:", error);
@@ -55,9 +55,9 @@ function SelecOp() {
 
     let ajaxUrl3 = url_baseL + "Impuestoz/Selectpicker";
     fetch(ajaxUrl3, {
-            method: "POST",
-            body: formData,
-        })
+        method: "POST",
+        body: formData,
+    })
         .then((response) => response.text())
         .catch((error) => {
             console.error("Error:", error);
@@ -68,9 +68,9 @@ function SelecOp() {
 
     let ajaxUrl4 = url_baseL + "Zona/Selectpicker";
     fetch(ajaxUrl4, {
-            method: "POST",
-            body: formData,
-        })
+        method: "POST",
+        body: formData,
+    })
         .then((response) => response.text())
         .catch((error) => {
             console.error("Error:", error);
@@ -81,9 +81,9 @@ function SelecOp() {
 
     let ajaxUrl5 = url_baseL + "CondPago/Selectpicker";
     fetch(ajaxUrl5, {
-            method: "POST",
-            body: formData,
-        })
+        method: "POST",
+        body: formData,
+    })
         .then((response) => response.text())
         .catch((error) => {
             console.error("Error:", error);
@@ -93,9 +93,9 @@ function SelecOp() {
         });
 
     fetch(url_baseL + "Vendedor/Selectpicker", {
-            method: "POST",
-            body: formData,
-        })
+        method: "POST",
+        body: formData,
+    })
         .then((response) => response.text())
         .catch((error) => {
             console.error("Error:", error);
@@ -114,53 +114,53 @@ function ListarTabla() {
             aServerSide: true, //Paginación y filtrado realizados por el servidor
             dom: "Bfrtilp", //Definimos los elementos del control de tabla
             columnDefs: [{
-                    targets: 0, // Tu primera columna
-                    width: "110px",
-                    className: "text-center",
-                },
-                {
-                    targets: [5, 6, 7, 8, 9, 10],
-                    orderable: false,
-                    visible: false,
-                },
-                {
-                    targets: [0, 12, 13],
-                    orderable: false,
-                },
-                {
-                    targets: [12, 13], // Tu primera columna
-                    width: "8%",
-                    className: "text-center",
-                },
+                targets: 0, // Tu primera columna
+                width: "110px",
+                className: "text-center",
+            },
+            {
+                targets: [5, 6, 7, 8, 9, 10],
+                orderable: false,
+                visible: false,
+            },
+            {
+                targets: [0, 12, 13],
+                orderable: false,
+            },
+            {
+                targets: [12, 13], // Tu primera columna
+                width: "8%",
+                className: "text-center",
+            },
             ],
             buttons: [{
-                    extend: "excelHtml5",
-                    text: '<i class="fa fa-file-excel"></i> Excel ',
-                    titleAttr: "Exportar a Excel",
-                    className: "btn btnx btn-sm btn-success",
-                    exportOptions: { columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13] },
-                },
-                {
-                    extend: "csvHtml5",
-                    text: '<i class="fa fa-file-archive"></i> CSV ',
-                    titleAttr: "Exportar a Texto",
-                    className: "btn btnx btn-sm btn-info",
-                    exportOptions: { columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13] },
-                },
-                {
-                    extend: "pdf",
-                    text: '<i class="fa fa-file-pdf"></i> PDF ',
-                    titleAttr: "Exportar a PDF",
-                    className: "btn btnx btn-sm btn-danger",
-                    exportOptions: { columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13] },
-                },
+                extend: "excelHtml5",
+                text: '<i class="fa fa-file-excel"></i> Excel ',
+                titleAttr: "Exportar a Excel",
+                className: "btn btnx btn-sm btn-success",
+                exportOptions: { columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13] },
+            },
+            {
+                extend: "csvHtml5",
+                text: '<i class="fa fa-file-archive"></i> CSV ',
+                titleAttr: "Exportar a Texto",
+                className: "btn btnx btn-sm btn-info",
+                exportOptions: { columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13] },
+            },
+            {
+                extend: "pdf",
+                text: '<i class="fa fa-file-pdf"></i> PDF ',
+                titleAttr: "Exportar a PDF",
+                className: "btn btnx btn-sm btn-danger",
+                exportOptions: { columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13] },
+            },
             ],
             ajax: {
                 url: url_base + "/Listar",
                 method: "POST", //usamos el metodo POST
                 data: { security: "listar" },
                 dataSrc: "",
-                error: function(e) {
+                error: function (e) {
                     console.log(e);
                 }
             },
@@ -203,7 +203,7 @@ function filterGlobal() {
 }
 
 function Nuevo() {
-    document.querySelector("#btnAgregar").addEventListener("click", function() {
+    document.querySelector("#btnAgregar").addEventListener("click", function () {
         proceso = "nuevo";
         Operacion(proceso);
         Cancelar();
@@ -211,14 +211,14 @@ function Nuevo() {
 }
 
 function Cancelar() {
-    document.querySelector("#btnCancelar").addEventListener("click", function() {
+    document.querySelector("#btnCancelar").addEventListener("click", function () {
         proceso = "cancelar";
         Operacion(proceso);
     });
 }
 
 function Editar() {
-    document.querySelector("#btnEditar").addEventListener("click", function() {
+    document.querySelector("#btnEditar").addEventListener("click", function () {
         proceso = "editar";
         Operacion(proceso);
     });
@@ -235,6 +235,13 @@ function Operacion(operacion) {
             $("#btnGuardar,#btnCancelar,select").attr("disabled", false);
             $("#btnEditar").attr("disabled", true);
             $("input[type=text],input[type=textc]").val("").attr("readonly", false);
+            $(".ffecha").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                showWeek: true,
+                autoclose: "false",
+                format: "dd/mm/yyyy"
+            }).datepicker("setDate", new Date());
             MostrarForm(true);
             break;
 
@@ -276,20 +283,14 @@ function MostrarForm(flag) {
 }
 
 function InsertarEditar() {
-    document.addEventListener("submit", function(e) {
+    document.addEventListener("submit", function (e) {
         e.preventDefault();
         form = document.querySelector("#dataForm");
         let strCampo = document.querySelectorAll(
             "#cod_cliente,#desc_cliente,#rif,#direccion,#fechareg"
         );
 
-        if (
-            empty(strCampo[0].value) &&
-            empty(strCampo[1].value) &&
-            empty(strCampo[2].value) &&
-            empty(strCampo[3].value) &&
-            empty(strCampo[4].value)
-        ) {
+        if (empty(strCampo[0].value && strCampo[1].value && strCampo[2].value && strCampo[3].value && strCampo[4].value)) {
             Swal.fire({
                 icon: "info",
                 title: "Atención!",
@@ -305,9 +306,9 @@ function InsertarEditar() {
             formData.append("security", "datos");
             let urlAjax = url_base + "/Insertar";
             fetch(urlAjax, {
-                    method: "POST",
-                    body: formData,
-                })
+                method: "POST",
+                body: formData,
+            })
                 .then((response) => response.json())
                 .catch((error) => console.error("Error:", error))
                 .then((objData) => {
@@ -345,12 +346,12 @@ function mostrar(idcliente) {
     dataset.append("idcliente", idcliente);
     let urlAjax = url_base + "/Mostrar";
     fetch(urlAjax, {
-            method: "POST",
-            body: dataset,
-        })
+        method: "POST",
+        body: dataset,
+    })
         .then((response) => response.json())
         .then((response) => {
-            $.each(response, function(label, valor) {
+            $.each(response, function (label, valor) {
                 $("#" + label).val(valor);
             });
             Editar();
@@ -369,9 +370,9 @@ function activar(idcliente) {
             dataset.append("idcliente", idcliente);
             let urlAjax = url_base + "/Activar";
             fetch(urlAjax, {
-                    method: "POST",
-                    body: dataset,
-                })
+                method: "POST",
+                body: dataset,
+            })
                 .then((response) => response.json())
                 .catch((error) => console.error("Error:", error))
                 .then((objData) => {
@@ -419,9 +420,9 @@ function desactivar(idcliente) {
                 dataset.append("idcliente", idcliente);
                 let urlAjax = url_base + "/Desactivar";
                 fetch(urlAjax, {
-                        method: "POST",
-                        body: dataset,
-                    })
+                    method: "POST",
+                    body: dataset,
+                })
                     .then((response) => response.json())
                     .catch((error) => console.error("Error:", error))
                     .then((objData) => {
@@ -462,7 +463,7 @@ function desactivar(idcliente) {
 
 //Función para Eliminar registros
 function eliminar() {
-    document.querySelector(".btnEliminar").addEventListener("click", function() {
+    document.querySelector(".btnEliminar").addEventListener("click", function () {
         msgOpcion(
             "¿Esta Seguro de <b>Eliminar</b> los Registros Seleccionados?",
             "warning"
@@ -474,9 +475,9 @@ function eliminar() {
                 dataset.append("security", "eliminar");
                 let urlAjax = url_base + "/Eliminar";
                 fetch(urlAjax, {
-                        method: "POST",
-                        body: dataset,
-                    })
+                    method: "POST",
+                    body: dataset,
+                })
                     .then((response) => response.json())
                     .catch((error) => console.error("Error:", error))
                     .then((objData) => {

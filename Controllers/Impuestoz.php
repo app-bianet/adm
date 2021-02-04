@@ -158,30 +158,34 @@ class Impuestoz extends Controllers{
 
       $arrData=$this->model->ListRengDt(POSTT($_POST['id']));
       for ($x=0; $x <count($arrData) ; $x++) {
-        $arrData[$x]['opciones']='<h6 style="width:100px">
-        <button type="button" class="btn btn-primary btn-xs" onclick="mostrar('.$arrData[$x]['idimpuestozd'].')">Editar</button></h6>';
-        $arrData[$x]['cod_concepto']='<h6 class="text-center" style="width:50px">'.$arrData[$x]['cod_concepto'].'</h6>';
-        $arrData[$x]['desc_concepto']='<h6 style="min-width:400px">'.$arrData[$x]['desc_concepto'].'</h6>';
-        $arrData[$x]['base']='<h6 class="text-right" style="max-width:100px">'.$arrData[$x]['base'].'</h6>';
-        $arrData[$x]['retencion']='<h6 class="text-right" style="max-width:120px">'.$arrData[$x]['retencion'].'</h6>';
-        $arrData[$x]['sustraendo']='<h6 class="text-right" style="max-width:120px">'.$arrData[$x]['sustraendo'].'</h6>';
-        $arrData[$x]['eliminar']='<h6 style="max-width:80px" class="text-center"><input type="checkbox" name="eliminar_reg[]" value="'.$arrData[$x]['idimpuestozd'].'"></h6>';
+        $arrData[$x]['opciones']=
+        '<small style="width:100px">
+          <button type="button" class="btn btn-primary btn-xs" onclick="mostrar('.$arrData[$x]['idimpuestozd'].')">Editar</button>
+        </small>';
+        $arrData[$x]['cod_concepto']='<h6>'.$arrData[$x]['cod_concepto'].'</h6>';
+        $arrData[$x]['desc_concepto']='<h6>'.$arrData[$x]['desc_concepto'].'</h6>';
+        $arrData[$x]['base']='<h6>'.$arrData[$x]['base'].'</h6>';
+        $arrData[$x]['retencion']='<h6">'.$arrData[$x]['retencion'].'</h6>';
+        $arrData[$x]['sustraendo']='<h6>'.$arrData[$x]['sustraendo'].'</h6>';
+        $arrData[$x]['eliminar']='<input type="checkbox" name="eliminar_reg[]" value="'.$arrData[$x]['idimpuestozd'].'">';
       }
       echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
       die();
   }
 
   public function Selectpicker(){
-
+    if (isset($_POST["security"])) {
       $arrData=$this->model->ListDt();
-      if ($arrData) {
+      if ($arrData){
         for ($i=0; $i<count($arrData);$i++) { 
           echo '<option value="'.$arrData[$i]['idimpuestoz'].'">'.$arrData[$i]['desc_impuestoz'].'</option>';
         }
+        
       } else {
         echo '<option readonly>No Existen Registros!</option>';
       }
-
-  }
-  
+    } else {
+      header("Location:".base_URL()."Error403");
+    }
+  } 
 }

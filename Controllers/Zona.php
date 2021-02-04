@@ -153,8 +153,8 @@ class Zona extends Controllers{
           <button type="button" class="btn btn-warning btn-xs" onclick="activar('.$arrData[$i]['idzona'].')" data-toggle="tooltip" data-placement="right" title="Activar"><i class="fa fa-exclamation-triangle"></i></button>
           </small>';   
         }
-        $arrData[$i]['cod_zona']='<h6 '.$al.'center'.$w.'150px">'.$arrData[$i]['cod_zona'].'</h6>';
-        $arrData[$i]['desc_zona']='<h6 '.$al.''.$w.'">'.$arrData[$i]['desc_zona'].'</h6>';
+        $arrData[$i]['cod_zona']='<h6>'.$arrData[$i]['cod_zona'].'</h6>';
+        $arrData[$i]['desc_zona']='<h6>'.$arrData[$i]['desc_zona'].'</h6>';
         $arrData[$i]['eliminar']='<input type="checkbox" name="eliminar_reg[]" value="'.$arrData[$i]['idzona'].'">';
       }
       echo json_encode($arrData,JSON_UNESCAPED_UNICODE);

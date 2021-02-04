@@ -20,17 +20,16 @@
       <form name="tableForm" id="tableForm">
         <table id="tbdetalle" class="table table-bordered table-hover compact table-sm table-striped" style="width:100% !important;">
           <thead class="bg-blue">
-            <th style="width:120px" class="text-center nd">Opciones</th>
+            <th style="width:120px" class="text-center">Opciones</th>
             <th style="width:150px" class="text-center">Código</th>
             <th class="text-center">Descripción</th>
-            <th class="text-center nd" style="width:85px">M.Base</th>
-            <th class="text-center nd" style="width:55px">Simbolo</th>
-            <th class="text-center nd" style="width:90px">Factor</th>
-            <th style="width:80px" class="text-center nd">
-            <button type="button" class="btn btn-xs btn-danger btnEliminar" 
-            data-toggle="tooltip" data-placement="right" title="Eliminar">Eliminar</button>
+            <th class="text-center" style="width:85px">M.Base</th>
+            <th class="text-center" style="width:55px">Simbolo</th>
+            <th class="text-center" style="width:90px">Factor</th>
+            <th style="width:80px" class="text-center">
+            <button type="button" class="btn btn-xs btn-danger btnEliminar">Eliminar</button>
             </th>
-            <th style="width:100px" class="text-center nd">Estado</th>
+            <th style="width:100px" class="text-center">Estado</th>
           </thead>      
         </table>
         </form>

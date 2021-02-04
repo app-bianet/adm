@@ -154,8 +154,8 @@ class Unidad extends Controllers{
           '<button type="button" class="btn btn-warning btn-xs" onclick="activar('.$arrData[$i]['idunidad'].')" data-toggle="tooltip" data-placement="right" title="Activar"><i class="fa fa-exclamation-triangle"></i></button>
           </small>';   
         }
-        $arrData[$i]['cod_unidad']='<h6 '.$al.'center'.$w.'150px">'.$arrData[$i]['cod_unidad'].'</h6>';
-        $arrData[$i]['desc_unidad']='<h6 '.$al.''.$w.'">'.$arrData[$i]['desc_unidad'].'</h6>';
+        $arrData[$i]['cod_unidad']='<h6>'.$arrData[$i]['cod_unidad'].'</h6>';
+        $arrData[$i]['desc_unidad']='<h6>'.$arrData[$i]['desc_unidad'].'</h6>';
         $arrData[$i]['eliminar']='<input type="checkbox" name="eliminar_reg[]" value="'.$arrData[$i]['idunidad'].'">';
       }
       echo json_encode($arrData,JSON_UNESCAPED_UNICODE);

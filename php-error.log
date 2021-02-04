@@ -1,1 +1,2 @@
 [04-Feb-2021 02:48:57 America/Caracas] PHP Notice:  Object of class PDOException could not be converted to int in D:\DEVAPP\htdocs\Bianet\Controllers\Cliente.php on line 64
+[04-Feb-2021 03:21:22 America/Caracas] PHP Notice:  Undefined index: banco in D:\DEVAPP\htdocs\Bianet\Controllers\Banco.php on line 14

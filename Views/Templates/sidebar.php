@@ -140,11 +140,14 @@
                   <p>Tablas<i class="right fas fa-angle-left"></i></p>
                 </a>
                 <ul class="nav nav-treeview child2">
-                  <li class="nav-item"><a href="Banco" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Bancos</a></li>
-                  <li class="nav-item"><a href="Caja" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Cajas</a></li>
-                  <li class="nav-item"><a href="Cuenta" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Cuenta Bancaria</a></li>
-                  <li class="nav-item"><a href="Beneficiario" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Beneficiario</a></li>
-
+                <?php if ($_SESSION['bancop']==1){echo'<li class="nav-item">
+                <a href="Banco" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Bancos</a></li>';}?>
+                <?php if ($_SESSION['caja']==1){echo'<li class="nav-item">
+                <a href="Caja" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Cajas</a></li>';}?>
+                <?php if ($_SESSION['cuenta']==1){echo'<li class="nav-item">
+                <a href="Cuenta" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Cuenta Bancaria</a></li>';}?>
+                <?php if ($_SESSION['beneficiario']==1){echo'<li class="nav-item">
+                <a href="Beneficiario" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Beneficiario</a></li>';}?>
                 </ul>
               </li>
               <li class="nav-item">
