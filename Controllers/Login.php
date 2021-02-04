@@ -26,13 +26,13 @@ class Login extends Controllers{
        if($arrData[$i]['estatus']==1){
 
         if (password_verify($passpublic,$arrData[$i]['clave'])) {
-          $_SESSION['sidusuario']=$arrData[$i]['idusuario'];
-          $_SESSION['scod_usuario']=$arrData[$i]['cod_usuario'];
-          $_SESSION['sdesc_usuario']=$arrData[$i]['desc_usuario'];
-          $_SESSION['sdepartamento']=$arrData[$i]['departamento'];
-          $_SESSION['stelefono']=$arrData[$i]['telefono'];
-          $_SESSION['semail']=$arrData[$i]['email'];
-          $_SESSION['simagen']=$arrData[$i]['imagen'];
+          $_SESSION['sidusuario']=base64_encode($arrData[$i]['idusuario']);
+          $_SESSION['scod_usuario']=base64_encode($arrData[$i]['cod_usuario']);
+          $_SESSION['sdesc_usuario']=base64_encode($arrData[$i]['desc_usuario']);
+          $_SESSION['sdepartamento']=base64_encode($arrData[$i]['departamento']);
+          $_SESSION['stelefono']=base64_encode($arrData[$i]['telefono']);
+          $_SESSION['semail']=base64_encode($arrData[$i]['email']);
+          $_SESSION['simagen']=base64_encode($arrData[$i]['imagen']);
 
           $Marcados = $this->model->ListarMarcados($arrData[$i]['idmacceso']);
           $valores=array();	
@@ -111,7 +111,7 @@ class Login extends Controllers{
           in_array(117,$valores)?$_SESSION['conciliacion']=1:$_SESSION['conciliacion']=0;
           in_array(119,$valores)?$_SESSION['rbanco']=1:$_SESSION['rbanco']=0;			
 
-          $arrRspta=array("status"=>true,"msg"=>"Bienvenido ".$_SESSION['sdesc_usuario']."!","icon"=>"success");
+          $arrRspta=array("status"=>true,"msg"=>"Bienvenido ".base64_decode($_SESSION['sdesc_usuario'])."!","icon"=>"success");
 
          } else {
            $arrRspta=array("status"=>false,"msg"=>"Usuario o Clave Incorrecta!","icon"=>"error");
@@ -133,9 +133,8 @@ class Login extends Controllers{
       $_SESSION = array(); // Destroy the variables 
       unset($_SESSION);
       session_destroy(); // Destroy the session 
-    //  setcookie('PHPSESSID', ", time()-3600,'/', ", 0, 0);//Destroy the cookie 
-    //  header("Location:".base_URL()."Login");
-
+      setcookie('PHPSESSID', ", time()-3600,'/', ", 0, 0);//Destroy the cookie 
+      header("Location:".base_URL()."Login");
   }
 
   public function ActualizarClave(){
@@ -144,7 +143,7 @@ class Login extends Controllers{
       $clave=hashpw($_POST['clave']);
   
         $request=$this->model->EditarClave($idusuario,$clave);
-        if($request>0){
+        if($request){
           $arrRspta=array("status"=>true,"msg"=>"Clave Actualizada Exitosamente!");
         }else {
           $arrRspta=array("status"=>false,"msg"=>"Error al Actualizar la Clave!");

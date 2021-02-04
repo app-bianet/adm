@@ -34,7 +34,7 @@
 
       <!-- Botones Usuario -->
       <li class="nav-item">
-      <input id="idusuarioc" value="1" name="idusuacioc" type="hidden">
+      <input id="idusuarioc" value="<?= $_SESSION['sidusuario'];?>" name="idusuacioc" type="hidden">
         <a role="button">
           <button type="button" id="btnMostraModalt" class="btn btn-xs btn-success">
             <i class="fas fa-key"></i> Cambiar Clave
@@ -51,11 +51,11 @@
                 <div class="col-12">
                   <div class="card-body box-profile">
                     <div class="text-center">
-                      <img class="profile-user-img img-fluid img-circle" src="<?php echo images().'user/'.$_SESSION['simagen'];?>" alt="User profile picture">
-                      <h3 class="profile-username text-center"><?php echo $_SESSION['sdesc_usuario'];?></h3>
+                      <img class="profile-user-img img-fluid img-circle" src="<?php echo images().'user/'.base64_decode($_SESSION['simagen']);?>" alt="User profile picture">
+                      <h3 class="profile-username text-center"><?php echo base64_decode($_SESSION['sdesc_usuario']);?></h3>
                       <ul class="list-group list-group-unbordered mb-12">
                         <li class="list-group-item">
-                        <b>Departamento:<span class="hidden-xs"><?php echo $_SESSION['sdepartamento'];?></span></b>
+                        <b>Departamento:<span class="hidden-xs"><?php echo base64_decode($_SESSION['sdepartamento']);?></span></b>
                         </li>       
                       </ul>
                     </div>
@@ -76,7 +76,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content"  style="width:100%">
         <div class="modal-header">
-          <h4 class="modal-title">Cambiar Clave <?php echo $_SESSION['sdesc_usuario'];?></h4>
+          <h4 class="modal-title">Cambiar Clave <?php echo base64_decode($_SESSION['sdesc_usuario']);?></h4>
         </div>
         <div class="card-body" id="formularioc"> 
           <form id="dataFormc" name="dataFormc">

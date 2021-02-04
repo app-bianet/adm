@@ -11,8 +11,7 @@ class Unidad extends Controllers{
     if (!isset($_SESSION["sidusuario"])){
       header("Location:".base_URL()."login");
     } else {
-      if ($_SESSION['unidad']==1){
-      
+      if ($_SESSION['unidad']==1){     
         $data['page_tag']="Unidad";
         $data['page_title']=".:: Unidad ::.";
         $data['page_name']="unidad";

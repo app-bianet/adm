@@ -12,7 +12,7 @@
           <img src="" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block"><?= $_SESSION['sdesc_usuario'];?></a>
+          <a href="#" class="d-block"><?=  base64_decode($_SESSION['sdesc_usuario']);?></a>
         </div>
       </div>
       <!-- Sidebar Menu -->
