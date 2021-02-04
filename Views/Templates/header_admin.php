@@ -33,7 +33,8 @@
       </li>
 
       <!-- Botones Usuario -->
-      <li class="nav-item">  
+      <li class="nav-item">
+      <input id="idusuarioc" value="1" name="idusuacioc" type="hidden">
         <a role="button">
           <button type="button" id="btnMostraModalt" class="btn btn-xs btn-success">
             <i class="fas fa-key"></i> Cambiar Clave
@@ -50,9 +51,8 @@
                 <div class="col-12">
                   <div class="card-body box-profile">
                     <div class="text-center">
-                      <img class="profile-user-img img-fluid img-circle" src="<?= images().'user/'.$_SESSION['simagen'];?>" alt="User profile picture">
+                      <img class="profile-user-img img-fluid img-circle" src="<?php echo images().'user/'.$_SESSION['simagen'];?>" alt="User profile picture">
                       <h3 class="profile-username text-center"><?php echo $_SESSION['sdesc_usuario'];?></h3>
-                      <input id="idusuariou" value="<?php echo $_SESSION['sidusuario'];?>" class="hidden">
                       <ul class="list-group list-group-unbordered mb-12">
                         <li class="list-group-item">
                         <b>Departamento:<span class="hidden-xs"><?php echo $_SESSION['sdepartamento'];?></span></b>
@@ -76,7 +76,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content"  style="width:100%">
         <div class="modal-header">
-          <h4 class="modal-title">Cambiar Clave <?= $_SESSION['sdesc_usuario'];?></h4>
+          <h4 class="modal-title">Cambiar Clave <?php echo $_SESSION['sdesc_usuario'];?></h4>
         </div>
         <div class="card-body" id="formularioc"> 
           <form id="dataFormc" name="dataFormc">
@@ -84,7 +84,6 @@
               <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="input-group input-group-sm">
                   <div class="input-group-append col-lg-5 col-md-5 col-sm-12 col-xs-12 no-padding">
-                    <input id="idusuarioc" value="<?= $_SESSION['sidusuario'];?>" class="hidden">
                     <span class="input-group-text">Usuario</span>
                     <input type="text" id="cod_usuarioc" class="form-control form-control-sm" readonly>
                   </div>
@@ -95,12 +94,12 @@
               </div>
               <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <label>Clave</label>
-                <input type="current-password" id="clavec" name="clavec"
+                <input type="password" id="clavec" name="clavec"
                 class="form-control form-control-sm" placeholder="Clave" required="required">
               </div>
               <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <label>Confirmar</label>
-                <input type="new-password" name="confclavec" id="confclavec" class="form-control form-control-sm" 
+                <input type="password" name="confclavec" id="confclavec" class="form-control form-control-sm" 
                 placeholder="Confirmar Clave" required="required">
               </div>
             </div>

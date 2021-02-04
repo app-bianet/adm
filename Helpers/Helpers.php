@@ -29,8 +29,6 @@ function dep($data){
 }
 
 function headerAdmin($data=""){
-  if (strlen(session_id()) < 1) 
-  session_start();
   $view_header = 'Views/Templates/header_admin.php';
   require_once $view_header;
 

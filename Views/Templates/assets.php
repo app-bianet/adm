@@ -43,11 +43,9 @@
 <script src="<?= libs()?>/js/Chart.bundle.min.js"></script>
 <script src="<?= libs()?>/js/Chart.min.js"></script>
 
-
-
-<script src="<?= libs();?>/scripts/<?= $data['func'];?>"></script>
 <script src="<?= libs();?>/scripts/main_functions.js"></script>
 <script src="<?= libs();?>/scripts/main_op.js"></script>
+<script src="<?= libs();?>/scripts/<?= $data['func'];?>"></script>
 
 
 

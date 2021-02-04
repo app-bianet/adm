@@ -2,27 +2,26 @@
 class Usuario extends Controllers{
 
   public function __construct(){
-    session_start();
-    ob_start();
-    if (!isset($_SESSION['sidusuario'])){
-      header("Location:".base_URL()."login");
-      session_unset();
-      session_destroy();
-    } else{
-      if($_SESSION['unidad']!=1)  {
-        header("Location:".base_URL()."error403");
-      }
-    }
-    ob_end_flush();     
     parent::__construct();
   }
 
   public function usuario(){
-    $data['page_tag']="Usuario";
-    $data['page_title']=".:: Usuario ::.";
-    $data['page_name']="usuario";
-    $data['func']="functions_usuario.js";
-    $this->views->getView($this,"usuario",$data);
+    ob_start();
+    session_start();
+    if (!isset($_SESSION["sidusuario"])){
+      header("Location:".base_URL()."login");
+    } else {
+      if ($_SESSION['usuariod']==1){
+        $data['page_tag']="Usuario";
+        $data['page_title']=".:: Usuario ::.";
+        $data['page_name']="usuario";
+        $data['func']="functions_usuario.js";
+        $this->views->getView($this,"usuariot",$data);
+      } else {
+        header("Location:".base_URL()."error403");
+      }
+    }
+    ob_end_flush();
   }
 
   public function Insertar(){
@@ -107,21 +106,15 @@ class Usuario extends Controllers{
   }
 
   public function Mostrar(){
-    if (isset($_POST['idusuario'])) {
-      $idusuario=intval(limpiarCadena($_POST['idusuario']));
-      if ($idusuario>0) {
-        $arrData=$this->model->ShowDt($idusuario);
+
+        $arrData=$this->model->ShowDt($_POST['idusuario']);
         if (empty($arrData)) {
           $arrRspta=array('status'=>false,'msg'=>'No Existen Registros!');
         } else {
           $arrRspta=$arrData;
         }
         echo json_encode($arrRspta,JSON_UNESCAPED_UNICODE);
-      }
-    } else{
-      header("Location:".base_URL()."Error404");
-    }
-    die();   
+        
   }
 
   public function Activar(){
@@ -207,34 +200,6 @@ class Usuario extends Controllers{
     } else {
       header("Location:".base_URL()."Error403");
     }
-  }
-
-  public function ActualizarClave(){
-    if (isset($_POST['idusuario'])) {
-      $idusuario=intval(limpiarCadena($_POST['idusuario']));
-      $clave=hashpw($_POST['clave']);
-  
-        $request=$this->model->EditarClave($idusuario,$clave);
-        if($request>0){
-          $arrRspta=array("status"=>true,"msg"=>"Clave Actualizada Exitosamente!");
-        }else {
-          $arrRspta=array("status"=>false,"msg"=>"Error al Actualizar la Clave!");
-        }
-        echo json_encode($arrRspta,JSON_UNESCAPED_UNICODE);
-      } else{
-        header("Location:".base_URL()."Error404");
-      }
-  }
-
-  public function SessionOut(){
-
-      session_unset();//Destruìmos la sesión
-      $_SESSION = array(); // Destroy the variables 
-      unset($_SESSION);
-      session_destroy(); // Destroy the session 
-      setcookie('PHPSESSID', ", time()-3600,'/', ", 0, 0);//Destroy the cookie 
-      header("Location:".base_URL()."Login");
-
   }
   
 }

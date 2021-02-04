@@ -18,7 +18,7 @@ $("#form_login").submit(function(e){
       var formData = new FormData();
       formData.append('clave',$("#clave").val());
       formData.append('cod_usuario',$("#cod_usuario").val());
-      let ajaxUrl=url_baseL+'Login/SessionIn';
+      let ajaxUrl=url_baseL+'Login/SessionStart';
       fetch(ajaxUrl, {
       method:'POST',
       body: formData
@@ -31,7 +31,7 @@ $("#form_login").submit(function(e){
             icon: objData.icon, title:objData.msg,
             showConfirmButton: false,timer: 3000,
           });
-          window.location=url_baseL+'Loader';     
+          window.location=url_baseL+'Escritorio';     
         } else{
           Swal.fire({ 
             icon: objData.icon, html: objData.msg,

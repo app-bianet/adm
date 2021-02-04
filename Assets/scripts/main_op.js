@@ -33,8 +33,8 @@ function Salir() {
                 },
                 willClose: () => {
                     clearInterval(timerInterval)
-                    $.post(url_baseL + "Usuario/SessionOut", { 'security': 'cerraSession' }, function() {
-                        window.location = url_baseL + '/Login';
+                    $.post(url_baseL + "Login/SessionOut", { 'security': 'cerraSession' }, function() {
+                        window.location = url_baseL + 'Login';
                     });
                 }
             })
@@ -45,7 +45,7 @@ function Salir() {
 function MostarModalClave() {
     $("#btnMostraModalt").click(function() {
         let dataset = new FormData();
-        dataset.append('idusuario', '1');
+        dataset.append('idusuario',$("#idusuarioc").val());
         let urlAjax = url_baseL + "Usuario/Mostrar";
         fetch(urlAjax, {
                 method: 'POST',
@@ -97,71 +97,65 @@ $(function() {
 });
 
 function ActualizarClaveSet() {
-    document
-        .getElementById("btnGuardarCl")
-        .addEventListener('click', function(e) {
-            e.preventDefault();
-            swal
-                .fire({
-                    html: "¿Está Seguro de Cambiar Su Clave? <br>\
-			      Para Hacer Efectivo el Cambio Saldra Automaticamente del Sistema",
-                    icon: "warning",
-                    confirmButtonText: "Ok",
-                    cancelButtonText: "Cancelar",
-                    showCancelButton: true,
-                    customClass: {
-                        confirmButton: "btn btn-sm btnsw btn-success",
-                        cancelButton: "btn btn-sm btnsw btn-danger",
-                        icon: "color:red",
-                    },
-                    buttonsStyling: false,
-                })
-                .then((result) => {
-                    if (result.isConfirmed) {
-                        let xlr = new XMLHttpRequest();
-                        let urlAjax = url_baseL + "Usuario/ActualizarClave";
-                        let formData = new FormData();
-                        formData.append('idusuario', $("#idusuarioc").val());
-                        formData.append('clave', $("#clavec").val());
-                        xlr.open('POST', urlAjax, true);
-                        xlr.send(formData);
-                        xlr.onreadystatechange = function() {
-                            if (xlr.readyState == 4 && xlr.status == 200) {
-                                let objData = JSON.parse(xlr.responseText);
-                                if (objData.status) {
-                                    let timerInterval;
-                                    Swal.fire({
-                                        title: "Cerrar Sesión!",
-                                        html: objData.msg + "<br>  Cerrando Sesion <b></b>...",
-                                        timer: 3000,
-                                        timerProgressBar: true,
-                                        didOpen: () => {
-                                            Swal.showLoading();
-                                            timerInterval = setInterval(() => {
-                                                const content = Swal.getContent();
-                                                if (content) {
-                                                    const b = content.querySelector("b");
-                                                    if (b) {
-                                                        b.textContent = Swal.getTimerLeft() / 100;
-                                                    }
-                                                }
-                                            }, 100);
-                                        },
-                                        willClose: () => {
-                                            clearInterval(timerInterval)
-                                            $.post(url_baseL + "Usuario/SessionOut", { 'security': 'cerraSession' }, function() {
-                                                window.location = url_baseL + '/Login';
-                                            });
-                                        }
-                                    });
-                                } else {
-                                    Swal.fire({ icon: "error", html: objData.msg });
-                                }
+    document.getElementById("btnGuardarCl").addEventListener('click', function(e) {
+        e.preventDefault();
+        swal.fire({html: "¿Está Seguro de Cambiar Su Clave? <br>\
+		    Para Hacer Efectivo el Cambio Saldra Automaticamente del Sistema",
+            icon: "warning",
+            confirmButtonText: "Ok",
+            cancelButtonText: "Cancelar",
+            showCancelButton: true,
+            customClass: {
+                confirmButton: "btn btn-sm btnsw btn-success",
+                cancelButton: "btn btn-sm btnsw btn-danger",
+                icon: "color:red",
+            },
+            buttonsStyling: false,
+        })
+        .then((result) => {
+            if (result.isConfirmed) {
+            let item=document.querySelectorAll("#idusuarioc,#clave");
+            let dataset = new FormData();
+            dataset.append('idusuario',item[0]);
+            dataset.append('clave',item[1]);
+            let url=url_baseL+'Usuario/ActualizarClave';
+            fetch(url,{
+                method:'POST',
+                body:dataset
+            })
+            .then(data=>data.json())
+            .then(objData=>{
+                if (objData.status) {
+                    let timerInterval;
+                        Swal.fire({title: "Cerrar Sesión!",html: objData.msg + "<br>  Cerrando Sesion <b></b>...",
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: () => {
+                        Swal.showLoading();
+                        timerInterval = setInterval(() => {
+                        const content = Swal.getContent();
+                            if (content) {
+                                const b = content.querySelector("b");
+                                    if (b) {
+                                            b.textContent = Swal.getTimerLeft() / 100;}
+                                    }
+                                }, 100);
+                            },
+                            willClose: () => {
+                                clearInterval(timerInterval)
+                                $.post(url_baseL + "Usuario/SessionOut", { 'security': 'cerraSession' }, function() {
+                                    window.location = url_baseL + 'Login';
+                                });
                             }
-                        };
+
+                        })
+                }
+                else {
+                    Swal.fire({ icon: "error", html: objData.msg });
                     }
                 });
+            }
+
         });
-}
-});
-}
+    });       
+} 

@@ -107,16 +107,6 @@ class usuarioModel extends MySql{
     return $request;
   }
 
-  public function EditarClave($id, $clave){
-    $this->Idusuario = $id;
-    $this->Clave = $clave;
-
-    $sql = "UPDATE tbusuario SET clave =? WHERE idusuario = '$this->Idusuario'";
-    $arrData = array($this->Clave);
-    $request = $this->Update($sql, $arrData);
-    return $request;
-  }
-
   public function EliminarDt($id){
     $returnData = "";
     $this->Idusuario=$id;

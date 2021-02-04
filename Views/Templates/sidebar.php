@@ -168,7 +168,7 @@
             <ul class="nav nav-treeview child2">
             <?php if ($_SESSION['macceso']==1){echo'<li class="nav-item">
             <a href="MAcceso" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Mapas de Acceso</a></li>';}?>
-            <?php if ($_SESSION['usuariotb']==1){echo'<li class="nav-item">
+            <?php if ($_SESSION['usuariod']==1){echo'<li class="nav-item">
             <a href="Usuario" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Usuario</a></li>';}?>
             <?php if ($_SESSION['correlativo']==1){echo'<li class="nav-item">
             <a href="Correlativo" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Seriales</a></li>';}?>

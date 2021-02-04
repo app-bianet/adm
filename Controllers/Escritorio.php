@@ -1,19 +1,9 @@
 <?php
+
 class Escritorio extends Controllers{
 
   public function __construct(){
     session_start();
-    ob_start();
-    if (!isset($_SESSION['sidusuario'])){
-      header("Location:".base_URL()."login");
-      session_unset();
-      session_destroy();
-    } else{
-      if($_SESSION['escritorio']!=1)  {
-        header("Location:".base_URL()."error403");
-      } 
-    }
-    ob_end_flush();     
     parent::__construct();
   }
 

@@ -1,8 +1,11 @@
 <?php
+session_start();
 class Login extends Controllers{
 
   public function __construct(){
-    session_start();
+    if (isset($_SESSION['sidusuario'])){
+      header("Location:".base_URL()."Escritorio");
+    } 
     parent::__construct();
   }
 
@@ -15,13 +18,14 @@ class Login extends Controllers{
     $this->views->getView($this,"login",$data);
   }
 
-  public function SessionIn(){
+  public function SessionStart(){
     $passpublic=$_POST['clave'];
     $cod_usuario=limpiarCadena($_POST['cod_usuario']);
     $arrData=$this->model->Verificar($cod_usuario);
      for ($i=0; $i<count($arrData);$i++){
        if($arrData[$i]['estatus']==1){
-         if (password_verify($passpublic,$arrData[$i]['clave'])) {
+
+        if (password_verify($passpublic,$arrData[$i]['clave'])) {
           $_SESSION['sidusuario']=$arrData[$i]['idusuario'];
           $_SESSION['scod_usuario']=$arrData[$i]['cod_usuario'];
           $_SESSION['sdesc_usuario']=$arrData[$i]['desc_usuario'];
@@ -40,7 +44,7 @@ class Login extends Controllers{
           //Determinamos los accesos del usuario
           in_array(1,$valores)?$_SESSION['config']=1:$_SESSION['config']=0;
           in_array(2,$valores)?$_SESSION['macceso']=1:$_SESSION['macceso']=0;
-          in_array(3,$valores)?$_SESSION['usuariotb']=1:$_SESSION['usuariotb']=0;
+          in_array(3,$valores)?$_SESSION['usuariod']=1:$_SESSION['usuariod']=0;
           in_array(4,$valores)?$_SESSION['empresa']=1:$_SESSION['empresa']=0;
           in_array(5,$valores)?$_SESSION['operacion']=1:$_SESSION['operacion']=0;
           in_array(6,$valores)?$_SESSION['correlativo']=1:$_SESSION['correlativo']=0;
@@ -107,7 +111,6 @@ class Login extends Controllers{
           in_array(117,$valores)?$_SESSION['conciliacion']=1:$_SESSION['conciliacion']=0;
           in_array(119,$valores)?$_SESSION['rbanco']=1:$_SESSION['rbanco']=0;			
 
-
           $arrRspta=array("status"=>true,"msg"=>"Bienvenido ".$_SESSION['sdesc_usuario']."!","icon"=>"success");
 
          } else {
@@ -121,9 +124,36 @@ class Login extends Controllers{
          session_unset();
          session_destroy();
        }
-   }   
-  echo json_encode($arrRspta,JSON_UNESCAPED_UNICODE);
+    }   
+    echo json_encode($arrRspta,JSON_UNESCAPED_UNICODE);
   } 
+
+  public function SessionOut(){
+      session_unset();//Destruìmos la sesión
+      $_SESSION = array(); // Destroy the variables 
+      unset($_SESSION);
+      session_destroy(); // Destroy the session 
+    //  setcookie('PHPSESSID', ", time()-3600,'/', ", 0, 0);//Destroy the cookie 
+    //  header("Location:".base_URL()."Login");
+
+  }
+
+  public function ActualizarClave(){
+    if (isset($_POST['idusuario'])) {
+      $idusuario=intval(limpiarCadena($_POST['idusuario']));
+      $clave=hashpw($_POST['clave']);
+  
+        $request=$this->model->EditarClave($idusuario,$clave);
+        if($request>0){
+          $arrRspta=array("status"=>true,"msg"=>"Clave Actualizada Exitosamente!");
+        }else {
+          $arrRspta=array("status"=>false,"msg"=>"Error al Actualizar la Clave!");
+        }
+        echo json_encode($arrRspta,JSON_UNESCAPED_UNICODE);
+      } else{
+        header("Location:".base_URL()."Error404");
+      }
+  }
 
   
 
