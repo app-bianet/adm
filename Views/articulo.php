@@ -399,5 +399,3 @@
 <?php 
 require_once 'articuloModal.php';
 footerAdmin($data);?>
-
-
