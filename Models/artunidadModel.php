@@ -38,7 +38,7 @@ class artunidadModel extends MySql{
     au.idunidad,
     u.cod_unidad,
     u.desc_unidad,
-    CONVERT(au.valor,DEC(18,0)) AS valor,
+    au.valor,
     au.principal
     FROM tbartunidad au 
     INNER JOIN tbunidad u ON u.idunidad=au.idunidad

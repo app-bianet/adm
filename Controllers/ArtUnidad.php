@@ -100,5 +100,22 @@ class ArtUnidad extends Controllers{
       }
     echo json_encode( $arrRspta , JSON_UNESCAPED_UNICODE);
   }
+
+  public function SelectpickerOp(){
+    if (isset($_POST["security"])) {
+      $arrData=$this->model->ShowListUnidad(POSTT($_POST['id']));
+      if ($arrData) {
+        for ($i=0; $i<count($arrData);$i++) { 
+          echo '<option value="'.$arrData[$i]['idartunidad'].'">'.$arrData[$i]['desc_unidad'].'</option>';
+        }
+      } else {
+        echo '<option readonly>No Existen Registros!</option>';
+      }
+    } else {
+      header("Location:".base_URL()."Error403");
+    }
+  }
+
+
   
 }

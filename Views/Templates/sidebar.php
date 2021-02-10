@@ -48,7 +48,7 @@
                   <p>Operaciones<i class="right fas fa-angle-left"></i></p>
                 </a>';}?>
                 <ul class="nav nav-treeview child2">
-                  <?php if ($_SESSION['ajustei']==1){echo'<li class="nav-item"><a href="" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Ajuste de Ingreso</a></li>';}?>
+                  <?php if ($_SESSION['ajustei']==1){echo'<li class="nav-item"><a href="Ajuste" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Ajuste de Inventario</a></li>';}?>
                   <?php if ($_SESSION['traslado']==1){echo'<li class="nav-item"><a href="" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Ajuste de Precios</a></li>';}?>
                   <?php if ($_SESSION['ajustep']==1){echo'<li class="nav-item"><a href="" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Traslado</a></li>';}?>
                 </ul>
@@ -148,6 +148,8 @@
                 <a href="Cuenta" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Cuenta Bancaria</a></li>';}?>
                 <?php if ($_SESSION['beneficiario']==1){echo'<li class="nav-item">
                 <a href="Beneficiario" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Beneficiario</a></li>';}?>
+                <?php if ($_SESSION['ipago']==1){echo'<li class="nav-item">
+                <a href="IPago" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Instrumetos de Pago</a></li>';}?>
                 </ul>
               </li>
               <li class="nav-item">

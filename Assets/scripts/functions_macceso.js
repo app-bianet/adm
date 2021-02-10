@@ -377,8 +377,7 @@ function desactivar(idmacceso) {
 //Función para Eliminar registros
 function eliminar() {
     document.querySelector(".btnEliminar").addEventListener('click', function() {
-        msgOpcion(
-            "¿Esta Seguro de <b>Eliminar</b> los Registros Seleccionados?", "warning"
+        msgOpcion("¿Esta Seguro de <b>Eliminar</b> los Registros Seleccionados?", "warning"
         ).then((result) => {
             if (result.isConfirmed) {
                 ProgressShow('Eliminando Registros!');

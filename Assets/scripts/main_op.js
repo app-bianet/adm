@@ -90,15 +90,8 @@ function ConfirmarClave() {
 
 $(function() {
 
-
-    console.log(decodeURIComponent(escape(window.atob($("#idusuarioc").val()))));
-
-    MostarModalClave()
-
-    ActualizarClaveSet()
-
-
-
+    MostarModalClave();
+    ActualizarClaveSet();
 });
 
 function ActualizarClaveSet() {

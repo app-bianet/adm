@@ -92,10 +92,28 @@ div.card-body.table-responsive > table > thead > th{
 
 tr.filas> td >h5 ,tr.filas>td>h6,tr>td>h6{
   padding: 0px 5px;
+  font-size: 14px;
+  font-weight: 500;
+  margin: .2rem !important;
 }
 
+div.modal>div.modal-dialog>div.modal-content{
+  border-radius: 8px !important;
+}
 
+tbody>tr>td>input.input-insert tbody>tr>td>select.input-insert{
+  padding: .25rem .5rem !important;
+  font-size: .875rem !important;
+  height: calc(1.7rem + 1px) !important;
+  width: 100%;
+}
 
+tbody>tr.input-insert-group {
+  padding: .25rem .5rem !important;
+  font-size: .875rem !important;
+  height: calc(1.7rem + 1px) !important;
+  width: 100%;
+}
 
 /* Elemento base*/
 ::-webkit-scrollbar {
@@ -164,9 +182,24 @@ label[for="imagena"] {
   width: fit-content;
   text-align: center;
   border-radius:3px;
-
 }
 
+
+div.nav.nav-tabs >a.nav-link.active{
+  background-color: #106BA0 !important;
+  color: #fff;
+  font-weight: 400;
+}
+
+div.nav.nav-tabs >a.nav-link{
+  background-color: #d3e2eb !important;
+  color: rgb(7, 46, 97);
+  font-weight: 400;
+}
+
+ul.nav.nav-link:active{
+	display: none !important;
+}
 
 
 

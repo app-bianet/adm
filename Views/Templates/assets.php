@@ -39,6 +39,7 @@
 <script src="<?= libs()?>/js/jquery.PrintArea.js"></script>
 <script src="<?= libs()?>/js/JsBarcode.all.min.js"></script>
 <script src="<?= libs()?>/js/qrcode.js"></script>
+<script src="<?= libs()?>/js/sum().js"></script>
 
 <script src="<?= libs()?>/js/Chart.bundle.min.js"></script>
 <script src="<?= libs()?>/js/Chart.min.js"></script>

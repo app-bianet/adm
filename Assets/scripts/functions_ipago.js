@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", function () {
   InsertarEditar();
   eliminar();
   Nuevo();
-  SelecOp();
 
   $("input.filtro_buscar").on("keyup click", function () {
     filterGlobal();
@@ -16,167 +15,96 @@ document.addEventListener("DOMContentLoaded", function () {
   $("input.column_filter").on("keyup click", function () {
     filterColumn($(this).parents("tr").attr("data-column"));
   });
-
-  $("#cod_proveedor").change(function () {
-    $('#rif').val("J-" + $("#cod_proveedor").val());
-  });
 });
-
-function SelecOp() {
-  let formData = new FormData();
-  formData.append('security', 'listar');
-
-  let ajaxUrl1 = url_baseL + 'TipoProveedor/Selectpicker';
-  fetch(ajaxUrl1, {
-    method: 'POST',
-    body: formData,
-  })
-    .then(response => response.text())
-    .catch(error => {
-      console.error('Error:', error);
-    })
-    .then(resp => {
-      $("#idtipoproveedor").html(resp);
-    });
-
-  formData.append('op', 'Compra');
-  let ajaxUrl2 = url_baseL + 'Operacion/Selectpicker';
-  fetch(ajaxUrl2, {
-    method: 'POST',
-    body: formData,
-  })
-    .then(response => response.text())
-    .catch(error => {
-      console.error('Error:', error);
-    })
-    .then(resp => {
-      $("#idoperacion").html(resp);
-    });
-
-  let ajaxUrl3 = url_baseL + 'Impuestoz/Selectpicker';
-  fetch(ajaxUrl3, {
-    method: 'POST',
-    body: formData,
-  })
-    .then(response => response.text())
-    .catch(error => {
-      console.error('Error:', error);
-    })
-    .then(resp => {
-      $("#idimpuestoz").html(resp);
-    });
-
-  let ajaxUrl4 = url_baseL + 'Zona/Selectpicker';
-  fetch(ajaxUrl4, {
-    method: 'POST',
-    body: formData,
-  })
-    .then(response => response.text())
-    .catch(error => {
-      console.error('Error:', error);
-    })
-    .then(resp => {
-      $("#idzona").html(resp);
-    });
-
-  let ajaxUrl5 = url_baseL + 'CondPago/Selectpicker';
-  fetch(ajaxUrl5, {
-    method: 'POST',
-    body: formData,
-  })
-    .then(response => response.text())
-    .catch(error => {
-      console.error('Error:', error);
-    })
-    .then(resp => {
-      $("#idcondpago").html(resp);
-    });
-}
 
 function ListarTabla() {
   //#region
-  tabla = $("#tbdetalle")
-    .dataTable({
-      language: language_dt(),
-      aProcessing: true, //Activamos el procesamiento del datatables
-      aServerSide: true, //Paginación y filtrado realizados por el servidor
-      dom: "Bfrtilp", //Definimos los elementos del control de tabla
-      columnDefs: [{
-        targets: 0, // Tu primera columna
-        width: "110px",
-        className: "text-center",
-      },
-      {
-        targets: [5, 6, 7, 8, 9, 10],
-        orderable: false,
-        visible: false,
-      },
-      {
-        targets: [0, 12, 13],
-        orderable: false,
-      },
-      {
-        targets: [12, 13], // Tu primera columna
-        width: "8%",
-        className: "text-center",
-      },
-      ],
-      buttons: [{
-        extend: "excelHtml5",
-        text: '<i class="fa fa-file-excel"></i> Excel ',
-        titleAttr: "Exportar a Excel",
-        className: "btn btnx btn-sm btn-success",
-        exportOptions: { columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13] },
-      },
-      {
-        extend: "csvHtml5",
-        text: '<i class="fa fa-file-archive"></i> CSV ',
-        titleAttr: "Exportar a Texto",
-        className: "btn btnx btn-sm btn-info",
-        exportOptions: { columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13] },
-      },
-      {
-        extend: "pdf",
-        text: '<i class="fa fa-file-pdf"></i> PDF ',
-        titleAttr: "Exportar a PDF",
-        className: "btn btnx btn-sm btn-danger",
-        exportOptions: { columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13] },
-      },
-      ],
-      ajax: {
-        url: url_base + "/Listar",
-        method: 'POST', //usamos el metodo POST
-        data: { 'security': 'listar' },
-        dataSrc: ""
-      },
-      columns: [
-        { data: "opciones" },
-        { data: "cod_proveedor" },
-        { data: "desc_proveedor" },
-        { data: "rif" },
-        { data: "tipo" },
-        { data: "operacion" },
-        { data: "contacto" },
-        { data: "telefono" },
-        { data: "movil" },
-        { data: "email" },
-        { data: "limite" },
-        { data: "saldo" },
-        { data: "eliminar" },
-        { data: "estatus" },
-      ],
-      bDestroy: true,
-      scrollX: true,
-      scrollY: "44.5vh",
-      scrollCollapse: true,
-      paging: false,
-      bSort: true,
-      bFilter: true,
-      bInfo: true,
-      order: [
-        [1, "asc"]
-      ], //Ordenar (columna,orden)
-    }).css("width", "100% !important");
+  tabla = $("#tbdetalle").dataTable({
+    language: language_dt(),
+    aProcessing: true, //Activamos el procesamiento del datatables
+    aServerSide: true, //Paginación y filtrado realizados por el servidor
+    dom: "Bfrtilp", //Definimos los elementos del control de tabla
+    columnDefs: [{
+      targets: 0, // Tu primera columna
+      width: "100px",
+      className: "text-center",
+      orderable: false,
+    },
+    {
+      targets: 1,
+      width: "120px",
+      className: "text-center",
+    },
+    {
+      targets: 2,
+      width: "450px",
+    },
+    {
+      targets: [3, 4],
+      width: "100px",
+      className: "text-right",
+    },
+    {
+      targets: [5, 6],
+      width: "50px",
+      className: "text-center",
+      orderable: false,
+    },
+    ],
+    buttons: [{
+      extend: "excelHtml5",
+      text: '<i class="fa fa-file-excel"></i> Excel ',
+      titleAttr: "Exportar a Excel",
+      className: "btn btnx btn-sm btn-success",
+      exportOptions: { columns: [1, 2, 4] },
+    },
+    {
+      extend: "csvHtml5",
+      text: '<i class="fa fa-file-archive"></i> CSV ',
+      titleAttr: "Exportar a Texto",
+      className: "btn btnx btn-sm btn-info",
+      exportOptions: { columns: [1, 2, 4] },
+    },
+    {
+      extend: "pdf",
+      text: '<i class="fa fa-file-pdf"></i> PDF ',
+      titleAttr: "Exportar a PDF",
+      className: "btn btnx btn-sm btn-danger",
+      exportOptions: { columns: [1, 2, 4] },
+    },
+    ],
+    ajax: {
+      url: url_base + "/Listar",
+      method: 'POST', //usamos el metodo POST
+      data: { 'security': 'listar' },
+      dataSrc: "",
+      error: function (e) {
+        console.log(e);
+      }
+    },
+    columns: [
+      { data: "opciones" },
+      { data: "cod_ipago" },
+      { data: "desc_ipago" },
+      { data: "comision"},
+      { data: "recargo"},
+      { data: "eliminar" },
+      { data: "estatus" },
+    ],
+    scrollY: "44.5vh",
+    responsive: true,
+    scrollCollapse: true,
+    paging: false,
+    resonsieve: true,
+    select: true,
+    bSort: true,
+    bFilter: true,
+    bInfo: true,
+    bDestroy: true,
+    order: [
+      [1, "asc"]
+    ], //Ordenar (columna,orden)
+  })
   $("div.dataTables_filter").css("display", "none");
   $("div.dt-buttons").prependTo("div.input-group.search");
   //#endregion
@@ -216,16 +144,9 @@ function Operacion(operacion) {
       break;
 
     case "nuevo":
-      $("#btnGuardar,#btnCancelar,select").attr("disabled", false);
+      $("#btnGuardar,#btnCancelar").attr("disabled", false);
       $("#btnEditar").attr("disabled", true);
       $("input[type=text],input[type=textc]").val("").attr("readonly", false);
-      $(".ffecha").datepicker({
-        changeMonth: true,
-        changeYear: true,
-        showWeek: true,
-        autoclose: "false",
-        format: "dd/mm/yyyy"
-      }).datepicker("setDate", new Date());
       MostrarForm(true);
       break;
 
@@ -233,14 +154,14 @@ function Operacion(operacion) {
       $('[data-toggle="tooltip"]').tooltip();
       $("input[type=text],input[type=textc]").attr("readonly", true);
       $("#btnEditar,#btnCancelar").attr("disabled", false);
-      $("#btnGuardar,select").attr("disabled", true);
+      $("#btnGuardar").attr("disabled", true);
       MostrarForm(true);
       break;
 
     case "editar":
       $("input[type=text],input[type=textc]").attr("readonly", false);
       $("#btnEditar").attr("disabled", true);
-      $("#btnGuardar,#btnCancelar,select").attr("disabled", false);
+      $("#btnGuardar,#btnCancelar").attr("disabled", false);
       break;
 
     case "cancelar":
@@ -270,9 +191,9 @@ function InsertarEditar() {
   document.addEventListener('submit', function (e) {
     e.preventDefault();
     form = document.querySelector("#dataForm");
-    let strCampo = document.querySelectorAll("#cod_proveedor,#desc_proveedor,#rif,#direccion,#fechareg");
+    let strCampo = document.querySelectorAll("#cod_ipago,#desc_ipago");
 
-    if (empty(strCampo[0].value && strCampo[1].value && strCampo[2].value && strCampo[3].value && strCampo[4].value)) {
+    if (empty(strCampo[0].value && strCampo[1].value)) {
       Swal.fire({
         icon: "info",
         title: 'Atención!',
@@ -283,7 +204,6 @@ function InsertarEditar() {
       for (let x = 0; x < strCampo.length; x++) {
         strCampo[x].classList.add("is-invalid");
       }
-
     } else {
       let formData = new FormData(form);
       formData.append('security', 'datos');
@@ -297,6 +217,7 @@ function InsertarEditar() {
         .then(objData => {
           if (objData.status) {
             proceso = "listar";
+
             Operacion(proceso);
             Swal.fire({
               icon: "success",
@@ -323,10 +244,10 @@ function InsertarEditar() {
 }
 
 //Función para Mostrar registros
-function mostrar(idproveedor) {
+function mostrar(idipago) {
   const form = document.querySelector("#dataForm");
   let dataset = new FormData(form);
-  dataset.append('idproveedor', idproveedor);
+  dataset.append('idipago', idipago);
   let urlAjax = url_base + "/Mostrar";
   fetch(urlAjax, {
     method: 'POST',
@@ -346,12 +267,12 @@ function mostrar(idproveedor) {
 }
 
 //Función para Activar registros
-function activar(idproveedor) {
+function activar(idipago) {
   msgOpcion("¿Desea <b>Activar</b> el Registro?", "warning").then((result) => {
     if (result.isConfirmed) {
       const form = document.querySelector("#dataForm");
       let dataset = new FormData(form);
-      dataset.append('idproveedor', idproveedor);
+      dataset.append('idipago', idipago);
       let urlAjax = url_base + "/Activar";
       fetch(urlAjax, {
         method: 'POST',
@@ -395,12 +316,12 @@ function activar(idproveedor) {
 }
 
 //Función para Desactivar registros
-function desactivar(idproveedor) {
+function desactivar(idipago) {
   msgOpcion("¿Desea <b>Desactivar</b> el Registro?", "warning").then((result) => {
     if (result.isConfirmed) {
       const form = document.querySelector("#dataForm");
       let dataset = new FormData(form);
-      dataset.append('idproveedor', idproveedor);
+      dataset.append('idipago', idipago);
       let urlAjax = url_base + "/Desactivar";
       fetch(urlAjax, {
         method: 'POST',

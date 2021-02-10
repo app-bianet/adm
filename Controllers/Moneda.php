@@ -106,6 +106,17 @@ class Moneda extends Controllers{
     die();   
   }
 
+  public function MostrarBase(){
+   // if (isset($_POST["security"])) {
+
+        $arrData=$this->model->ListDtBase();
+        echo json_encode($arrData,JSON_UNESCAPED_UNICODE);    
+    // } else{
+    //   header("Location:".base_URL()."Error404");
+    // }
+    // die();   
+  }
+
   public function Activar(){
     if (isset($_POST['idmoneda'])) {
       $idmoneda=intval(limpiarCadena($_POST['idmoneda']));

@@ -242,6 +242,7 @@ function Operacion(operacion) {
                 autoclose: "false",
                 format: "dd/mm/yyyy"
             }).datepicker("setDate", new Date());
+            EventoCheckBox();
             MostrarForm(true);
             break;
 
@@ -250,6 +251,7 @@ function Operacion(operacion) {
             $("input[type=text],input[type=textc]").attr("readonly", true);
             $("#btnEditar,#btnCancelar").attr("disabled", false);
             $("#btnGuardar,select").attr("disabled", true);
+            EventoCheckBox();
             MostrarForm(true);
             break;
 
@@ -520,3 +522,15 @@ function eliminar() {
 }
 
 $("#tbdetalle").dataTable();
+
+function EventoCheckBox() {
+
+    $("input[type=checkbox]").show(function() {
+        var value = $(this).val();
+        if (value == 0) {
+            $(this).prop('checked', false);
+        } else {
+            $(this).prop('checked', true);
+        }
+    });
+}

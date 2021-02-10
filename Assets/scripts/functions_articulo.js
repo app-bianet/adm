@@ -340,9 +340,9 @@ function InsertarEditar() {
     document.addEventListener('submit', function(e) {
         e.preventDefault();
         form = document.querySelector("#dataForm");
-        let strCampo = document.querySelectorAll("#cod_articulo,#desc_articulo,#fechareg");
+        let strCampo = document.querySelectorAll("#cod_articulo,#desc_articulo");
 
-        if (empty(strCampo[0].value && strCampo[1].value && strCampo[3].value)) {
+        if (empty(strCampo[0].value && strCampo[1].value)) {
             Swal.fire({
                 icon: "info",
                 title: 'Atención!',

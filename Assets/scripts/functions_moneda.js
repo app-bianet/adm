@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", function() {
     eliminar();
     Nuevo();
 
-
     $('.chk').on('click', function() {
         if ($(this).is(':checked')) {
             $(this).val('1')

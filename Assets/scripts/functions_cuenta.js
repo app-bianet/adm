@@ -7,6 +7,15 @@ document.addEventListener("DOMContentLoaded", function () {
   InsertarEditar();
   eliminar();
   Nuevo();
+  SelectOp();
+
+  $('.chk').on('click', function() {
+    if ($(this).is(':checked')) {
+        $(this).val('1')
+    } else {
+        $(this).val('0')
+    }
+});
 
   $("input.filtro_buscar").on("keyup click", function () {
     filterGlobal();
@@ -16,6 +25,23 @@ document.addEventListener("DOMContentLoaded", function () {
     filterColumn($(this).parents("tr").attr("data-column"));
   });
 });
+
+function SelectOp() {
+  let formData = new FormData();
+  formData.append("security", "listar");
+  let ajaxUrl = url_baseL + "Banco/Selectpicker";
+  fetch(ajaxUrl, {
+          method: "POST",
+          body: formData,
+      })
+      .then((response) => response.text())
+      .catch((error) => {
+          console.error("Error:", error);
+      })
+      .then((resp) => {
+          $("#idbanco").html(resp);
+      });
+}
 
 function ListarTabla() {
   //#region
@@ -41,16 +67,16 @@ function ListarTabla() {
     },
     {
       targets: 3,
-      width: "80px",
+      width: "70px",
       className: "text-center",
     },
     {
       targets: 4,
-      width: "250px",
+      width: "220px",
     },
     {
       targets: 5,
-      width: "120px",
+      width: "150px",
       className:"text-right"
     },
     {
@@ -154,9 +180,17 @@ function Operacion(operacion) {
       break;
 
     case "nuevo":
-      $("#btnGuardar,#btnCancelar").attr("disabled", false);
+      $("#btnGuardar,#btnCancelar,select,.chk").attr("disabled", false);
       $("#btnEditar").attr("disabled", true);
       $("input[type=text],input[type=textc]").val("").attr("readonly", false);
+      $(".ffecha").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        showWeek: true,
+        autoclose: "false",
+        format: "dd/mm/yyyy"
+      }).datepicker("setDate", new Date());
+      EventoCheckBox();
       MostrarForm(true);
       break;
 
@@ -164,14 +198,15 @@ function Operacion(operacion) {
       $('[data-toggle="tooltip"]').tooltip();
       $("input[type=text],input[type=textc]").attr("readonly", true);
       $("#btnEditar,#btnCancelar").attr("disabled", false);
-      $("#btnGuardar").attr("disabled", true);
+      $("#btnGuardar,select,.chk").attr("disabled", true);
+      EventoCheckBox();
       MostrarForm(true);
       break;
 
     case "editar":
       $("input[type=text],input[type=textc]").attr("readonly", false);
       $("#btnEditar").attr("disabled", true);
-      $("#btnGuardar,#btnCancelar").attr("disabled", false);
+      $("#btnGuardar,#btnCancelar,select,.chk").attr("disabled", false);
       break;
 
     case "cancelar":
@@ -432,3 +467,15 @@ function eliminar() {
 }
 
 $("#tbdetalle").dataTable();
+
+function EventoCheckBox() {
+
+  $("input[type=checkbox].chk").show(function() {
+      var value = $(this).val();
+      if (value == 0) {
+          $(this).prop('checked', false);
+      } else {
+          $(this).prop('checked', true);
+      }
+  });
+}

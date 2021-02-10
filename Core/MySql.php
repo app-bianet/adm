@@ -3,6 +3,7 @@
     private $conexion;
     private $stringQuery;
     private $arrValues;
+    private $strValues;
 
   function __construct(){
     parent::__construct();
@@ -28,6 +29,18 @@
     $result->execute();
     $data = $result->fetch(PDO::FETCH_ASSOC);
     return $data;
+  }
+
+  
+  public function InsertPlane(string $query){
+    $this->stringQuery=$query;
+    $result = $this->conexion->prepare($this->stringQuery);
+    $result->execute();
+    if($result->rowCount() > 0){
+      return  $result -> rowCount();
+    } else {
+      return ($result->errorCode()); 
+    }
   }
 
   public function Insert(string $query, array $arrValue){
@@ -61,6 +74,13 @@
     } else {
       return ($result->errorCode()); 
     }
+  }
+
+  public function UpdateSet(string $query){
+    $this->stringQuery=$query;
+    $result=$this->conexion->prepare($this->stringQuery);
+    $result->execute();
+    return $result;
   }
 
 }

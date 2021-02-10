@@ -59,7 +59,7 @@
                 </div>
               </div>
             </div>
-            <div class="form-group col-lg-4 col-md-4 col-sm-2 col-xs-2">
+            <div class="form-group col-lg-5 col-md-5 col-sm-12 col-xs-12">
               <div class="input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">Banco:</span>
@@ -68,7 +68,7 @@
                 </select>
               </div>
             </div>
-            <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
               <div class="input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">Tipo:</span>
@@ -82,18 +82,15 @@
                 </select>
               </div>
             </div>
-            <div class="form-group col-lg-5 col-md-5 col-sm-8 col-xs-8">
+            <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
               <input type="text" id="numcuenta" name="numcuenta" class="form-control" placeholder="Nro de Cuenta">
-            </div>
-            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-              <input type="checkbox" id="mostrar" name="mostrar"> : <label class="checkbox-inline"> Mostrar en Documentos de Venta</label> 
             </div>
             <div class="form-group col-lg-11 col-md-11 col-sm-11 col-xs-12">
               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="card card-header-pills">
                   <div class="nav nav-tabs nav-compact nav-justified">   
-                    <a class="nav-link active" data-toggle="tab" href="#tab1"><B>Agencia</B></a>
-                    <a class="nav-link" data-toggle="tab" href="#tab2"><B>Saldos</B></a>
+                    <a class="nav-link active" data-toggle="tab" href="#tab1">Agencia</a>
+                    <a class="nav-link" data-toggle="tab" href="#tab2">Saldos</a>
                   </div>
                   <div class="tab-content">
                     <div role="tab-pane fade" class="tab-pane active" id="tab1">
@@ -122,15 +119,15 @@
                         <div class="form-row">
                           <div class="form-group col-lg-4 col-md-12 col-sm-12 col-xs-12">
                             <label>Debe:</label>
-                            <input type="text" class="form-control nformat" name="saldod" id="saldod" placeholder="0.00" readonly>
+                            <input type="textx" class="form-control nformat" name="saldod" id="saldod" placeholder="0.00" readonly>
                           </div>
                           <div class="form-group col-lg-4 col-md-12 col-sm-12 col-xs-12">
                             <label>Haber:</label>
-                            <input type="text" class="form-control nformat" name="saldoh" id="saldoh" placeholder="0.00" readonly>
+                            <input type="textx" class="form-control nformat" name="saldoh" id="saldoh" placeholder="0.00" readonly>
                           </div>
                           <div class="form-group col-lg-4 col-md-12 col-sm-12 col-xs-12">
                             <label>Saldo:</label>
-                            <input type="text" class="form-control nformat" name="saldot" id="saldot" placeholder="0.00" readonly>
+                            <input type="textx" class="form-control nformat" name="saldot" id="saldot" placeholder="0.00" readonly>
                           </div>
                         </div>
                       </div> 
@@ -138,6 +135,9 @@
                   </div>
                 </div>
               </div>
+            </div>
+            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <input type="checkbox" id="mostrar" name="mostrar" class="chk"> : <label class="checkbox-inline"> Mostrar en Documentos de Venta</label> 
             </div>
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
             </div>

@@ -1,22 +1,22 @@
 <?php
-class Zona extends Controllers{
+class IPago extends Controllers{
 
   public function __construct(){   
     parent::__construct();
   }
 
-  public function zona(){
+  public function ipago(){
     ob_start();
     session_start();
     if (!isset($_SESSION["sidusuario"])){
       header("Location:".base_URL()."login");
     } else {
-      if ($_SESSION['zona']==1){     
-        $data['page_tag']="Zonas";
-        $data['page_title']=".:: Zonas ::.";
-        $data['page_name']="zona";
-        $data['func']="functions_zona.js";
-        $this->views->getView($this,"zona",$data);
+      if ($_SESSION['ipago']==1){     
+        $data['page_tag']="Instrumentos de Pago";
+        $data['page_title']=".:: Instrumentos de Pago ::.";
+        $data['page_name']="ipago";
+        $data['func']="functions_ipago.js";
+        $this->views->getView($this,"ipago",$data);
       } else {
         header("Location:".base_URL()."error403");
       }
@@ -26,15 +26,17 @@ class Zona extends Controllers{
 
   public function Insertar(){
     if(isset($_POST["security"])){
-      $idzona=isset($_POST["idzona"])? limpiarCadena($_POST["idzona"]):"";
-      $cod_zona=isset($_POST["cod_zona"])? limpiarCadena($_POST["cod_zona"]):"";
-      $desc_zona=isset($_POST["desc_zona"])? limpiarCadena($_POST["desc_zona"]):"";
+      $idipago=isset($_POST["idipago"])? limpiarCadena($_POST["idipago"]):"";
+      $cod_ipago=isset($_POST["cod_ipago"])? limpiarCadena($_POST["cod_ipago"]):"";
+      $desc_ipago=isset($_POST["desc_ipago"])? limpiarCadena($_POST["desc_ipago"]):"";
+      $comision=isset($_POST["comision"])? limpiarCadena($_POST["comision"]):"";
+      $recargo=isset($_POST["recargo"])? limpiarCadena($_POST["recargo"]):"";
 
-      if (empty($idzona)) {
-        $request=$this->model->InsertDt($cod_zona,$desc_zona);
+      if (empty($idipago)) {
+        $request=$this->model->InsertDt($cod_ipago,$desc_ipago,insertNumber($comision),insertNumber($recargo));
         $option=1;
       } else {
-       $request=$this->model->EditarDt($idzona,$cod_zona,$desc_zona,$desc_zona);
+       $request=$this->model->EditarDt($idipago,$cod_ipago,$desc_ipago,insertNumber($comision),insertNumber($recargo));
         $option=2;
       }
 
@@ -45,7 +47,7 @@ class Zona extends Controllers{
           $arrRspta=array("status"=>true,"msg"=>"Registro Actualizado Correctamente!");
         }
       } else if ($request=="1062"){
-        $arrRspta=array("status"=>false,"msg"=>"El Código <b>".$cod_zona."</b> ya se encuentra Registrado! 
+        $arrRspta=array("status"=>false,"msg"=>"El Código <b>".$cod_ipago."</b> ya se encuentra Registrado! 
         <br>No es posible ingresar <b>Registros Duplicados!</b>");
       } else {
         $arrRspta=array("status"=>false,"msg"=>$request);
@@ -62,8 +64,8 @@ class Zona extends Controllers{
       if (empty($_POST['eliminar_reg'])) {
         $arrRspta = array("status" => false, "msg" => "No Seleccionó ningún Registro para Eliminar!");
       } else {
-        $idzona = $_POST['eliminar_reg'];
-        foreach ($idzona as $valor) {
+        $idipago = $_POST['eliminar_reg'];
+        foreach ($idipago as $valor) {
           $request = $this->model->EliminarDt($valor);
         }
         if ($request == 1) {
@@ -81,10 +83,10 @@ class Zona extends Controllers{
   }
 
   public function Mostrar(){
-    if (isset($_POST['idzona'])) {
-      $idzona=intval(limpiarCadena($_POST['idzona']));
-      if ($idzona>0) {
-        $arrData=$this->model->ShowDt($idzona);
+    if (isset($_POST['idipago'])) {
+      $idipago=intval(limpiarCadena($_POST['idipago']));
+      if ($idipago>0) {
+        $arrData=$this->model->ShowDt($idipago);
         if (empty($arrData)) {
           $arrRspta=array('status'=>false,'msg'=>'No Existen Registros!');
         } else {
@@ -99,10 +101,10 @@ class Zona extends Controllers{
   }
 
   public function Activar(){
-    if (isset($_POST['idzona'])) {
-      $idzona=intval(limpiarCadena($_POST['idzona']));
+    if (isset($_POST['idipago'])) {
+      $idipago=intval(limpiarCadena($_POST['idipago']));
       $estatus=intval(1);
-      $request=$this->model->EstatusDt($idzona,$estatus);
+      $request=$this->model->EstatusDt($idipago,$estatus);
         if($request>0){
           $arrRspta=array("status"=>true,"msg"=>"Registro Activado Correctamente!");
         }else {
@@ -116,10 +118,10 @@ class Zona extends Controllers{
   }
 
   public function Desactivar(){
-    if (isset($_POST['idzona'])) {
-      $idzona=intval(limpiarCadena($_POST['idzona']));
+    if (isset($_POST['idipago'])) {
+      $idipago=intval(limpiarCadena($_POST['idipago']));
       $estatus=intval(0);
-      $request=$this->model->EstatusDt($idzona,$estatus);
+      $request=$this->model->EstatusDt($idipago,$estatus);
         if($request>0){
           $arrRspta=array("status"=>true,"msg"=>"Registro Desctivado Correctamente!");
         }else {
@@ -142,20 +144,22 @@ class Zona extends Controllers{
           $arrData[$i]['estatus']='<small class="badge badge-success">Activo</small>';
           $arrData[$i]['opciones']=
           '<small '.$al.'center'.$w.'100px;" class="small btn-group">
-          <button type="button" class="btn btn-primary btn-xs" onclick="mostrar('.$arrData[$i]['idzona'].')" data-toggle="tooltip" data-placement="right" title="Editar"><i class="fa fa-pencil"></i></button>
-          <button type="button" class="btn btn-success btn-xs" onclick="desactivar('.$arrData[$i]['idzona'].')" data-toggle="tooltip" data-placement="right" title="Desactivar"><i class="fa fa-check"></i></button>
+          <button type="button" class="btn btn-primary btn-xs" onclick="mostrar('.$arrData[$i]['idipago'].')" data-toggle="tooltip" data-placement="right" title="Editar"><i class="fa fa-pencil"></i></button>
+          <button type="button" class="btn btn-success btn-xs" onclick="desactivar('.$arrData[$i]['idipago'].')" data-toggle="tooltip" data-placement="right" title="Desactivar"><i class="fa fa-check"></i></button>
           </small>';
         } else {
           $arrData[$i]['estatus']='<small class="badge badge-danger">Inactivo</small>';
           $arrData[$i]['opciones']=
-          '<small '.$al.'center'.$w.'100px;" class="small btn-group">
-          <button type="button" class="btn btn-primary btn-xs" onclick="mostrar('.$arrData[$i]['idzona'].')" data-toggle="tooltip" data-placement="right" title="Editar"><i class="fa fa-pencil"></i></button>
-          <button type="button" class="btn btn-warning btn-xs" onclick="activar('.$arrData[$i]['idzona'].')" data-toggle="tooltip" data-placement="right" title="Activar"><i class="fa fa-exclamation-triangle"></i></button>
+          '<h6 '.$al.'center'.$w.'100px;" class="small btn-group">
+          <button type="button" class="btn btn-primary btn-xs" onclick="mostrar('.$arrData[$i]['idipago'].')" data-toggle="tooltip" data-placement="right" title="Editar"><i class="fa fa-pencil"></i></button>
+          <button type="button" class="btn btn-warning btn-xs" onclick="activar('.$arrData[$i]['idipago'].')" data-toggle="tooltip" data-placement="right" title="Activar"><i class="fa fa-exclamation-triangle"></i></button>
           </small>';   
         }
-        $arrData[$i]['cod_zona']='<h6>'.$arrData[$i]['cod_zona'].'</h6>';
-        $arrData[$i]['desc_zona']='<h6>'.$arrData[$i]['desc_zona'].'</h6>';
-        $arrData[$i]['eliminar']='<input type="checkbox" name="eliminar_reg[]" value="'.$arrData[$i]['idzona'].'">';
+        $arrData[$i]['cod_ipago']='<h6>'.$arrData[$i]['cod_ipago'].'</h6>';
+        $arrData[$i]['desc_ipago']='<h6>'.$arrData[$i]['desc_ipago'].'</h6>';
+        $arrData[$i]['comision']='<h6>'.formatMoneyP($arrData[$i]['comision'],2).'</h6>';
+        $arrData[$i]['recargo']='<h6>'.formatMoneyP($arrData[$i]['recargo'],2).'</h6>';
+        $arrData[$i]['eliminar']='<input type="checkbox" name="eliminar_reg[]" value="'.$arrData[$i]['idipago'].'">';
       }
       echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
       die();
@@ -169,7 +173,7 @@ class Zona extends Controllers{
       $arrData=$this->model->ListDt();
       if ($arrData) {
         for ($i=0; $i<count($arrData);$i++) { 
-          echo '<option value="'.$arrData[$i]['idzona'].'">'.$arrData[$i]['cod_zona'].'-'.$arrData[$i]['desc_zona'].'</option>';
+          echo '<option value="'.$arrData[$i]['idipago'].'">'.$arrData[$i]['cod_ipago'].'-'.$arrData[$i]['desc_ipago'].'</option>';
         }
       } else {
         echo '<option readonly>No Existen Registros!</option>';
