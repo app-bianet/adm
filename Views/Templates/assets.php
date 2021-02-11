@@ -23,6 +23,7 @@
 <script src="<?= libs()?>/js/bootstrap.min.js"></script>
 
 <script src="<?= libs()?>/js/bootstrap.bundle.min.js"></script>
+<script src="<?= libs()?>/js/axios.min.js"></script>
 <!-- AdminLTE -->
 <script src="<?= libs()?>/js/adminlte.min.js"></script>
 <script src="<?= libs()?>/js/bootstrap-datepicker.min.js"></script>

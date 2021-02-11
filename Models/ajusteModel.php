@@ -34,7 +34,7 @@
       }
     }
 
-    public function Listar(){
+    public function ListarDt(){
       try{
         $sql="SELECT 
         aj.idajuste,
@@ -231,19 +231,6 @@
       }
     }
     
-    public function EstatusDt($id,$st){
-      $this->Idajuste=$id;
-      $this->Estatus=$st;
-      try {
-        $sql="UPDATE tbajuste SET estatus=? WHERE idajuste='$this->Idajuste'";
-        $arrData=array($this->Estatus);
-        $request=$this->Update($sql,$arrData);
-        return $request;
-      } catch (PDOException $e ) {
-        return PDOError($e,'');
-      }
-    }
-
     public function InsertDt($idusuario,$cod_ajuste,$desc_ajuste,$estatus,$tipo,$totalstock,$totalh,
       $fechareg,$idarticulo,$iddeposito,$cantidad,$costo,$idartunidad){
       $this->Idusuario=$idusuario;
@@ -261,7 +248,7 @@
       $this->Idartunidad=$idartunidad;
       try{  
         $queryInsert="INSERT INTO tbajuste(idusuario,cod_ajuste,desc_ajuste,tipo,estatus,
-        totalstock,totalh,fechareg,fechadb)VALUES (?,?,?,?,?,?,?,?,NOW())";
+        totalstock,totalh,fechareg,fechadb) VALUES(?,?,?,?,?,?,?,?,NOW())";
         $arrData=array($this->Idusuario,$this->Cod_ajuste,$this->Desc_ajuste,$this->Tipo,$this->Estatus,
         $this->Totalstock,$this->Totalh,$this->Fechareg);
         $lastId = $this->Insert($queryInsert, $arrData);
@@ -291,6 +278,7 @@
             $arrDataDt=array($lastId,$this->Tipo,$this->Idarticulo[$num_elementos],$this->Iddeposito[$num_elementos],
             $this->Cantidad[$num_elementos],$this->Costo[$num_elementos],$this->Idartunidad[$num_elementos]);
             $this->Insert($sql_detalle, $arrDataDt);
+            $num_elementos=$num_elementos + 1;
           }
         } else if($this->Tipo=='Inventario'){
           while ($num_elementos < count($idarticulo))
@@ -300,6 +288,7 @@
             $arrDataDt=array($lastId,$this->Tipo,$this->Idarticulo[$num_elementos],$this->Iddeposito[$num_elementos],
             $this->Cantidad[$num_elementos],$this->Costo[$num_elementos],$this->Idartunidad[$num_elementos]);
             $this->Insert($sql_detalle, $arrDataDt);
+            $num_elementos=$num_elementos + 1;
           }
         }
         //Actualizamos el Codigo
@@ -411,5 +400,26 @@
       } catch (PDOException $e) {
         return PDOError($e,'delete');
       }   
+    }
+
+    public function AjustarCosto($idarticulo,$costo,$valor){
+      $this->Idarticulo=$idarticulo;
+      $this->Costo=$costo;
+      $this->Valor=$valor;
+      $returnData="";
+      try {
+          $num_elementos=0;
+          while ($num_elementos < count($this->Idarticulo)){
+            $sql="UPDATE tbarticulo 
+            SET costo=? 
+            WHERE idarticulo=?";
+            $arrData=array(($this->Costo[$num_elementos]/$this->Valor[$num_elementos]),$this->Idarticulo[$num_elementos]);
+            $returnData=$this->Update($sql,$arrData);
+            $num_elementos=$num_elementos + 1;
+          }
+          return $returnData;
+      } catch (PDOException $e) {
+        return PDOError($e,'');
+      }
     }
   }

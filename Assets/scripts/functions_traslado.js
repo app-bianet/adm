@@ -1,19 +1,22 @@
-let tabla,tabladt;
+let tabla,tabladetalle;
 let proceso;
 let iddep;
-let permitir=false;
-let validar,cantidadr,stockval,valorund=0;
-let controlval;
+let iddepi;
+let tablal;
+let cantidadr=0
+let stockval=0;
+let valorund=0;
+let validar=0;
+let permitir=true;
 
 document.addEventListener("DOMContentLoaded", function () {
   proceso = "listar";
   Operacion(proceso);
-  InsertarEditar();
   Nuevo();
   SelectDeposito();
-  SelccionDeposito();
-  MostrarModal();
+  SelectDep();
   agregarRengon();
+  InsertarEditar();
 
   $("input.filtro_buscar").on("keyup click", function () {
     filterGlobal();
@@ -35,95 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
     data = JSON.parse(data);		
 		$('#lbcod_moneda').html(data.simbolo);
 	});
-
 });
-
-function MostrarModal(){
-	$("#btnAgregarArt").click(function () { 
-		$("#ModalCrearArticulo").modal('show');	
-    $('#ModalCrearArticulo').modal('handleUpdate');
-    $("#iddeposito").attr('disabled',true);
-	});
-
-	$("#cod_articulom,#desc_articulom").click(function () { 
-		$("#ModalArticulo").modal('show');
-	});
-}
-
-function SelccionDeposito(){
-
-	$("#iddeposito").change(function () { 
-		iddep=$(this).val();
-		$("#btnAgregarArt").prop('disabled',false);
-		listarArticulos();	
-    SelectUnidad();
-	});
-}
-
-//Función Listar Articulos
-function listarArticulos(){
-	tabladt=$('#tbarticulos').dataTable({
-    language: language_dt(),
-		aProcessing: false,//Activamos el procesamiento del datatables
-		aServerSide: false,//Paginación y filtrado realizados por el servidor
-	  dom: 'frtip',//Definimos los elementos del control de tabla
-    columnDefs: [{
-      targets: 0,
-      orderable: false,
-    }],
-		ajax:{
-			url: url_base+'/ListarArticulos',
-      type : "POST",
-      data:{'id':iddep,'tipo':$("#tipo").val()},
-			dataType : "json",						
-			error: function(e){console.log(e.responseText);}
-      },
-			bDestroy: true,
-      scrollCollapse: true,
-      iDisplayLength:8,//Paginación
-      order: [[1, "asc"]],
-			bSort: true,
-			bFilter:true,
-      bInfo:true,
-      paging:true,
-	});
-
-}
-
-function SelectDeposito() {
-  let formData = new FormData();
-  formData.append("security", "listar");
-  let ajaxUrl = url_baseL + "Deposito/Selectpicker";
-    fetch(ajaxUrl, {
-        method: "POST",
-        body: formData,
-      })
-      .then((response) => response.text())
-      .catch((error) => {
-      console.error("Error:", error);
-      })
-      .then((resp) => {
-      $("#iddeposito").html(resp);
-  });
-}
-
-function SelectUnidad() {
-  let formData = new FormData();
-    formData.append("security", "listar");
-    let ajaxUrl = url_baseL + "Unidad/Selectpicker";
-    fetch(ajaxUrl, {
-        method: "POST",
-        body: formData,
-      })
-      .then((response) => response.text())
-      .catch((error) => {
-        console.error("Error:", error);
-      })
-      .then((resp) => {
-      $("#idunidad").html(resp);
-    }
-  );
-}
 
 function ListarTabla() {
   //#region
@@ -145,26 +60,21 @@ function ListarTabla() {
       },
       {
         targets: 2,
-        width: "100px",
+        width: "120px",
         className: "text-center",
       },
       {
-        targets: 3,
-        width: "450px",
-      },
-      {
-        targets: 4,
-        width: "50px",
-        className: "text-center",
+        targets: [3,4],
+        width: "280px",
       },
       {
         targets: 5,
-        width: "150px",
+        width: "160px",
         className:"text-right"
       },
       {
         targets: [6],
-        width: "70px",
+        width: "80px",
         className: "text-center",
         orderable: false,
       },
@@ -174,21 +84,21 @@ function ListarTabla() {
         text: '<i class="fa fa-file-excel"></i> Excel ',
         titleAttr: "Exportar a Excel",
         className: "btn btnx btn-sm btn-success",
-        exportOptions: { columns: [1, 2, 4] },
+        exportOptions: { columns: [1,2,3,4,5,6] },
       },
       {
         extend: "csvHtml5",
         text: '<i class="fa fa-file-archive"></i> CSV ',
         titleAttr: "Exportar a Texto",
         className: "btn btnx btn-sm btn-info",
-        exportOptions: { columns: [1, 2, 4] },
+        exportOptions: { columns: [1,2,3,4,5,6] },
       },
       {
         extend: "pdf",
         text: '<i class="fa fa-file-pdf"></i> PDF ',
         titleAttr: "Exportar a PDF",
         className: "btn btnx btn-sm btn-danger",
-        exportOptions: { columns: [1, 2, 4] },
+        exportOptions: { columns: [1,2,3,4,5,6] },
       },
       ],
       ajax: {
@@ -203,9 +113,9 @@ function ListarTabla() {
       columns: [
         { data: "opciones" },
         { data: "fechareg" },
-        { data: "cod_ajuste" },
-        { data: "desc_ajuste" },
-        { data: "tipo" },
+        { data: "cod_traslado" },
+        { data: "depositoi" },
+        { data: "depositod" },
         { data: "totalh" },
         { data: "estatus" },
       ],
@@ -226,25 +136,6 @@ function ListarTabla() {
   //#endregion
 }
 
-function filterGlobal() {
-  $("#tbdetalle").DataTable().search($("#filtro_buscar").val()).draw();
-}
-
-function Nuevo() {
-  document.querySelector("#btnAgregar").addEventListener('click', function () {
-    proceso = "nuevo";
-    Operacion(proceso);
-    Cancelar();
-  });
-}
-
-function Cancelar() {
-  document.querySelector("#btnCancelar").addEventListener('click', function () {
-    proceso = "cancelar";
-    Operacion(proceso);
-  });
-}
-
 function Operacion(operacion) {
   switch (operacion) {
     case "listar":
@@ -256,7 +147,7 @@ function Operacion(operacion) {
       $("#btnGuardar,#btnCancelar,select").attr("disabled", false);
       $("#btnEditar").attr("disabled", true);
       $("input[type=text],input[type=textc],#iddeposito").val("").attr("readonly", false);
-      $("#totalstock,#totalv").html("0.00");
+      $("#totalv").html("0.00");
       $(".ffecha").datepicker({
         changeMonth: true,
         changeYear: true,
@@ -302,23 +193,28 @@ function MostrarForm(flag) {
   }
 }
 
+function Nuevo() {
+  document.querySelector("#btnAgregar").addEventListener('click', function () {
+    proceso = "nuevo";
+    Operacion(proceso);
+    Cancelar();
+  });
+}
+
+function Cancelar() {
+  document.querySelector("#btnCancelar").addEventListener('click', function () {
+    proceso = "cancelar";
+    Operacion(proceso);
+  });
+}
+
 function InsertarEditar() {
   document.addEventListener('submit', function (e) {
     e.preventDefault();
     form = document.querySelector("#dataForm");
     let strCampo = document.querySelectorAll("#fechareg");
 
-      let tipomsg=$("#tipo").val();
-      let mensaje="";
-  
-      if (tipomsg=="Inventario") {
-        mensaje=" El Ajuste de Inventario de tipo Disponible <br>\
-        No puede ser Eliminado o Anulado con respecto a Stock de Inventario! <br>\
-        <b>¿Desea Continuar?</b>";
-      } else {
-        mensaje="¿Está Seguro de Guardar el Registro?";
-      }
-      msgOpcion(mensaje,"warning").
+      msgOpcion("¿Está Seguro de Guardar el Registro?","warning").
         then((result) => {
         if (result.isConfirmed) {
 
@@ -361,11 +257,12 @@ function InsertarEditar() {
       })
   });
 }
+
 //Función para Mostrar registros
-function mostrar(idajuste) {
+function mostrar(idtraslado) {
   const form = document.querySelector("#dataForm");
   let dataset = new FormData(form);
-  dataset.append('idajuste', idajuste);
+  dataset.append('idtraslado', idtraslado);
   let urlAjax = url_base + "/Mostrar";
   fetch(urlAjax, {
     method: 'POST',
@@ -377,7 +274,7 @@ function mostrar(idajuste) {
         $("#" + label).val(valor);
       })
       Cancelar();
-      $.post(url_base+'/ListarDetalle',{'id':idajuste},function(r){
+      $.post(url_base+'/ListarDetalle',{'id':idtraslado},function(r){
         $("#tbdetalles").html(r);
 				$("#totalv").html($("#totalt").val());
 		});
@@ -386,94 +283,65 @@ function mostrar(idajuste) {
     }); 
 }
 
-function eliminar(idajuste,tipo){
-
-  if(tipo=='Inventario'){
-    Swal.fire({
-      icon: "error",
-      title: "Error!",
-      html: 'Los Ajustes de Tipo Inventario no permiten se Eliminados!',
-      customClass: "swal-wide",
-      customClass: {
-        confirmButton: "btn btn-sm btnsw btn-info",
-        icon: "color:red",
-      },
-      buttonsStyling: false,
-  });
-  }else{
-    msgOpcion('Seguro que desea Eliminar el Registro?',"warning").
-    then((result) => {
-      if (result.isConfirmed) {
-        ProgressShow("Eliminado Registros...");
-        let form = new FormData()
-          form.append('id',idajuste);
-          form.append('tipo',tipo) 
-          fetch(url_base+"/Eliminar",({
-          body:form,
-          method:'POST',//Method
-          }))
-          .then(res => res.json())
-          .catch(data => console.log(data))
-          .then(objData =>{
-            if (objData.status) {
-              Swal.fire({
-                icon: "success",
-                title: "Exito!",
-                html: objData.msg,
-                showConfirmButton: false,
-                timer: 1800,
-              });
-            } else {
-              Swal.fire({
-                icon: "error",
-                title: "Error!",
-                html: objData.msg,
-                customClass: "swal-wide",
-                customClass: {
-                  confirmButton: "btn btn-sm btnsw btn-info",
-                  icon: "color:red",
-                },
-                buttonsStyling: false,
+function eliminar(idtraslado){
+    msgOpcion("Seguro que desea Eliminar el Registro?", "warning").then(
+      (result) => {
+        if (result.isConfirmed) {
+          ProgressShow("Eliminado Registros...");
+          let form = new FormData();
+          form.append("id", idtraslado);
+          fetch(url_base + "/Eliminar", {
+            body: form,
+            method: "POST", //Method
+          })
+            .then((res) => res.json())
+            .catch((data) => console.log(data))
+            .then((objData) => {
+              if (objData.status) {
+                Swal.fire({
+                  icon: "success",
+                  title: "Exito!",
+                  html: objData.msg,
+                  showConfirmButton: false,
+                  timer: 1800,
+                });
+              } else {
+                Swal.fire({
+                  icon: "error",
+                  title: "Error!",
+                  html: objData.msg,
+                  customClass: "swal-wide",
+                  customClass: {
+                    confirmButton: "btn btn-sm btnsw btn-info",
+                    icon: "color:red",
+                  },
+                  buttonsStyling: false,
+                });
+              }
+              proceso = "listar";
+              Operacion(proceso);
             });
-            }
-            proceso = "listar";
-            Operacion(proceso);
+        } else {
+          Swal.fire({
+            icon: "info",
+            title: "Eliminación Cancelada!",
+            showConfirmButton: false,
+            timer: 1500,
           });
-      } else{
-        Swal.fire({
-          icon: "info",
-          title: "Eliminación Cancelada!",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        proceso = "listar";
-        Operacion(proceso);
+          proceso = "listar";
+          Operacion(proceso);
+        }
       }
-    });
-  }
+    );
 }
 
-function anular(idajuste,tipo){
-  if(tipo=='Inventario'){
-    Swal.fire({
-      icon: "error",
-      title: "Error!",
-      html: 'Los Ajustes de Tipo Inventario no permiten se Anulados!',
-      customClass: "swal-wide",
-      customClass: {
-        confirmButton: "btn btn-sm btnsw btn-info",
-        icon: "color:red",
-      },
-      buttonsStyling: false,
-  });
-  }else{
-    msgOpcion('Seguro que desea Anular el Registro?',"warning").
+function anular(idtraslado){
+  msgOpcion('Seguro que desea Anular el Registro?',"warning").
     then((result) => {
       if (result.isConfirmed) {
         ProgressShow("Anulando Registros...");
         let form = new FormData()
-          form.append('id',idajuste);
-          form.append('tipo',tipo) 
+          form.append('id',idtraslado);
           fetch(url_base+"/Anular",({
           body:form,
           method:'POST',//Method
@@ -515,27 +383,136 @@ function anular(idajuste,tipo){
         proceso = "listar";
         Operacion(proceso);
       }
-    });
-  }
+  });  
 }
 
-$("#tbdetalle").dataTable();
+function SelectDeposito() {
+  let formData = new FormData();
+  formData.append("security", "listar");
+
+    fetch(url_baseL + "Deposito/Selectpicker", {
+        method: "POST",
+        body: formData,
+      })
+      .then((response) => response.text())
+      .catch((error) => {
+      console.error("Error:", error);
+      })
+      .then((resp) => {
+      $("#iddeposito,#iddepositoi").html(resp);
+    });
+}
+
+function SelectUnidad(){
+  let formData = new FormData();
+  formData.append("security", "listar");
+    fetch(url_baseL + "Unidad/Selectpicker", {
+        method: "POST",
+        body: formData,
+      })
+      .then((response) => response.text())
+      .catch((error) => {
+      console.error("Error:", error);
+      })
+      .then((resp) => {
+      $("#idunidad").html(resp);
+    });
+}
+
+function SelectDep(){
+
+	$("#iddeposito").change(function () { 
+		if($("#iddepositoi option:selected").val()==$(this).val()){
+			$("#iddeposito").val("")
+			$("#iddepositoi").val("")
+      Swal.fire({
+        icon: "info",title: 'Atención!',
+        html: 'El Deposito de <b>Origen</b> No puede ser Igual al Deposito de <b>Destino!</b>',
+        buttonsStyling: false,
+        customClass: {
+          confirmButton: "btn btn-sm btnsw btn-primary",
+        },
+      });
+		} else{
+			iddepi=$("#iddepositoi").val();
+			iddep=$("#iddeposito").val();
+			$("#btnAgregarArt").prop('disabled',false);	
+      listarArticulos();	
+      SelectUnidad();
+      MostrarModal();
+		}
+	});
+
+
+	$("#iddepositoi").change(function () { 
+		if($("#iddeposito option:selected").val()==$(this).val()){
+			$("#iddepositoi").val("")
+			$("#iddeposito").val("")
+      Swal.fire({
+        icon: "info",title: 'Atención!',
+        html: 'El Deposito de <b>Origen</b> No puede ser Igual al Deposito de <b>Destino!</b>',
+        buttonsStyling: false,
+        customClass: {
+          confirmButton: "btn btn-sm btnsw btn-primary",
+        },});
+		} else{
+			iddepi=$("#iddepositoi").val();
+			iddep=$("#iddeposito").val();
+			$("#btnAgregarArt").prop('disabled',false);	
+		}
+	});
+}
+
+//Función Listar Articulos
+function listarArticulos(){
+    tabla=$('#tbarticulos').dataTable({
+      aProcessing: true,//Activamos el procesamiento del datatables
+      aServerSide: true,//Paginación y filtrado realizados por el servidor
+      dom: 'Bfrtip',//Definimos los elementos del control de tabla
+      buttons: [],
+      columnDefs:[{
+        "targets":'nd',
+        "orderable":false,
+        "searchable":false,		
+      }],	
+      ajax:{
+        url: url_base+'/ListarArticulos',
+        type : "POST",
+        data:{'depi':$("#iddepositoi").val(),'depd':$("#iddeposito").val()},
+        dataType : "json",			
+          error: function(e){console.log(e.responseText);}
+        },
+        bDestroy: true,
+        iDisplayLength:8,//Paginación
+        order: [[ 1, "asc" ]],//Ordenar (columna,orden)
+        bSort: true,
+        bFilter:true,
+        bInfo:true,
+    });
+}
+
+function MostrarModal(){
+  $("#btnAgregarArt").click(function () { 
+    $("#ModalCrearArticulo").modal('show');	
+    $('#ModalCrearArticulo').modal('handleUpdate');
+    $("#iddeposito,#iddepositoi").attr('disabled',true);
+  });
+
+  $("#cod_articulom,#desc_articulom").click(function () { 
+    $("#ModalArticulo").modal('show');
+  });
+}
 
 let cont=0;
 let detalles=0;
-function agregarDetalle(idarticulo,iddeposito,cod_articulo,desc_articulo,tipor,costo,stock){
-  
+
+function agregarDetalle(idarticulo,iddeposito,cod_articulo,desc_articulo,costo,stock){
 	$("#idarticulom").val(idarticulo);
-	$("#iddepositom").val(iddeposito);
+	$("#iddeporigen").val(iddeposito);
 	$("#cod_articulom").val(cod_articulo);
 	$("#desc_articulom").val(desc_articulo);
-	$("#tipom").val(tipor);
 	$("#costom").val(costo);
 	$("#stockm").val(stock);
-
-	if ($("#tipo").val()=='Inventario') {
-	 	$("#cantidadm").val(stock);
-	}
 
 	$("#ModalArticulo").modal('hide');
 
@@ -582,9 +559,9 @@ function DataSetUnidad(id) {
 }
 
 function agregarRengon(){
-  $("#btnAceptarM").click(function(){
-    if($("#tipo").val()=='Salida') {
-			//permitir=true;
+  $("#btnAceptarM").click(function(){ 
+    validar=stockval-(cantidadr*valorund);
+
       validar=stockval-(cantidadr*valorund);
         if (validar<0) {
           if (permitir) {
@@ -616,28 +593,27 @@ function agregarRengon(){
         } else{
           DataSetAgregarRenglon();
         }
-    } else if($("#tipo").val()!='Salida'){
-      DataSetAgregarRenglon();
-    }
-  });
+   });
 }
 
 //Datos Correspondientes al Renglon a Ingresar
 function DataSetAgregarRenglon() {
 
-	var idarticulov, idartunidadv, iddepositov, cantidadv, tipov, valorv, costov;
-	var cod_articulov, desc_articulov, desc_unidadv;
-	var totalt = 0;
+	var idarticulov,idartunidadv,cantidadv,valorv,costov;
+	var cod_articulov, desc_articulov,desc_unidadv;
+	var iddepositoi;
+	var iddepositod;
+	var totalt=0;
 
 	idarticulov = $.trim($("#idarticulom").val());
-	iddepositov = $.trim($("#iddeposito").val());
+  iddepositoi=$.trim($("#iddeporigen").val());
+  iddepositod=$("#iddeposito").val();
 	idartunidadv = $.trim($("#idartunidad").val());
 	cod_articulov = $.trim($("#cod_articulom").val());
 	desc_articulov = $.trim($("#desc_articulom").val());
 	desc_unidadv = $.trim($('#desc_unidad').val());
 	cantidadv = $.trim($("#cantidadm").val());
 	costov = $.trim($("#costom").val());
-	tipov = $.trim($("#tipom").val());
 	valorv = $.trim($('#valorund').val());
 
   var w = 'style="width:';
@@ -671,8 +647,8 @@ function DataSetAgregarRenglon() {
         </td>'+
         '<td class="hidden">\
           <input type="hidden" name="idarticulo[]" id="idarticulo" value="' + idarticulov + '">\
-          <input type="hidden" name="iddeposito[]" id="iddeposito" value="' + iddepositov + '">\
-          <input type="hidden" name="tipoa[]" id="tipoa[]" value="' + tipov + '">\
+          <input type="hidden" name="iddepositoi[]" id="iddepositoi" value="'+iddepositoi+'">\
+          <input type="hidden" name="iddepositod[]" id="iddepositod" value="'+iddepositod+'">\
           <input type="hidden" name="valor[]" id="valor[]" value="' + valorv + '">\
           <input type="text" onchange="modificarSubtotales();" name="cantidad[]" id="cantidad[]" value="' + cantidadv + '">\
           <input type="hidden" name="idartunidad[]" id="idartunidadr[]" value="' + idartunidadv + '">\
@@ -761,4 +737,3 @@ function evaluar(){
 		cont=0;	
 	}
 }
-

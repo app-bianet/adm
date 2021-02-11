@@ -49,8 +49,8 @@
                 </a>';}?>
                 <ul class="nav nav-treeview child2">
                   <?php if ($_SESSION['ajustei']==1){echo'<li class="nav-item"><a href="Ajuste" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Ajuste de Inventario</a></li>';}?>
-                  <?php if ($_SESSION['traslado']==1){echo'<li class="nav-item"><a href="" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Ajuste de Precios</a></li>';}?>
-                  <?php if ($_SESSION['ajustep']==1){echo'<li class="nav-item"><a href="" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Traslado</a></li>';}?>
+                  <?php if ($_SESSION['ajustep']==1){echo'<li class="nav-item"><a href="Traslado" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Ajuste de Precios</a></li>';}?>
+                  <?php if ($_SESSION['traslado']==1){echo'<li class="nav-item"><a href="Traslado" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Traslado entre Depositos</a></li>';}?>
                 </ul>
               </li>
             </ul>

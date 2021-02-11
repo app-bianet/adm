@@ -71,7 +71,7 @@ class ArtPrecio extends Controllers{
             <td><h6 '.$al.'right'.$w.':160px;">'.formatMoneyP($row['preciot'],2).'</h6></td>
             <td><h6 '.$al.'center'.$w.':90px;">'.$row['fechareg'].'</h6></td>
             <td><h6 '.$al.'center'.$w.':90px;">'.$row['fechaven'].'</h6></td>
-            <td><h6 '.$al.'center'.$w.':50px;"><input type="checkbox" class="vencel chk" value="'.$row['vence'].'"></h6></td>
+            <td><h6 '.$al.'center'.$w.':50px;"><input type="checkbox" class="vencel" disabled value="'.$row['vence'].'"></h6></td>
           </tr>';		
         }
       var_dump($data,JSON_UNESCAPED_UNICODE);

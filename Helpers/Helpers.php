@@ -218,21 +218,28 @@ function PDOError($error_get,$tipo){
 
 function GenerarVariables(){
 
-  $valiables=array('idusuario','cod_ajuste','desc_ajuste','tipo','totalstock','totalh',
-  'fechareg','idarticulo','iddeposito','disp','cantidad','costo','idartunidad');
+  $valiables=array(  'idarticulo',
+  'iddepositoi',
+  'iddepositod',
+  'cantidad',
+  'costo',
+  'idartunidad');
 
-  $valiables2=array('idusuario','cod_ajuste','desc_ajuste','tipo','totalstock','totalh',
-  'fechareg','idarticulo','iddeposito','disp','cantidad','costo','idartunidad');
+  $valiables2=array(  'idarticulo',
+  'iddepositoi',
+  'iddepositod',
+  'cantidad',
+  'costo',
+  'idartunidad');
 
   for ($i=0; $i<count($valiables);$i++) { 
     dep($valiables[$i]='$this->'.ucfirst(strtolower($valiables[$i])).'=$'.$valiables[$i].';');
   }
 
   for ($i=0; $i<count($valiables2);$i++) { 
-    dep($valiables2[$i]='$this->'.ucfirst(strtolower($valiables2[$i])).',');
+    dep($valiables2[$i]='$this->'.ucfirst(strtolower($valiables2[$i])).';');
   }
-
 
 }
 
-//GenerarVariables();
+

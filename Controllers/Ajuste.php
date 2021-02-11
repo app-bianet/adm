@@ -40,6 +40,7 @@ class Ajuste extends Controllers{
         $_POST['cantidad'],insertNumber($_POST['costo']),$_POST['idartunidad']);
         $this->model->AddStockArt($_POST['idarticulo'],$_POST['iddeposito'],$_POST['cantidad'],$_POST['valor'],
         $_POST['tipoa'],$tipo);
+        $this->model->AjustarCosto($_POST['idarticulo'],insertNumber($_POST['costo']),$_POST['valor']);
 
       if($request){
         $arrRspta=array("status"=>true,"msg"=>"Registro Ingresado Correctamente!");
@@ -97,7 +98,7 @@ class Ajuste extends Controllers{
 
   public function Listar(){
     if (isset($_POST["security"])) {
-      $arrData=$this->model->Listar();
+      $arrData=$this->model->ListarDt();
       $al='style="text-align:';
       $w='; width:';
       $btn='button" class="btn btn-xs btn-';

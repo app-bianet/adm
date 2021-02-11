@@ -153,6 +153,11 @@
               </div>
             </div>
             <div class="form-group col-lg-5 col-md-5 col-sm-5 col-xs-12">
+              <div class="input-group">
+                <span class="input-group-addon"><label>Precio segun Costo:</label>
+                  <input type="checkbox" name="costoprecio" id="costoprecio" class="chk">
+                </span>
+              </div>
             </div>
             <div class="form-group col-lg-7 col-md-7 col-sm-7 col-xs-12">
               <div class="input-group">  

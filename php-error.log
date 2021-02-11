@@ -96,3 +96,26 @@ Stack trace:
 [09-Feb-2021 06:11:38 America/Caracas] PHP Notice:  Array to string conversion in D:\DEVAPP\htdocs\Bianet\Models\ajusteModel.php on line 328
 [10-Feb-2021 06:21:35 America/Caracas] PHP Notice:  Undefined variable: data in D:\DEVAPP\htdocs\Bianet\Controllers\Ajuste.php on line 185
 [10-Feb-2021 06:30:28 America/Caracas] PHP Notice:  Undefined variable: data in D:\DEVAPP\htdocs\Bianet\Controllers\Ajuste.php on line 185
+[10-Feb-2021 12:08:00 America/Caracas] PHP Notice:  Array to string conversion in D:\DEVAPP\htdocs\Bianet\Models\ajusteModel.php on line 426
+[10-Feb-2021 12:08:00 America/Caracas] PHP Fatal error:  Uncaught Error: Unsupported operand types in D:\DEVAPP\htdocs\Bianet\Models\ajusteModel.php:427
+Stack trace:
+#0 D:\DEVAPP\htdocs\Bianet\Controllers\Ajuste.php(43): ajusteModel->AjustarCosto(Array, Array, Array)
+#1 D:\DEVAPP\htdocs\Bianet\Core\Load.php(10): Ajuste->Insertar('')
+#2 D:\DEVAPP\htdocs\Bianet\index.php(30): require_once('D:\\DEVAPP\\htdoc...')
+#3 {main}
+  thrown in D:\DEVAPP\htdocs\Bianet\Models\ajusteModel.php on line 427
+[10-Feb-2021 12:13:47 America/Caracas] PHP Notice:  Array to string conversion in D:\DEVAPP\htdocs\Bianet\Models\ajusteModel.php on line 426
+[10-Feb-2021 20:36:51 America/Caracas] PHP Warning:  Invalid argument supplied for foreach() in D:\DEVAPP\htdocs\Bianet\Controllers\Traslado.php on line 64
+[10-Feb-2021 20:37:15 America/Caracas] PHP Warning:  Invalid argument supplied for foreach() in D:\DEVAPP\htdocs\Bianet\Controllers\Traslado.php on line 64
+[10-Feb-2021 20:38:04 America/Caracas] PHP Warning:  Invalid argument supplied for foreach() in D:\DEVAPP\htdocs\Bianet\Controllers\Traslado.php on line 64
+[10-Feb-2021 20:40:31 America/Caracas] PHP Warning:  Invalid argument supplied for foreach() in D:\DEVAPP\htdocs\Bianet\Controllers\Traslado.php on line 64
+[10-Feb-2021 20:40:52 America/Caracas] PHP Warning:  Invalid argument supplied for foreach() in D:\DEVAPP\htdocs\Bianet\Controllers\Traslado.php on line 64
+[10-Feb-2021 20:41:29 America/Caracas] PHP Warning:  Invalid argument supplied for foreach() in D:\DEVAPP\htdocs\Bianet\Controllers\Traslado.php on line 64
+[11-Feb-2021 06:48:44 America/Caracas] PHP Notice:  Array to string conversion in D:\DEVAPP\htdocs\Bianet\Controllers\Traslado.php on line 84
+[11-Feb-2021 06:49:34 America/Caracas] PHP Notice:  Array to string conversion in D:\DEVAPP\htdocs\Bianet\Controllers\Traslado.php on line 85
+[11-Feb-2021 07:24:25 America/Caracas] PHP Notice:  Undefined variable: data in D:\DEVAPP\htdocs\Bianet\Controllers\Traslado.php on line 159
+[11-Feb-2021 07:24:28 America/Caracas] PHP Notice:  Undefined variable: data in D:\DEVAPP\htdocs\Bianet\Controllers\Traslado.php on line 159
+[11-Feb-2021 07:24:31 America/Caracas] PHP Notice:  Undefined variable: data in D:\DEVAPP\htdocs\Bianet\Controllers\Traslado.php on line 159
+[11-Feb-2021 07:24:58 America/Caracas] PHP Notice:  Undefined variable: data in D:\DEVAPP\htdocs\Bianet\Controllers\Traslado.php on line 159
+[11-Feb-2021 07:25:01 America/Caracas] PHP Notice:  Undefined variable: data in D:\DEVAPP\htdocs\Bianet\Controllers\Traslado.php on line 159
+[11-Feb-2021 07:25:05 America/Caracas] PHP Notice:  Undefined variable: data in D:\DEVAPP\htdocs\Bianet\Controllers\Traslado.php on line 159

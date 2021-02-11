@@ -23,6 +23,39 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
+    $("#costoprecio").on('click', function() {
+        let costo=$("#costot").val();
+
+        if ($(this).is(':checked')) {
+            $("#preciom").val(costo);
+            $("#margenm").val(0);
+
+            var valor = parseFloat($("#preciom").val());
+            var margen = $("#margenm").val();
+            var imp = $("#tasa").val();
+
+            $("#margent").val((valor * margen) / percen + valor);
+            var margent = parseFloat($("#margent").val());
+            $("#impuestot").val((margent * imp) / percen);
+            $("#preciot").val((margent * imp) / percen + margent);
+        } else {
+            $("#preciom").val(0);
+            $("#margenm").val(0);
+            
+            var valor = parseFloat($("#preciom").val());
+            var margen = $("#margenm").val();
+            var imp = $("#tasa").val();
+
+            $("#margent").val((valor * margen) / percen + valor);
+            var margent = parseFloat($("#margent").val());
+            $("#impuestot").val((margent * imp) / percen);
+            $("#preciot").val((margent * imp) / percen + margent);
+        }
+
+    });
+
+
+
     $("#idcategoria").on('change', function() {
         SelectLinea($("#idcategoria").val())
     });
@@ -611,6 +644,7 @@ function EventoCheckBox() {
             $(this).prop('checked', true);
         }
     });
+
 }
 
 function Montos() {
