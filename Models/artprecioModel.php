@@ -17,64 +17,72 @@ class artprecioModel extends MySql{
 
     public function ListDt($id){
       $this->Idarticulo=$id;
-      $sql="SELECT 
-      ap.idartprecio,
-      ap.idarticulo,
-      ap.idtipoprecio,
-      ap.idmoneda,
-      tp.cod_tipoprecio,
-      tp.desc_tipoprecio,
-      ap.montoprecio,
-      ap.margen,
-      (((ap.montoprecio*margen/100)+ap.montoprecio)) AS preciom,
-      ((((ap.montoprecio*margen/100)+ap.montoprecio)*i.tasa)/100) AS imp,
-      ((ap.montoprecio*margen/100)+ap.montoprecio)+((((ap.montoprecio*margen/100)+ap.montoprecio)*i.tasa)/100) AS preciot,
-      i.tasa,
-      m.cod_moneda,
-      m.desc_moneda,
-      m.simbolo,m.factor,
-      DATE_FORMAT(ap.fechareg,'%d/%m/%Y') AS fechareg,
-      DATE_FORMAT(ap.fechaven,'%d/%m/%Y') AS fechaven,
-      ap.vence
-      FROM tbartprecio ap
-      INNER JOIN tbtipoprecio tp ON tp.idtipoprecio=ap.idtipoprecio
-      INNER JOIN tbmoneda m ON m.idmoneda=ap.idmoneda
-      INNER JOIN tbarticulo a ON a.idarticulo=ap.idarticulo
-      INNER JOIN tbimpuesto i ON i.idimpuesto=a.idimpuesto
-      WHERE ap.idarticulo='$this->Idarticulo' ORDER BY tp.cod_tipoprecio ASC";
-      $request=$this->SelectAll($sql);
-      return $request;
+      try {
+        $sql="SELECT 
+        ap.idartprecio,
+        ap.idarticulo,
+        ap.idtipoprecio,
+        ap.idmoneda,
+        tp.cod_tipoprecio,
+        tp.desc_tipoprecio,
+        ap.montoprecio,
+        ap.margen,
+        (((ap.montoprecio*margen/100)+ap.montoprecio)) AS preciom,
+        ((((ap.montoprecio*margen/100)+ap.montoprecio)*i.tasa)/100) AS imp,
+        ((ap.montoprecio*margen/100)+ap.montoprecio)+((((ap.montoprecio*margen/100)+ap.montoprecio)*i.tasa)/100) AS preciot,
+        i.tasa,
+        m.cod_moneda,
+        m.desc_moneda,
+        m.simbolo,m.factor,
+        DATE_FORMAT(ap.fechareg,'%d/%m/%Y') AS fechareg,
+        DATE_FORMAT(ap.fechaven,'%d/%m/%Y') AS fechaven,
+        ap.vence
+        FROM tbartprecio ap
+        INNER JOIN tbtipoprecio tp ON tp.idtipoprecio=ap.idtipoprecio
+        INNER JOIN tbmoneda m ON m.idmoneda=ap.idmoneda
+        INNER JOIN tbarticulo a ON a.idarticulo=ap.idarticulo
+        INNER JOIN tbimpuesto i ON i.idimpuesto=a.idimpuesto
+        WHERE ap.idarticulo='$this->Idarticulo' ORDER BY tp.cod_tipoprecio ASC";
+        $request=$this->SelectAll($sql);
+        return $request;
+      } catch (PDOException $e){
+        return PDOError($e,'');
+      }
     }
 
     public function ShowDt($id){
       $this->Idartprecio=$id;
-      $sql="SELECT 
-      ap.idartprecio,
-      ap.idarticulo,
-      ap.idtipoprecio,
-      ap.idmoneda,
-      tp.cod_tipoprecio,
-      tp.desc_tipoprecio,
-      ap.montoprecio,
-      ap.margen,
-      ((ap.montoprecio*margen/100)+ap.montoprecio) AS preciom,
-      ((((ap.montoprecio*margen/100)+ap.montoprecio)*i.tasa)/100) AS imp,
-      ((ap.montoprecio*margen/100)+ap.montoprecio)+((((ap.montoprecio*margen/100)+ap.montoprecio)*i.tasa)/100) AS preciot,
-      i.tasa,
-      m.cod_moneda,
-      m.desc_moneda,
-      m.simbolo,m.factor,
-      DATE_FORMAT(ap.fechareg,'%d/%m/%Y') AS fechareg,
-      DATE_FORMAT(ap.fechaven,'%d/%m/%Y') AS fechaven,
-      ap.vence
-      FROM tbartprecio ap
-      INNER JOIN tbtipoprecio tp ON tp.idtipoprecio=ap.idtipoprecio
-      INNER JOIN tbmoneda m ON m.idmoneda=ap.idmoneda
-      INNER JOIN tbarticulo a ON a.idarticulo=ap.idarticulo
-      INNER JOIN tbimpuesto i ON i.idimpuesto=a.idimpuesto
-      WHERE ap.idartprecio='$this->Idartprecio'";
-      $request=$this->Select($sql);
-      return $request;
+      try {
+        $sql="SELECT 
+        ap.idartprecio,
+        ap.idarticulo,
+        ap.idtipoprecio,
+        ap.idmoneda,
+        tp.cod_tipoprecio,
+        tp.desc_tipoprecio,
+        ap.montoprecio,
+        ap.margen,
+        ((ap.montoprecio*margen/100)+ap.montoprecio) AS preciom,
+        ((((ap.montoprecio*margen/100)+ap.montoprecio)*i.tasa)/100) AS imp,
+        ((ap.montoprecio*margen/100)+ap.montoprecio)+((((ap.montoprecio*margen/100)+ap.montoprecio)*i.tasa)/100) AS preciot,
+        i.tasa,
+        m.cod_moneda,
+        m.desc_moneda,
+        m.simbolo,m.factor,
+        DATE_FORMAT(ap.fechareg,'%d/%m/%Y') AS fechareg,
+        DATE_FORMAT(ap.fechaven,'%d/%m/%Y') AS fechaven,
+        ap.vence
+        FROM tbartprecio ap
+        INNER JOIN tbtipoprecio tp ON tp.idtipoprecio=ap.idtipoprecio
+        INNER JOIN tbmoneda m ON m.idmoneda=ap.idmoneda
+        INNER JOIN tbarticulo a ON a.idarticulo=ap.idarticulo
+        INNER JOIN tbimpuesto i ON i.idimpuesto=a.idimpuesto
+        WHERE ap.idartprecio='$this->Idartprecio'";
+        $request=$this->Select($sql);
+        return $request;
+      } catch (PDOException $e){
+        return PDOError($e,'');
+      }
     }
 
     public function InsertDt($idarticulo,$idtipoprecio,$idmoneda,$fecharegp,$preciom,$fechavenp,$margenm,$venc){

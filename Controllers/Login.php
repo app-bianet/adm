@@ -1,5 +1,5 @@
 <?php
-session_start();
+  session_start();
 class Login extends Controllers{
 
   public function __construct(){
@@ -153,9 +153,4 @@ class Login extends Controllers{
         header("Location:".base_URL()."Error404");
       }
   }
-
-  
-
-
-  
 }

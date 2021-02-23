@@ -53,7 +53,7 @@ div.input-group>div>span.input-group-text{
   padding-bottom:5px;
 }
 
-ul.child1 > li{
+/* ul.child1 > li{
   padding-left:15px;
 }
 
@@ -67,7 +67,7 @@ ul.child1 > li {
 
 ul.child2 > li {
   line-height: 3px
-}
+} */
 
 tbody >tr >td {
   font-size: .925rem;

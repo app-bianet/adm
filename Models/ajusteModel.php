@@ -13,7 +13,6 @@
     private $Fechareg;
     private $Idarticulo;
     private $Iddeposito;
-    private $Disp;
     private $Valor;
     private $Cantidad;
     private $Costo;

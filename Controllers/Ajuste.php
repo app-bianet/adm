@@ -192,7 +192,7 @@ class Ajuste extends Controllers{
     foreach ($arrData as $row) {
       $data[] = array(
         "0" => '<button type="button" class="btn btn-secondary btn-xs" onclick="agregarDetalle
-        (' . $row['idarticulo'] . ',\'' . $row['iddeposito'] . '\',\'' . $row['cod_articulo'] . '\',
+        ('.$row['idarticulo'] .',\''. $row['iddeposito'] . '\',\'' . $row['cod_articulo'] . '\',
         \'' . $row['desc_articulo'] . '\',\'' . $row['tipo'] . '\',\'' . $row['costo'] . '\',\'' . $row['stock'] . '\');" 
         style="text-align:center; width:20px;"><span class="fa fa-times-circle"></span></button>',
         "1" => '<h6 style="width:150px;">' . $row['cod_articulo'] . '</h6>',

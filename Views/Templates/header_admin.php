@@ -9,7 +9,7 @@
 <!-- bodytag options:
   Apply one or more of the following classes to to the body tag to get the desired effect
   * sidebar-collapse * sidebar-mini -->
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini control-sidebar-slide-open layout-footer-fixed layout-fixed">
 <div class="wrapper">
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-light">

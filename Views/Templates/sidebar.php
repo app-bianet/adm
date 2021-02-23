@@ -5,7 +5,7 @@
       <span class="brand-text font-weight-light">AdminLTE 3</span>
     </a>
     <!-- Sidebar -->
-    <div class="sidebar">
+    <div class="sidebar os-host">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
@@ -17,7 +17,7 @@
       </div>
       <!-- Sidebar Menu -->
       <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <ul class="nav nav-pills nav-sidebar flex-column text-sm nav-compact nav-child-indent nav-collapse-hide-child" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
           <li class="nav-item">
             <a href="Escritorio" class="nav-link"><i class="nav-icon fa fa-desktop text-white"></i>
@@ -35,7 +35,7 @@
                 <a href="" class="nav-link"><i class="far fa-folder nav-icon text-green"></i>
                   <p>Tablas<i class="right fas fa-angle-left"></i></p>
                 </a>
-                <ul class="nav nav-treeview child2">
+                <ul class="nav nav-treeview">
                   <?php if ($_SESSION['articulo']==1){echo'<li class="nav-item"><a href="Articulo" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Artículo</a></li>';}?>
                   <?php if ($_SESSION['categoria']==1){echo'<li class="nav-item"><a href="Categoria" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Categoría</a></li>';}?>
                   <?php if ($_SESSION['linea']==1){echo'<li class="nav-item"><a href="Linea" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Línea</a></li>';}?>
@@ -47,7 +47,7 @@
                 <?php if ($_SESSION['opinventario']==1){echo'<a href="" class="nav-link"><i class="far fa-folder nav-icon text-red"></i>
                   <p>Operaciones<i class="right fas fa-angle-left"></i></p>
                 </a>';}?>
-                <ul class="nav nav-treeview child2">
+                <ul class="nav nav-treeview">
                   <?php if ($_SESSION['ajustei']==1){echo'<li class="nav-item"><a href="Ajuste" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Ajuste de Inventario</a></li>';}?>
                   <?php if ($_SESSION['ajustep']==1){echo'<li class="nav-item"><a href="Traslado" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Ajuste de Precios</a></li>';}?>
                   <?php if ($_SESSION['traslado']==1){echo'<li class="nav-item"><a href="Traslado" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Traslado entre Depositos</a></li>';}?>
@@ -65,7 +65,7 @@
                 <a href="" class="nav-link"><i class="far fa-folder nav-icon text-green"></i>
                   <p>Tablas<i class="right fas fa-angle-left"></i></p>
                 </a>
-                <ul class="nav nav-treeview child2">
+                <ul class="nav nav-treeview">
                   <?php if ($_SESSION['proveedor']==1){echo'<li class="nav-item"><a href="Proveedor" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Proveedor</a></li>';}?>
                   <?php if ($_SESSION['tipoproveedor']==1){echo'<li class="nav-item"><a href="TipoProveedor" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Tipos de Proveedor</a></li>';}?>
                   <?php if ($_SESSION['condpago']==1){echo'<li class="nav-item"><a href="CondPago" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Condición de Pago</a></li>';}?>
@@ -76,10 +76,10 @@
                 <?php if ($_SESSION['opcompras']==1){echo'<a href="" class="nav-link"><i class="far fa-folder nav-icon text-red"></i>
                   <p>Operaciones<i class="right fas fa-angle-left"></i></p>
                 </a>';}?>
-                <ul class="nav nav-treeview child2">
-                  <li class="nav-item"><a href="" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Ajuste de Ingreso</a></li>
-                  <li class="nav-item"><a href="" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Ajuste de Precios</a></li>
-                  <li class="nav-item"><a href="" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Traslado</a></li>
+                <ul class="nav nav-treeview">
+                  <?php if ($_SESSION['comprac']==1){echo'<li class="nav-item"><a href="'.base_URL().'Comprac" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Cotización</a></li>';}?>
+                  <?php if ($_SESSION['comprap']==1){echo'<li class="nav-item"><a href="'.base_URL().'Comprap" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Pedido</a></li>';}?>
+                  <?php if ($_SESSION['compraf']==1){echo'<li class="nav-item"><a href="'.base_URL().'Compraf" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Factura</a></li>';}?>
                 </ul>
               </li>
             </ul>
@@ -95,7 +95,7 @@
                 <a href="" class="nav-link"><i class="far fa-folder nav-icon text-green"></i>
                   <p>Tablas<i class="right fas fa-angle-left"></i></p>
                 </a>
-                <ul class="nav nav-treeview child2">
+                <ul class="nav nav-treeview">
                   <?php if ($_SESSION['cliente']==1){echo'<li class="nav-item">
                     <a href="Cliente" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Cliente</a>
                     </li>';}?>
@@ -120,7 +120,7 @@
                 <?php if ($_SESSION['opventas']==1){echo'<a href="" class="nav-link"><i class="far fa-folder nav-icon text-red"></i>
                   <p>Operaciones<i class="right fas fa-angle-left"></i></p>
                 </a>';}?>
-                <ul class="nav nav-treeview child2">
+                <ul class="nav nav-treeview">
                   <li class="nav-item"><a href="" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Ajuste de Ingreso</a></li>
                   <li class="nav-item"><a href="" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Ajuste de Precios</a></li>
                   <li class="nav-item"><a href="" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Traslado</a></li>
@@ -139,7 +139,7 @@
                 <a href="" class="nav-link"><i class="far fa-folder nav-icon text-green"></i>
                   <p>Tablas<i class="right fas fa-angle-left"></i></p>
                 </a>
-                <ul class="nav nav-treeview child2">
+                <ul class="nav nav-treeview">
                 <?php if ($_SESSION['bancop']==1){echo'<li class="nav-item">
                 <a href="Banco" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Bancos</a></li>';}?>
                 <?php if ($_SESSION['caja']==1){echo'<li class="nav-item">
@@ -156,8 +156,8 @@
                 <?php if ($_SESSION['opbancos']==1){echo'<a href="" class="nav-link"><i class="far fa-folder nav-icon text-red"></i>
                   <p>Operaciones<i class="right fas fa-angle-left"></i></p>
                 </a>';}?>
-                <ul class="nav nav-treeview child2">
-                  <li class="nav-item"><a href="" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Ajuste de Ingreso</a></li>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item"><a href="MovCaja" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Movimiento de Caja</a></li>
                   <li class="nav-item"><a href="" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Ajuste de Precios</a></li>
                   <li class="nav-item"><a href="" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Traslado</a></li>
                 </ul>
@@ -170,7 +170,7 @@
             <?php if ($_SESSION['config']==1){echo'<a href="#" class="nav-link"><i class="nav-icon fa fa-cogs text-white"></i>
               <p>Configuracion<i class="right fas fa-angle-left"></i></p>
             </a>';}?>
-            <ul class="nav nav-treeview child2">
+            <ul class="nav nav-treeview">
             <?php if ($_SESSION['macceso']==1){echo'<li class="nav-item">
             <a href="MAcceso" class="nav-link"><i class="far fa-circle nav-icon text-blue"></i> Mapas de Acceso</a></li>';}?>
             <?php if ($_SESSION['usuariod']==1){echo'<li class="nav-item">

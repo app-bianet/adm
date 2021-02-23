@@ -188,9 +188,7 @@ function ListarTabla() {
             bSort: true,
             bFilter: true,
             bInfo: true,
-            order: [
-                [1, "asc"]
-            ], //Ordenar (columna,orden)
+            order: [[1, "asc"]], //Ordenar (columna,orden)
         })
         .css("width", "100% !important");
     $("div.dataTables_filter").css("display", "none");

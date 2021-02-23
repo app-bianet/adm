@@ -8,11 +8,8 @@
   function __construct(){
     parent::__construct();
     // Línea a agregar
-
     $this->conexion = new Conexion();
     $this->conexion = $this->conexion->Con();  
-   // $this->UMConnector = new model();
-    //$this->UMConnector = $this->model->connector()
   }
 
   public function SelectAll(string $query){

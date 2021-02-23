@@ -31,115 +31,135 @@
     }
 
     public function SelectDt(){
-      $sql="SELECT 
-      a.idarticulo,
-      a.idcategoria,
-      a.idlinea,
-      a.idimpuesto,
-      a.cod_articulo,
-      a.desc_articulo,
-      c.cod_categoria,
-      c.desc_categoria,
-      l.cod_linea,
-      l.desc_linea,
-      a.ref,
-      a.origen,
-      a.tipo,
-      a.stockmin AS stockmin,
-      a.stockmax AS stockmax,
-      a.stockped AS stockped,
-      a.alto AS alto,
-      a.ancho AS ancho,
-      a.peso AS peso,
-      a.comision AS comision,
-      a.imagen,
-      a.estatus,     
-      IFNULL((SELECT SUM(cantidad) FROM tbstock WHERE idarticulo=a.idarticulo),0) AS stock,
-      a.costo AS costo,
-      i.tasa AS tasa,
-      DATE_FORMAT(a.fechareg,'%d/%m/%Y') AS fechareg,
-      a.costoprecio,
-      a.estatus
-      FROM tbarticulo a 
-      INNER JOIN tbcategoria c ON a.idcategoria=c.idcategoria
-      INNER JOIN tblinea l ON l.idlinea=a.idlinea
-      INNER JOIN tbimpuesto i ON i.idimpuesto=a.idimpuesto";
-      $req=$this->SelectAll($sql);
-      return $req;
+      try {
+        $sql="SELECT 
+        a.idarticulo,
+        a.idcategoria,
+        a.idlinea,
+        a.idimpuesto,
+        a.cod_articulo,
+        a.desc_articulo,
+        c.cod_categoria,
+        c.desc_categoria,
+        l.cod_linea,
+        l.desc_linea,
+        a.ref,
+        a.origen,
+        a.tipo,
+        a.stockmin AS stockmin,
+        a.stockmax AS stockmax,
+        a.stockped AS stockped,
+        a.alto AS alto,
+        a.ancho AS ancho,
+        a.peso AS peso,
+        a.comision AS comision,
+        a.imagen,
+        a.estatus,     
+        IFNULL((SELECT SUM(cantidad) FROM tbstock WHERE idarticulo=a.idarticulo),0) AS stock,
+        a.costo AS costo,
+        i.tasa AS tasa,
+        DATE_FORMAT(a.fechareg,'%d/%m/%Y') AS fechareg,
+        a.costoprecio,
+        a.estatus
+        FROM tbarticulo a 
+        INNER JOIN tbcategoria c ON a.idcategoria=c.idcategoria
+        INNER JOIN tblinea l ON l.idlinea=a.idlinea
+        INNER JOIN tbimpuesto i ON i.idimpuesto=a.idimpuesto";
+        $request=$this->SelectAll($sql);
+        return $request;
+      } catch (PDOException $e){
+        return PDOError($e,'');
+      }
     }
 
     public function ShowStock($id){
       $this->Idarticulo=$id;
-      $sql="SELECT 
-      s.iddeposito,
-      d.cod_deposito,
-      d.desc_deposito,
-      IFNULL(s.cantidad,0) AS stock
-      FROM tbstock s
-      INNER JOIN tbdeposito d ON d.iddeposito=s.iddeposito
-      WHERE s.idarticulo='$this->Idarticulo'";
-      $request=$this->SelectAll($sql);		
-      return $request;
+      try {
+        $sql="SELECT 
+        s.iddeposito,
+        d.cod_deposito,
+        d.desc_deposito,
+        IFNULL(s.cantidad,0) AS stock
+        FROM tbstock s
+        INNER JOIN tbdeposito d ON d.iddeposito=s.iddeposito
+        WHERE s.idarticulo='$this->Idarticulo'";
+        $request=$this->SelectAll($sql);		
+        return $request;
+      } catch (PDOException $e){
+        return PDOError($e,'');
+      }
     }
 
     public function ListDt(){
-      $sql="SELECT * FROM tbarticulo WHERE estatus='1' ORDER BY cod_articulo ASC";
-      $req=$this->SelectAll($sql);
-      return $req;
+      try {
+        $sql="SELECT * FROM tbarticulo WHERE estatus='1' ORDER BY cod_articulo ASC";
+        $request=$this->SelectAll($sql);
+        return $request;
+      } catch (PDOException $e){
+        return PDOError($e,'');
+      }
     }
 
     public function ShowDt($id){
       $this->Idarticulo=$id;
-      $sql="SELECT 
-      a.idarticulo,
-      a.idcategoria,
-      a.idlinea,
-      a.idimpuesto,
-      a.cod_articulo,
-      a.desc_articulo,
-      c.cod_categoria,
-      c.desc_categoria,
-      l.cod_linea,
-      l.desc_linea,
-      a.ref,
-      a.origen,
-      a.tipo,
-      a.stockmin AS stockmin,
-      a.stockmax AS stockmax,
-      a.stockped AS stockped,
-      a.alto AS alto,
-      a.ancho AS ancho,
-      a.peso AS peso,
-      a.comision AS comision,
-      a.imagen,
-      a.estatus,     
-      IFNULL((SELECT SUM(cantidad) FROM tbstock WHERE idarticulo=a.idarticulo),0) AS stock,
-      a.costo AS costo,
-      i.tasa AS tasa,
-      DATE_FORMAT(a.fechareg,'%d/%m/%Y') AS fechareg,
-      a.costoprecio,
-      a.estatus
-      FROM tbarticulo a 
-      INNER JOIN tbcategoria c ON a.idcategoria=c.idcategoria
-      INNER JOIN tblinea l ON l.idlinea=a.idlinea
-      INNER JOIN tbimpuesto i ON i.idimpuesto=a.idimpuesto 
-      WHERE a.idarticulo='$this->Idarticulo'";
-      $req=$this->Select($sql);
-      return $req;
+      try {
+        $sql="SELECT 
+        a.idarticulo,
+        a.idcategoria,
+        a.idlinea,
+        a.idimpuesto,
+        a.cod_articulo,
+        a.desc_articulo,
+        c.cod_categoria,
+        c.desc_categoria,
+        l.cod_linea,
+        l.desc_linea,
+        a.ref,
+        a.origen,
+        a.tipo,
+        a.stockmin AS stockmin,
+        a.stockmax AS stockmax,
+        a.stockped AS stockped,
+        a.alto AS alto,
+        a.ancho AS ancho,
+        a.peso AS peso,
+        a.comision AS comision,
+        a.imagen,
+        a.estatus,     
+        IFNULL((SELECT SUM(cantidad) FROM tbstock WHERE idarticulo=a.idarticulo),0) AS stock,
+        a.costo AS costo,
+        i.tasa AS tasa,
+        DATE_FORMAT(a.fechareg,'%d/%m/%Y') AS fechareg,
+        a.costoprecio,
+        a.estatus
+        FROM tbarticulo a 
+        INNER JOIN tbcategoria c ON a.idcategoria=c.idcategoria
+        INNER JOIN tblinea l ON l.idlinea=a.idlinea
+        INNER JOIN tbimpuesto i ON i.idimpuesto=a.idimpuesto 
+        WHERE a.idarticulo='$this->Idarticulo'";
+        $request=$this->Select($sql);
+        return $request;
+      } catch (PDOException $e){
+        return PDOError($e,'');
+      }
     }
    
     public function EstatusDt($id,$st){
       $this->Idarticulo=$id;
       $this->Estatus=$st;
-      $sql="UPDATE tbarticulo SET estatus=? WHERE idarticulo='$this->Idarticulo'";
-      $arrData=array($this->Estatus);
-      $request=$this->Update($sql,$arrData);
-      return $request;
+      try {
+        $sql="UPDATE tbarticulo SET estatus=? WHERE idarticulo='$this->Idarticulo'";
+        $arrData=array($this->Estatus);
+        $request=$this->Update($sql,$arrData);
+        return $request;
+      } catch (PDOException $e){
+        return PDOError($e,'');
+      }
     }
 
     public function InsertDt($idcategoria,$idlinea,$idimpuesto,$cod_articulo,$desc_articulo,$tipo,$origen,$ref,
-    $stockmin,$stockmax,$stockped,$alto,$ancho,$peso,$comision,$costo,$lotes,$lotesv,$seriales,$costoprecio,
-    $imagen,$fechareg){
+      $stockmin,$stockmax,$stockped,$alto,$ancho,$peso,$comision,$costo,$lotes,$lotesv,$seriales,$costoprecio,
+      $imagen,$fechareg){
 
       $this->Idcategoria=$idcategoria;
       $this->Idlinea=$idlinea;
@@ -166,26 +186,26 @@
       $this->Estatus='1';
 
       try{
-      $sql = "INSERT INTO tbarticulo(idcategoria,idlinea,idimpuesto,cod_articulo,desc_articulo,
-        tipo,origen,ref,stockmin,stockmax,stockped,alto,ancho,peso,comision,costo,
-        lotes,lotesv,seriales,costoprecio,imagen,fechareg,estatus) 
-        VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-      $arrData = array(
-        $this->Idcategoria, $this->Idlinea, $this->Idimpuesto, $this->Cod_articulo, $this->Desc_articulo,
-        $this->Tipo, $this->Origen, $this->Ref, $this->Stockmin, $this->Stockmax, $this->Stockped, $this->Alto, $this->Ancho,
-        $this->Peso, $this->Comision, $this->Costo, $this->Lotes, $this->Lotesv, $this->Seriales, $this->Costoprecio,
-        $this->Imagen, $this->Fechareg, $this->Estatus
-      );
-      $lastId = $this->Insert($sql, $arrData);
-      return $lastId;
-    } catch (PDOException $e) {
-      return PDOError($e,'insert');
+        $sql = "INSERT INTO tbarticulo(idcategoria,idlinea,idimpuesto,cod_articulo,desc_articulo,
+          tipo,origen,ref,stockmin,stockmax,stockped,alto,ancho,peso,comision,costo,
+          lotes,lotesv,seriales,costoprecio,imagen,fechareg,estatus) 
+          VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        $arrData = array(
+          $this->Idcategoria, $this->Idlinea, $this->Idimpuesto, $this->Cod_articulo, $this->Desc_articulo,
+          $this->Tipo, $this->Origen, $this->Ref, $this->Stockmin, $this->Stockmax, $this->Stockped, $this->Alto, $this->Ancho,
+          $this->Peso, $this->Comision, $this->Costo, $this->Lotes, $this->Lotesv, $this->Seriales, $this->Costoprecio,
+          $this->Imagen, $this->Fechareg, $this->Estatus
+        );
+        $lastId = $this->Insert($sql, $arrData);
+        return $lastId;
+      } catch (PDOException $e) {
+        return PDOError($e,'insert');
       }
     }
 
     public function UpdateDt($id,$idcategoria,$idlinea,$idimpuesto,$cod_articulo,$desc_articulo,
-    $tipo,$origen,$ref,$stockmin,$stockmax,$stockped,$alto,$ancho,$peso,$comision,$costo,
-    $lotes,$lotesv,$seriales,$costoprecio,$imagen,$fechareg){
+      $tipo,$origen,$ref,$stockmin,$stockmax,$stockped,$alto,$ancho,$peso,$comision,$costo,
+      $lotes,$lotesv,$seriales,$costoprecio,$imagen,$fechareg){
       $this->Idarticulo=$id;
       $this->Idcategoria=$idcategoria;
       $this->Idlinea=$idlinea;

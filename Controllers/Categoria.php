@@ -34,7 +34,7 @@ class Categoria extends Controllers{
         $request=$this->model->InsertDt($cod_categoria,$desc_categoria);
         $option=1;
       } else {
-       $request=$this->model->EditarDt($idcategoria,$cod_categoria,$desc_categoria,$desc_categoria);
+        $request=$this->model->EditarDt($idcategoria,$cod_categoria,$desc_categoria,$desc_categoria);
         $option=2;
       }
 

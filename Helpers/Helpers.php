@@ -31,12 +31,17 @@ function dep($data){
 function headerAdmin($data=""){
   $view_header = 'Views/Templates/header_admin.php';
   require_once $view_header;
-
 }
 
 function footerAdmin($data=""){
   $view_footer='Views/Templates/footer_admin.php';
   require_once $view_footer;
+}
+
+function getModal($name, $data="")
+{
+  $view_modal="Views/TemplateModal/".$name.".php";
+  require_once $view_modal;
 }
 
 function limpiarCadena($strCadena){
@@ -103,7 +108,7 @@ function passGenerator($length =10){
 }
 
 function token(){
-   $r1=bin2hex(random_bytes(10));
+  $r1=bin2hex(random_bytes(10));
   $r2=bin2hex(random_bytes(10));
   $r3=bin2hex(random_bytes(10));
   $r4=bin2hex(random_bytes(10));
@@ -146,20 +151,15 @@ function formatDateRt($fechart){
 }
 
 function SubirImagen($imagen,$item,$ruta){
+	$ext = explode(".", $imagen.["name"]);
 
+	$imagen.['tmp_name']==$ruta.$item.'.'.end($ext)?
+    unlink($ruta.$item.'.'.end($ext)):''; 
 
-		$ext = explode(".", $imagen.["name"]);
-		$imagen.['tmp_name']==$ruta.$item.'.'.end($ext)?
-      unlink($ruta.$item.'.'.end($ext)):''; 
-		if (
-			$imagen.['type'] == "image/jpg" || 
-			$imagen.['type'] == "image/jpeg" || 
-			$imagen.['type'] == "image/png"){
-			$imagen = $item.'.'.end($ext);
-			move_uploaded_file($imagen.["tmp_name"], $ruta.$imagen);
-		}
-
-
+	if ($imagen.['type'] == "image/jpg" || $imagen.['type'] == "image/jpeg" || $imagen.['type'] == "image/png"){
+		$imagen = $item.'.'.end($ext);
+		move_uploaded_file($imagen.["tmp_name"], $ruta.$imagen);
+	}
 }
 
 function FechaActual(){
@@ -172,24 +172,29 @@ function hashpw($password){
   return password_hash($password, PASSWORD_DEFAULT, ['cost' =>5]);
 }
 
+
 function verifypw($password, $hash) {
   return password_verify($password, $hash);
 }
 
+//Funcion para Capturar Errores en PDO
 function PDOError($error_get,$tipo){
+  //cAPTURA EL MENSAJE
   switch ($error_get->getCode()) {
     case 23000:
+      //SELECCION AL MENSAJE PARA VERIFICAR EN ERROR
       $serror= $error_get->getMessage();
       $eerror= explode(" ", $serror);
 
+      // VERIFICA EL EL AREGLO EL CODIGO ENCONTRADO
       if (in_array("1451",$eerror)){
-          return '1451';//Registros Relacionados
+          return 'relacion';//Registros Relacionados
       } 
       else if (in_array("1062",$eerror)){
-        return '1062';//Valores Duplicados
+        return 'duplicado';//Valores Duplicados
       } 
       else if (in_array("1054",$eerror)){
-        return '1054';//Campo desconocido
+        return 'desconocido';//Campo desconocido
       } 
       else {
         if ($tipo=='insert') {
@@ -213,24 +218,51 @@ function PDOError($error_get,$tipo){
       return "Error Procesando el Registro!";
     }
   }
-
 }
 
 function GenerarVariables(){
 
-  $valiables=array(  'idarticulo',
-  'iddepositoi',
-  'iddepositod',
-  'cantidad',
-  'costo',
-  'idartunidad');
+  $valiables=array( 
+    'idmovcaja',
+    'idcaja',
+    'idbanco',
+    'idoperacion',
+    'idusuario',
+    'cod_movcaja',
+    'desc_movcaja',
+    'estatus',
+    'tipo',
+    'forma',
+    'numerod',
+    'numeroc',
+    'origen',
+    'montod',
+    'montoh',
+    'saldoinicial',
+    'fechareg',
+    'fechadb'
+  );
 
-  $valiables2=array(  'idarticulo',
-  'iddepositoi',
-  'iddepositod',
-  'cantidad',
-  'costo',
-  'idartunidad');
+  $valiables2=array(
+    'idmovcaja',
+    'idcaja',
+    'idbanco',
+    'idoperacion',
+    'idusuario',
+    'cod_movcaja',
+    'desc_movcaja',
+    'estatus',
+    'tipo',
+    'forma',
+    'numerod',
+    'numeroc',
+    'origen',
+    'montod',
+    'montoh',
+    'saldoinicial',
+    'fechareg',
+    'fechadb'
+  );
 
   for ($i=0; $i<count($valiables);$i++) { 
     dep($valiables[$i]='$this->'.ucfirst(strtolower($valiables[$i])).'=$'.$valiables[$i].';');
@@ -239,7 +271,7 @@ function GenerarVariables(){
   for ($i=0; $i<count($valiables2);$i++) { 
     dep($valiables2[$i]='$this->'.ucfirst(strtolower($valiables2[$i])).';');
   }
-
 }
 
+//GenerarVariables();
 

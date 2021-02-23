@@ -23,6 +23,8 @@
     private $Fechareg;
     private $Aplicareten;
     private $Estatus;
+    private $Idcompra;
+    private $Tipo;
 
     public function __construct(){
       parent::__construct();
@@ -138,7 +140,7 @@
     }
 
     public function InsertDt($idtipoproveedor,$idoperacion,$idcondpago,$idzona,$idimpuestoz,$cod_proveedor,$desc_proveedor,
-    $rif,$direccion,$ciudad,$codpostal,$contacto,$telefono,$movil,$email,$web,$limite,$montofiscal,$fechareg,$aplicareten){
+      $rif,$direccion,$ciudad,$codpostal,$contacto,$telefono,$movil,$email,$web,$limite,$montofiscal,$fechareg,$aplicareten){
       $this->Idtipoproveedor =$idtipoproveedor;
       $this->Idoperacion =$idoperacion;
       $this->Idcondpago=$idcondpago;
@@ -175,21 +177,22 @@
       }
     }
 
-    public function InsertDirect($cod_proveedor,$desc_proveedor,$rif){
+    public function InsertDirect($cod_proveedor,$desc_proveedor,$rif,$direccion){
       $this->Cod_proveedor=$cod_proveedor;
       $this->Desc_proveedor=$desc_proveedor;
       $this->Rif=$rif;
+      $this->Direccion=$direccion;
       $this->Estatus='1';
       try{
-        $sql="INSERT INTO tbproveedor(cod_proveedor,rif,desc_proveedor,idtipoproveedor,idoperacion,idcondpago,idzona,
-        idimpuestoz,fechareg,estatus)
-        VALUES(?,?,?,?,
+        $sql="INSERT INTO tbproveedor(cod_proveedor,desc_proveedor,rif,direccion,estatus,idtipoproveedor,idoperacion,idcondpago,idzona,
+        idimpuestoz,fechareg)
+        VALUES(?,?,?,?,?,
         (SELECT MAX(idtipoproveedor) FROM tbtipoproveedor),(SELECT MAX(idoperacion) FROM tboperacion WHERE escompra='1'),
         (SELECT MIN(idcondpago) FROM tbcondpago),(SELECT MIN(idzona) FROM tbzona),
-        (SELECT idimpuestoi FROM tbimpuestoz WHERE idimpuestoi='3'),NOW())";
-        $arrData=array($this->Cod_proveedor,$this->Desc_proveedor,$this->Rif,$this->Estatus);
-        $this->Insert($sql,$arrData);
-        return true;
+        (SELECT idimpuestoz FROM tbimpuestoz WHERE idimpuestoz='3'),NOW())";
+        $arrData=array($this->Cod_proveedor,$this->Desc_proveedor,$this->Rif,$this->Direccion,$this->Estatus);
+        $request=$this->Insert($sql,$arrData);
+        return $request;
       } catch(PDOException $e){
         return PDOError($e,'insert');
       }
@@ -227,8 +230,8 @@
         $this->Cod_proveedor,$this->Desc_proveedor,$this->Rif,$this->Direccion,$this->Ciudad,$this->Codpostal,
         $this->Contacto,$this->Telefono,$this->Movil,$this->Email,$this->Web,$this->Limite,$this->Montofiscal,
         $this->Fechareg,$this->Aplicareten);
-        $this->Update($sql,$arrData);
-        return true;
+        $request=$this->Update($sql,$arrData);
+        return $request;
       } catch(PDOException $e){
         return PDOError($e,'update');
       }
@@ -247,4 +250,53 @@
       }
     }
 
+    //Funcion  Mostrar Documentos a Importar
+    public function ImportarDocumento($idproveedor='',$estatus,$tipo){
+      $this->Idproveedor=$idproveedor;
+      $this->Estatus=$estatus;
+      $this->Tipo=$tipo;
+      try {
+        $sql="SELECT c.idcompra AS idcompraop ,c.idproveedor,c.cod_compra AS origenc ,c.estatus,pv.cod_proveedor,
+        pv.desc_proveedor, pv.rif,c.idcondpago,pv.limite,cp.cod_condpago,cp.desc_condpago,cp.dias,c.tipo,c.numerod,c.totalh,
+        DATE_FORMAT(c.fechareg,'%d/%m/%Y') AS fechareg, DATE_FORMAT(c.fechaven,'%d/%m/%Y') AS fechaven
+        FROM tbcompra c
+        INNER JOIN tbproveedor pv ON pv.idproveedor=c.idproveedor
+        INNER JOIN tbcondpago cp ON cp.idcondpago =c.idcondpago
+        WHERE ((('$this->Estatus'='todos' AND c.estatus<>'Anulado')) OR (c.estatus='Registrado' AND '$this->Estatus'='sinp'))
+        AND (c.tipo='$this->Tipo') AND ('$idproveedor'='' OR c.idproveedor='$this->Idproveedor')";
+        $request=$this->SelectAll($sql);
+        return $request;
+      } catch (PDOException $e) {
+        return PDOError($e,'');
+      }
+    }
+
+    public function ImportarDetalle($id){
+      $this->Idcompra=$id;
+      try {
+        $sql="SELECT
+        dc.idcomprad,
+        dc.idarticulo,
+        dc.iddeposito,
+        dc.idartunidad,
+        a.cod_articulo,
+        a.desc_articulo,
+        u.desc_unidad,
+        a.tipo,
+        dc.cantidad,
+        dc.costo,
+        dc.tasa,
+        dc.pdesc,
+        au.valor
+        FROM tbcomprad dc 
+        INNER JOIN tbarticulo a ON a.idarticulo=dc.idarticulo
+        INNER JOIN tbartunidad au ON au.idartunidad=dc.idartunidad
+        INNER JOIN tbunidad u ON u.idunidad=au.idunidad
+        WHERE dc.idcompra='$this->Idcompra'";
+        $request=$this->SelectAll($sql);
+        return $request;
+      } catch (PDOException $e) {
+        return PDOError($e,'');
+      }
+    }
   }

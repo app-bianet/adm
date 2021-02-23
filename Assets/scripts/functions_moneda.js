@@ -440,7 +440,6 @@ function eliminar() {
 $("#tbdetalle").dataTable();
 
 function EventoCheckBox() {
-
     $("input[type=checkbox]").show(function() {
         var value = $(this).val();
         if (value == 0) {

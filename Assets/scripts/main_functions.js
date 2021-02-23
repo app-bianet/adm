@@ -209,16 +209,16 @@ function EventoChk() {
 
 }
 
-function DateTimeSet() {
-  // let date=new Date();
-  // let d= date.getDate();
-  // let m=((date.getMonth() + 1) < 10 ? '0' : '') + (date.getMonth() + 1);;
-  // let a=date.getFullYear();
-
-  // let dateDay=d+'/'+m+'/'+a;
-
-  // return document.getElementById('fechareg').value =dateDay;
-
+function DateNow(){
+  let fecha = new Date(); //Fecha actual
+  let mes = fecha.getMonth()+1; //obteniendo mes
+  let dia = fecha.getDate(); //obteniendo dia
+  let anio = fecha.getFullYear(); //obteniendo año
+  if(dia<10)
+    dia='0'+dia; //agrega cero si el menor de 10
+  if(mes<10)
+    mes='0'+mes //agrega cero si el menor de 10    
+  return dia +'/'+ mes +'/'+ anio;
 }
 
 $(function () {
@@ -239,6 +239,7 @@ $(function () {
     }
   });
 
+  $('select').css('padding-left','0px');
   $('.nformat').number(true, 2, '.', ',').addClass('text-right');
   $('.nformatm').number(true, 0).addClass('text-right');
 

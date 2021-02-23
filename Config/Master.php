@@ -1,6 +1,6 @@
 <?php
 
- const URL="http://localhost/Bianet/";
+ const URL="http://localhost:86/Bianet/";
 
  date_default_timezone_set("America/Caracas");
  

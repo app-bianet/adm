@@ -55,9 +55,9 @@ class Cliente extends \Controllers{
         $web,insertNumber($limite),insertNumber($montofiscal),formatDate($fechareg),$aplicareten);
         $option=1;
       } else {
-       $request=$this->model->EditarDt($idcliente,$idvendedor,$idtipocliente,$idoperacion,$idcondpago,$idzona,$idimpuestoz,
-       $cod_cliente,$desc_cliente,$rif,$direccion,$ciudad,$codpostal,$contacto,$telefono,$movil,$email,$web,
-       insertNumber($limite),insertNumber($montofiscal),formatDate($fechareg),$aplicareten);
+        $request=$this->model->EditarDt($idcliente,$idvendedor,$idtipocliente,$idoperacion,$idcondpago,$idzona,$idimpuestoz,
+        $cod_cliente,$desc_cliente,$rif,$direccion,$ciudad,$codpostal,$contacto,$telefono,$movil,$email,$web,
+        insertNumber($limite),insertNumber($montofiscal),formatDate($fechareg),$aplicareten);
         $option=2;
       }
 

@@ -248,9 +248,9 @@ class Articulo extends Controllers{
       foreach ($arrData as $row) {
         $data[] =
         '<tr class="filas" id="fila'.($reng+1).'">
-          <td><h6 style="width:10%; text-align:center;">'.($reng+1).'</h6></td>
+          <td><h6 style="width:50%; text-align:center;">'.($reng+1).'</h6></td>
           <td><h6>'.$row['cod_deposito'].'-'.$row['desc_deposito'].'</h6></td>
-          <td><h6 style="width:10%;text-align:right;">'.formatStock($row['stock']).'</h6></td>
+          <td><h6 style="width:95%;text-align:right;">'.formatStock($row['stock']).'</h6></td>
         </tr>';
         $totalst+=$row['stock'];		
         $reng++;

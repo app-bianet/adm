@@ -18,7 +18,7 @@
           </div>
         </div>
         <form name="tableForm" id="tableForm">
-          <table id="tbdetalle" class="table table-bordered table-hover compact table-sm table-striped" style="width:100% !important;">
+        <table id="tbdetalle" class="table table-bordered table-hover compact table-sm table-striped" style="width:100% !important;">
           <thead class="bg-blue">
             <th style="width:150px" class="text-center">Opciones</th>
             <th style="width:150px" class="text-center">Código</th>
@@ -391,5 +391,5 @@
   </div>
   
 <?php 
-require_once 'articuloModal.php';
+getModal('articuloModal');
 footerAdmin($data);?>

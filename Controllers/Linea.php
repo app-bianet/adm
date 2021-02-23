@@ -51,12 +51,10 @@ class Linea extends Controllers{
       } else {
         $arrRspta=array("status"=>false,"msg"=>$request);
       }
-    echo json_encode($arrRspta,JSON_UNESCAPED_UNICODE);
-      
+      echo json_encode($arrRspta,JSON_UNESCAPED_UNICODE);   
     } else{
       header("Location:".base_URL()."Error404");
     }
-  
   }
  
   public function Eliminar(){
@@ -106,7 +104,7 @@ class Linea extends Controllers{
       $idlinea=intval(limpiarCadena($_POST['idlinea']));
       $estatus=intval(1);
       $request=$this->model->EstatusDt($idlinea,$estatus);
-        if($request>0){
+        if($request){
           $arrRspta=array("status"=>true,"msg"=>"Registro Activado Correctamente!");
         }else {
           $arrRspta=array("status"=>false,"msg"=>"Error al Activar el Registro!");
@@ -124,7 +122,7 @@ class Linea extends Controllers{
       $idlinea=intval(limpiarCadena($_POST['idlinea']));
       $estatus=intval(0);
       $request=$this->model->EstatusDt($idlinea,$estatus);
-        if($request>0){
+        if($request){
           $arrRspta=array("status"=>true,"msg"=>"Registro Desctivado Correctamente!");
         }else {
           $arrRspta=array("status"=>false,"msg"=>"Error al Desactivar el Registro!");
@@ -141,21 +139,24 @@ class Linea extends Controllers{
       $arrData=$this->model->SelectDt();
       $al='style="text-align:';
       $w='; width:';
-  
       for ($i=0; $i<count($arrData);$i++) { 
         if($arrData[$i]['estatus']==1){
           $arrData[$i]['estatus']='<small class="badge badge-success">Activo</small>';
           $arrData[$i]['opciones']=
-        '<small '.$al.'center'.$w.'100px;" class="small btn-group">
-        <button type="button" class="btn btn-primary btn-xs" onclick="mostrar('.$arrData[$i]['idlinea'].')" data-toggle="tooltip" data-placement="right" title="Editar"><i class="fa fa-pencil"></i></button>'.
-        '<button type="button" class="btn btn-success btn-xs" onclick="desactivar('.$arrData[$i]['idlinea'].')" data-toggle="tooltip" data-placement="right" title="Desactivar"><i class="fa fa-check"></i></button>
+          '<small '.$al.'center'.$w.'100px;" class="small btn-group">
+          <button type="button" class="btn btn-primary btn-xs" onclick="mostrar('.$arrData[$i]['idlinea'].')" 
+          data-toggle="tooltip" data-placement="right" title="Editar"><i class="fa fa-pencil"></i></button>'.
+          '<button type="button" class="btn btn-success btn-xs" onclick="desactivar('.$arrData[$i]['idlinea'].')" 
+          data-toggle="tooltip" data-placement="right" title="Desactivar"><i class="fa fa-check"></i></button>
         </small>';
         } else {
           $arrData[$i]['estatus']='<small class="badge badge-danger">Inactivo</small>';
           $arrData[$i]['opciones']=
           '<small '.$al.'center'.$w.'100px;" class="small btn-group">
-          <button type="button" class="btn btn-primary btn-xs" onclick="mostrar('.$arrData[$i]['idlinea'].')" data-toggle="tooltip" data-placement="right" title="Editar"><i class="fa fa-pencil"></i></button>'.
-          '<button type="button" class="btn btn-warning btn-xs" onclick="activar('.$arrData[$i]['idlinea'].')" data-toggle="tooltip" data-placement="right" title="Activar"><i class="fa fa-exclamation-triangle"></i></button>
+          <button type="button" class="btn btn-primary btn-xs" onclick="mostrar('.$arrData[$i]['idlinea'].')" 
+          data-toggle="tooltip" data-placement="right" title="Editar"><i class="fa fa-pencil"></i></button>'.
+          '<button type="button" class="btn btn-warning btn-xs" onclick="activar('.$arrData[$i]['idlinea'].')" 
+          data-toggle="tooltip" data-placement="right" title="Activar"><i class="fa fa-exclamation-triangle"></i></button>
           </small>';   
         }
         $arrData[$i]['cod_linea']='<h6>'.$arrData[$i]['cod_linea'].'</h6>';

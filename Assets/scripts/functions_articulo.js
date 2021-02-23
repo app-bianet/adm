@@ -2,7 +2,7 @@ let tabla;
 let proceso;
 const percen = 100;
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     proceso = "listar";
     Operacion(proceso);
     InsertarEditar();
@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function() {
     Montos();
     MontoPrecio('show')
 
-    $('.chk').on('click', function() {
+    $('.chk').on('click', function () {
         if ($(this).is(':checked')) {
             $(this).val('1')
         } else {
@@ -23,8 +23,8 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    $("#costoprecio").on('click', function() {
-        let costo=$("#costot").val();
+    $("#costoprecio").on('click', function () {
+        let costo = $("#costot").val();
 
         if ($(this).is(':checked')) {
             $("#preciom").val(costo);
@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function() {
         } else {
             $("#preciom").val(0);
             $("#margenm").val(0);
-            
+
             var valor = parseFloat($("#preciom").val());
             var margen = $("#margenm").val();
             var imp = $("#tasa").val();
@@ -54,26 +54,23 @@ document.addEventListener("DOMContentLoaded", function() {
 
     });
 
-
-
-    $("#idcategoria").on('change', function() {
+    $("#idcategoria").on('change', function () {
         SelectLinea($("#idcategoria").val())
     });
 
-    $("#idimpuesto").on('change', function() {
+    $("#idimpuesto").on('change', function () {
         SelectTasa($("#idimpuesto").val());
     });
 
-
-    $("input.filtro_buscar").on("keyup click", function() {
+    $("input.filtro_buscar").on("keyup click", function () {
         filterGlobal();
     });
 
-    $("input.column_filter").on("keyup click", function() {
+    $("input.column_filter").on("keyup click", function () {
         filterColumn($(this).parents("tr").attr("data-column"));
     });
 
-    $("#imagena").change(function() {
+    $("#imagena").change(function () {
         filePreview(this);
         $('label[for="imagena"]').html('Imagen Cargada');
     });
@@ -84,9 +81,9 @@ function SelectCategoria() {
     formData.append('security', 'listar');
     let ajaxUrl = url_baseL + 'Categoria/Selectpicker';
     fetch(ajaxUrl, {
-            method: 'POST',
-            body: formData,
-        })
+        method: 'POST',
+        body: formData,
+    })
         .then(response => response.text())
         .catch(error => {
             console.error('Error:', error);
@@ -102,9 +99,9 @@ function SelectImpuesto() {
     formData.append('security', 'listar');
     let ajaxUrl = url_baseL + 'Impuesto/Selectpicker';
     fetch(ajaxUrl, {
-            method: 'POST',
-            body: formData,
-        })
+        method: 'POST',
+        body: formData,
+    })
         .then(response => response.text())
         .catch(error => {
             console.error('Error:', error);
@@ -122,9 +119,9 @@ function SelectModalPrecio() {
 
     let ajaxUrl1 = url_baseL + 'TipoPrecio/Selectpicker';
     fetch(ajaxUrl1, {
-            method: 'POST',
-            body: formData,
-        })
+        method: 'POST',
+        body: formData,
+    })
         .then(response => response.text())
         .catch(error => {
             console.error('Error:', error);
@@ -136,9 +133,9 @@ function SelectModalPrecio() {
 
     let ajaxUrl2 = url_baseL + 'Moneda/Selectpicker';
     fetch(ajaxUrl2, {
-            method: 'POST',
-            body: formData,
-        })
+        method: 'POST',
+        body: formData,
+    })
         .then(response => response.text())
         .catch(error => {
             console.error('Error:', error);
@@ -154,9 +151,9 @@ function SelectLinea(id) {
     formData.append('security', 'listar');
     let ajaxUrl = url_baseL + 'Linea/SelectpickerC';
     fetch(ajaxUrl, {
-            method: 'POST',
-            body: formData,
-        })
+        method: 'POST',
+        body: formData,
+    })
         .then(response => response.text())
         .catch(error => {
             console.error('Error:', error);
@@ -172,9 +169,9 @@ function SelectTasa(id) {
     formData.append('security', 'listar');
     let ajaxUrl = url_baseL + 'Impuesto/Mostrar';
     fetch(ajaxUrl, {
-            method: 'POST',
-            body: formData,
-        })
+        method: 'POST',
+        body: formData,
+    })
         .then(response => response.json())
         .catch(error => {
             console.error('Error:', error);
@@ -190,9 +187,9 @@ function SelectUnidad() {
     formData.append('security', 'listar');
     let ajaxUrl2 = url_baseL + 'Unidad/Selectpicker';
     fetch(ajaxUrl2, {
-            method: 'POST',
-            body: formData,
-        })
+        method: 'POST',
+        body: formData,
+    })
         .then(response => response.text())
         .catch(error => {
             console.error('Error:', error);
@@ -211,33 +208,33 @@ function ListarTabla() {
             aServerSide: true, //Paginación y filtrado realizados por el servidor
             dom: "Bfrtilp", //Definimos los elementos del control de tabla
             buttons: [{
-                    extend: "excelHtml5",
-                    text: '<i class="fa fa-file-excel"></i> Excel ',
-                    titleAttr: "Exportar a Excel",
-                    className: "btn btnx btn-sm btn-success",
-                    exportOptions: { columns: [1, 2, 3, 4, 5, 7] },
-                },
-                {
-                    extend: "csvHtml5",
-                    text: '<i class="fa fa-file-archive"></i> CSV ',
-                    titleAttr: "Exportar a Texto",
-                    className: "btn btnx btn-sm btn-info",
-                    exportOptions: { columns: [1, 2, 3, 4, 5, 7] },
-                },
-                {
-                    extend: "pdf",
-                    text: '<i class="fa fa-file-pdf"></i> PDF ',
-                    titleAttr: "Exportar a PDF",
-                    className: "btn btnx btn-sm btn-danger",
-                    exportOptions: { columns: [1, 2, 3, 4, 5, 7] },
-                },
+                extend: "excelHtml5",
+                text: '<i class="fa fa-file-excel"></i> Excel ',
+                titleAttr: "Exportar a Excel",
+                className: "btn btnx btn-sm btn-success",
+                exportOptions: { columns: [1, 2, 3, 4, 5, 7] },
+            },
+            {
+                extend: "csvHtml5",
+                text: '<i class="fa fa-file-archive"></i> CSV ',
+                titleAttr: "Exportar a Texto",
+                className: "btn btnx btn-sm btn-info",
+                exportOptions: { columns: [1, 2, 3, 4, 5, 7] },
+            },
+            {
+                extend: "pdf",
+                text: '<i class="fa fa-file-pdf"></i> PDF ',
+                titleAttr: "Exportar a PDF",
+                className: "btn btnx btn-sm btn-danger",
+                exportOptions: { columns: [1, 2, 3, 4, 5, 7] },
+            },
             ],
             ajax: {
                 url: url_base + "/Listar",
                 method: 'POST', //usamos el metodo POST
                 data: { 'security': 'listar' },
                 dataSrc: "",
-                error: function(e) {
+                error: function (e) {
                     console.log(e);
                 }
             },
@@ -251,9 +248,7 @@ function ListarTabla() {
                 { data: "eliminar" },
                 { data: "estatus" },
             ],
-            order: [
-                [1, "asc"]
-            ], //Ordenar (columna,orden)
+            order: [[1, "asc"]], //Ordenar (columna,orden)
             bDestroy: true,
             scrollX: true,
             scrollY: "44.5vh",
@@ -273,7 +268,7 @@ function filterGlobal() {
 }
 
 function Nuevo() {
-    document.querySelector("#btnAgregar").addEventListener('click', function() {
+    document.querySelector("#btnAgregar").addEventListener('click', function () {
         proceso = "nuevo";
         Operacion(proceso);
         Cancelar();
@@ -281,14 +276,14 @@ function Nuevo() {
 }
 
 function Cancelar() {
-    document.querySelector("#btnCancelar").addEventListener('click', function() {
+    document.querySelector("#btnCancelar").addEventListener('click', function () {
         proceso = "cancelar";
         Operacion(proceso);
     });
 }
 
 function Editar() {
-    document.querySelector("#btnEditar").addEventListener('click', function() {
+    document.querySelector("#btnEditar").addEventListener('click', function () {
         proceso = "editar";
         Operacion(proceso);
     });
@@ -370,7 +365,7 @@ function MostrarForm(flag) {
 }
 
 function InsertarEditar() {
-    document.addEventListener('submit', function(e) {
+    document.addEventListener('submit', function (e) {
         e.preventDefault();
         form = document.querySelector("#dataForm");
         let strCampo = document.querySelectorAll("#cod_articulo,#desc_articulo");
@@ -392,9 +387,9 @@ function InsertarEditar() {
             formData.append('security', 'datos');
             let urlAjax = url_base + "/Insertar";
             fetch(urlAjax, {
-                    method: 'POST',
-                    body: formData
-                })
+                method: 'POST',
+                body: formData
+            })
                 .then(response => response.json())
                 .catch(error => console.error('Error:', error))
                 .then(objData => {
@@ -443,12 +438,12 @@ function mostrar(idarticulo) {
     dataset.append('idarticulo', idarticulo);
     let urlAjax = url_base + "/Mostrar";
     fetch(urlAjax, {
-            method: 'POST',
-            body: dataset
-        })
+        method: 'POST',
+        body: dataset
+    })
         .then(response => response.json())
         .then(resp => {
-            $.each(resp, function(label, valor) {
+            $.each(resp, function (label, valor) {
                 $("#" + label).val(valor);
             })
 
@@ -487,9 +482,9 @@ function activar(idarticulo) {
             dataset.append('idarticulo', idarticulo);
             let urlAjax = url_base + "/Activar";
             fetch(urlAjax, {
-                    method: 'POST',
-                    body: dataset
-                })
+                method: 'POST',
+                body: dataset
+            })
                 .then(response => response.json())
                 .catch(error => console.error('Error:', error))
                 .then(objData => {
@@ -536,9 +531,9 @@ function desactivar(idarticulo) {
             dataset.append('idarticulo', idarticulo);
             let urlAjax = url_base + "/Desactivar";
             fetch(urlAjax, {
-                    method: 'POST',
-                    body: dataset
-                })
+                method: 'POST',
+                body: dataset
+            })
                 .then(response => response.json())
                 .catch(error => console.error('Error:', error))
                 .then(objData => {
@@ -578,7 +573,7 @@ function desactivar(idarticulo) {
 
 //Función para Eliminar registros
 function eliminar() {
-    document.querySelector(".btnEliminar").addEventListener('click', function() {
+    document.querySelector(".btnEliminar").addEventListener('click', function () {
         msgOpcion(
             "¿Esta Seguro de <b>Eliminar</b> los Registros Seleccionados?", "warning"
         ).then((result) => {
@@ -589,9 +584,9 @@ function eliminar() {
                 dataset.append('security', 'eliminar')
                 let urlAjax = url_base + "/Eliminar";
                 fetch(urlAjax, {
-                        method: 'POST',
-                        body: dataset
-                    })
+                    method: 'POST',
+                    body: dataset
+                })
                     .then(response => response.json())
                     .catch(error => console.error('Error:', error))
                     .then(objData => {
@@ -636,7 +631,7 @@ function eliminar() {
 $("#tbdetalle").dataTable();
 
 function EventoCheckBox() {
-    $("input[type=checkbox].chk").show(function() {
+    $("input[type=checkbox].chk").show(function () {
         var value = $(this).val();
         if (value == 0) {
             $(this).prop('checked', false);
@@ -649,17 +644,17 @@ function EventoCheckBox() {
 
 function Montos() {
     // tasa precion margen preciom precioimp preciot
-    $("#costo").keyup(function() {
+    $("#costo").keyup(function () {
         var costo = $(this).val();
         let tasa = $("#tasa").val();
         $("#costoimp").val((costo * tasa) / percen);
         $("#costot").val(parseFloat((costo * tasa) / percen) + parseFloat(costo));
-    }).change(function() {
+    }).change(function () {
         var costo = $(this).val();
         let tasa = $("#tasa").val();
         $("#costoimp").val((costo * tasa) / percen);
         $("#costot").val(parseFloat((costo * tasa) / percen) + parseFloat(costo));
-    }).show(function() {
+    }).show(function () {
         var costo = $(this).val();
         let tasa = $("#tasa").val();
         $("#costoimp").val((costo * tasa) / percen);
@@ -668,7 +663,7 @@ function Montos() {
 }
 
 function ListarStock(idarticulo, habilitar) {
-    $.post(url_base + '/ListaStock', { 'id': idarticulo }, function(data) {
+    $.post(url_base + '/ListaStock', { 'id': idarticulo }, function (data) {
         $("#tblListadoDep").html(data);
         $('.paneltb').css('max-height', '160px');
         $(".btnl").attr('disabled', habilitar);
@@ -696,7 +691,7 @@ function filePreview(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.readAsDataURL(input.files[0]);
-        reader.onload = function(e) {
+        reader.onload = function (e) {
             $('#imagenmuestra').remove();
             $("#imagenah").append($('img#imagenmuestra.img-responsive.pad.img-bshadow').html());
             $('#imagenah').after('<img id="imagenmuestra" class="img-responsive pad img-bshadow" \
@@ -706,7 +701,7 @@ function filePreview(input) {
 }
 
 function ListarPrecio(idarticulo, habilitar) {
-    $.post(url_baseL + '/ArtPrecio/ListaPrecio', { 'id': idarticulo }, function(data) {
+    $.post(url_baseL + '/ArtPrecio/ListaPrecio', { 'id': idarticulo }, function (data) {
         $("#tbtipoprecio").html(data);
         $('.paneltb').css('max-height', '160px');
         $(".chk,.btnl").attr('disabled', habilitar);
@@ -716,7 +711,7 @@ function ListarPrecio(idarticulo, habilitar) {
 
 function FuncPrecio(id, desc) {
     let BtnPrecio = document.querySelector("#btnPrecio");
-    BtnPrecio.onclick = function() {
+    BtnPrecio.onclick = function () {
 
         $("#idartprecio").val("");
         $("#fecharegp").val("");
@@ -734,15 +729,15 @@ function FuncPrecio(id, desc) {
     };
 
     let GuardarPrecio = document.querySelector("#btnGuardarPrecio");
-    GuardarPrecio.onclick = function() {
+    GuardarPrecio.onclick = function () {
         const form = document.querySelector("#formPrecio");
         let dataSet = new FormData(form);
         dataSet.append('venc', $("#vencprecio").val());
         let AjaxUrl = url_baseL + '/ArtPrecio/GuadarEditarPrecio';
         fetch(AjaxUrl, {
-                method: 'POST',
-                body: dataSet
-            })
+            method: 'POST',
+            body: dataSet
+        })
             .then(res => res.json())
             .then(objData => {
                 if (objData.status) {
@@ -772,9 +767,9 @@ function EditarPrecio(id) {
     let dataset = new FormData();
     dataset.append('id', id);
     fetch(url_baseL + 'ArtPrecio/MostrarPrecio', {
-            method: 'POST',
-            body: dataset
-        })
+        method: 'POST',
+        body: dataset
+    })
         .then(res => res.json())
         .then(data => {
             $("#Particulo").html($("#desc_articulo").val());
@@ -806,9 +801,9 @@ function eliminarPrecio(id) {
             dataSet.append('id', id);
             let urlAjax = url_baseL + "/ArtPrecio/Eliminar";
             fetch(urlAjax, {
-                    method: 'POST',
-                    body: dataSet
-                })
+                method: 'POST',
+                body: dataSet
+            })
                 .then(response => response.json())
                 .catch(error => console.error('Error:', error))
                 .then(objData => {
@@ -850,17 +845,17 @@ function eliminarPrecio(id) {
 function MontoPrecio(event) {
     $("#margenm").val(0);
 
-    $("#preciom").on(event, function() {
-            var valor = parseFloat($(this).val());
-            var margen = $("#margenm").val();
-            var imp = $("#tasa").val();
+    $("#preciom").on(event, function () {
+        var valor = parseFloat($(this).val());
+        var margen = $("#margenm").val();
+        var imp = $("#tasa").val();
 
-            $("#margent").val((valor * margen) / percen + valor);
-            var margent = parseFloat($("#margent").val());
-            $("#impuestot").val((margent * imp) / percen);
-            $("#preciot").val((margent * imp) / percen + margent);
-        })
-        .keyup(function() {
+        $("#margent").val((valor * margen) / percen + valor);
+        var margent = parseFloat($("#margent").val());
+        $("#impuestot").val((margent * imp) / percen);
+        $("#preciot").val((margent * imp) / percen + margent);
+    })
+        .keyup(function () {
             var valor = parseFloat($(this).val());
             var margen = $("#margenm").val();
             var imp = $("#tasa").val();
@@ -872,7 +867,7 @@ function MontoPrecio(event) {
         });
 
     $("#margenm")
-        .change(function() {
+        .change(function () {
             var valor = parseFloat($("#preciom").val());
             var margen = parseFloat($(this).val());
             var imp = parseFloat($("#tasa").val());
@@ -882,7 +877,7 @@ function MontoPrecio(event) {
             $("#impuestot").val((margent * imp) / percen);
             $("#preciot").val((margent * imp) / percen + margent);
         })
-        .keyup(function() {
+        .keyup(function () {
             var valor = parseFloat($("#preciom").val());
             var margen = parseFloat($(this).val());
             var imp = parseFloat($("#tasa").val());
@@ -895,7 +890,7 @@ function MontoPrecio(event) {
 }
 
 function ListarUnidad(id, desc, visible) {
-    $.post(url_baseL + '/ArtUnidad/ListarUnidad', { 'id': id }, function(data) {
+    $.post(url_baseL + '/ArtUnidad/ListarUnidad', { 'id': id }, function (data) {
         $("#Uarticulo").html(desc)
         $("#tbunidad").html(data);
         $('div.card-body.form').addClass('hidden');
@@ -910,7 +905,7 @@ function ListarUnidad(id, desc, visible) {
 }
 
 function MostrarModalUnidad(id) {
-    document.querySelector("#btnMostrarUnidad").addEventListener('click', function(event) {
+    document.querySelector("#btnMostrarUnidad").addEventListener('click', function (event) {
         event.preventDefault();
         $("#btnGuardarUnidad,#btnCancelarUnidad,#btnAgregarUnidad").removeClass('hidden');
         ListarUnidad(id, $("#desc_articulo").val(), 'hidden');
@@ -922,9 +917,9 @@ function mostrarUnidad(id) {
     dataset.append('id', id);
     let urlAjax = url_baseL + "/ArtUnidad/MostrarUnidad";
     fetch(urlAjax, {
-            method: 'POST',
-            body: dataset
-        })
+        method: 'POST',
+        body: dataset
+    })
         .then(response => response.json())
         .then(resp => {
             $("#valor").val(resp.valor);
@@ -951,9 +946,9 @@ function eliminarUnidad(id, principal) {
             dataSet.append('principal', principal);
             let urlAjax = url_baseL + "/ArtUnidad/Eliminar";
             fetch(urlAjax, {
-                    method: 'POST',
-                    body: dataSet
-                })
+                method: 'POST',
+                body: dataSet
+            })
                 .then(response => response.json())
                 .catch(error => console.error('Error:', error))
                 .then(objData => {
@@ -993,7 +988,7 @@ function FuncUnidad(id) {
     MostrarModalUnidad(id);
 
     let agregar = document.querySelector("#btnAgregarUnidad");
-    agregar.onclick = function(event) {
+    agregar.onclick = function (event) {
         event.preventDefault();
         $("#idarticulou").val(id);
         $("#idartunidad").val("");
@@ -1010,16 +1005,16 @@ function FuncUnidad(id) {
     }
 
     let guadar = document.querySelector("#btnGuardarUnidad");
-    guadar.onclick = function(event) {
+    guadar.onclick = function (event) {
         event.preventDefault();
         const form = document.querySelector("#formUnidad");
         let dataSet = new FormData(form);
         dataSet.append('principal', $("#principal").val());
         let AjaxUrl = url_baseL + '/ArtUnidad/GuadarEditarUnidad';
         fetch(AjaxUrl, {
-                method: 'POST',
-                body: dataSet
-            })
+            method: 'POST',
+            body: dataSet
+        })
             .then(res => res.json())
             .then(objData => {
                 if (objData.status) {
@@ -1044,7 +1039,7 @@ function FuncUnidad(id) {
     }
 
     let cancelar = document.querySelector("#btnCancelarUnidad");
-    cancelar.onclick = function(event) {
+    cancelar.onclick = function (event) {
         event.preventDefault();
         $('div.card-body.form').addClass('hidden');
         $('div.card-body.table').removeClass('hidden');
@@ -1054,11 +1049,11 @@ function FuncUnidad(id) {
     };
 }
 
-function ListadoStock(id, desc, ) {
+function ListadoStock(id, desc,) {
     $("#btnGuardarUnidad,#btnCancelarUnidad,#btnAgregarUnidad").addClass('hidden');
     $("#tbstock").removeClass('hidden');
     ListarUnidad(id, desc);
-    $.post(url_base + '/ListaStock', { 'id': id }, function(data) {
+    $.post(url_base + '/ListaStock', { 'id': id }, function (data) {
         $("#tbstock").html(data);
         $('.paneltb').css('max-height', '160px');
         $(".chk,.btnl").attr('disabled', true);
@@ -1066,7 +1061,7 @@ function ListadoStock(id, desc, ) {
 }
 
 function listadoPrecio(id, desc) {
-    $.post(url_baseL + '/ArtPrecio/ListaPrecio', { 'id': id }, function(data) {
+    $.post(url_baseL + '/ArtPrecio/ListaPrecio', { 'id': id }, function (data) {
         $("#tblistaPrecio").html(data);
         $(".chk,.btnl").attr('disabled', true);
         $("#LParticulo").html(desc)

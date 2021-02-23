@@ -9,42 +9,49 @@ class artunidadModel extends MySql{
 
   public function __construct(){
     parent::__construct();
-    
   }
 
   public function ShowListUnidad($id){
     $this->Idarticulo=$id;
-    $sql="SELECT
-    au.idartunidad,
-    au.idarticulo,
-    au.idunidad,
-    u.cod_unidad,
-    u.desc_unidad,
-    CONVERT(au.valor,DEC(18,0)) AS valor,
-    au.principal
-    FROM tbartunidad au 
-    INNER JOIN tbunidad u ON u.idunidad=au.idunidad
-    WHERE au.idarticulo='$this->Idarticulo'
-    ORDER BY au.valor ASC";
-    $request=$this->SelectAll($sql);
-    return $request;
+    try {
+      $sql="SELECT
+      au.idartunidad,
+      au.idarticulo,
+      au.idunidad,
+      u.cod_unidad,
+      u.desc_unidad,
+      CONVERT(au.valor,DEC(18,0)) AS valor,
+      au.principal
+      FROM tbartunidad au 
+      INNER JOIN tbunidad u ON u.idunidad=au.idunidad
+      WHERE au.idarticulo='$this->Idarticulo'
+      ORDER BY au.valor ASC";
+      $request=$this->SelectAll($sql);
+      return $request;
+    } catch (PDOException $e){
+      return PDOError($e,'');
+    }
   }
 
   public function SelectDt($id){
     $this->Idartunidad=$id;
-    $sql="SELECT
-    au.idartunidad,
-    au.idarticulo,
-    au.idunidad,
-    u.cod_unidad,
-    u.desc_unidad,
-    au.valor,
-    au.principal
-    FROM tbartunidad au 
-    INNER JOIN tbunidad u ON u.idunidad=au.idunidad
-    WHERE  au.idartunidad='$this->Idartunidad'";
-    $request=$this->Select($sql);
-    return $request;
+    try {
+      $sql="SELECT
+      au.idartunidad,
+      au.idarticulo,
+      au.idunidad,
+      u.cod_unidad,
+      u.desc_unidad,
+      au.valor,
+      au.principal
+      FROM tbartunidad au 
+      INNER JOIN tbunidad u ON u.idunidad=au.idunidad
+      WHERE  au.idartunidad='$this->Idartunidad'";
+      $request=$this->Select($sql);
+      return $request;
+    } catch (PDOException $e){
+      return PDOError($e,'');
+    }
   }
 
 

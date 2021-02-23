@@ -15,7 +15,7 @@
 
 body {
   font-family: sans-serif;
-  background: url(http://localhost/Bianet/Assets/img/wall.jpg) no-repeat;
+  background: url(http://localhost:86/Bianet/Assets/img/wall.jpg) no-repeat;
   background-size: auto;
   background-position-y: 30%;
 }

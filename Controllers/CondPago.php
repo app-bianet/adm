@@ -172,12 +172,28 @@ class CondPago extends Controllers{
   public function Selectpicker(){
     if (isset($_POST["security"])) {
       $arrData=$this->model->ListDt();
-      for ($i=0; $i<count($arrData);$i++) { 
-        echo '<option value="'.$arrData[$i]['idcondpago'].'">'.$arrData[$i]['cod_condpago'].'-'.$arrData[$i]['desc_condpago'].'</option>';
-      }
+        if($arrData){
+          for ($i=0; $i<count($arrData);$i++) { 
+          echo '<option value="'.$arrData[$i]['idcondpago'].'">'.$arrData[$i]['cod_condpago'].'-'.$arrData[$i]['desc_condpago'].'</option>';
+          }
+        } else {
+          echo '<option value="">No Existen Registros</option>';
+        } 
     } else {
       header("Location:".base_URL()."Error403");
     }
   }
-  
+
+  public function SelectpickerOp(){
+    if (isset($_POST["security"])) {
+      $arrData=$this->model->ShowDt($_POST['id']);
+        if ($arrData) {
+          for ($i=0; $i<count($arrData);$i++) { 
+            echo '<option value="'.$arrData[$i]['idcondpago'].'">'.$arrData[$i]['cod_condpago'].'-'.$arrData[$i]['desc_condpago'].'</option>';
+          }
+        } else {
+          echo '<option value="">No Existen Registros</option>';
+        }   
+    }
+  }
 }

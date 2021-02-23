@@ -646,7 +646,6 @@ function DataSetAgregarRenglon() {
 	if($("#idarticulom").val()==$("#idarticulo").val()){
 
     Swal.fire({icon: "error",title:'Renglon Duplicado!',
-    
       html:'El Articulo ya Fue Seleccionado<br>\
       Para hacer Cambios debe Eliminar el Renglon',
       customClass: "swal-wide",
