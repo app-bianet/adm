@@ -93,7 +93,7 @@ class ArtPrecio extends Controllers{
       $option=2;
     }
   
-    if($request){
+    if($request > 0){
       if ($option==1) {
         $arrRspta=array("status"=>true,"msg"=>"Registro Ingresado Correctamente!");
       } else {
@@ -102,8 +102,6 @@ class ArtPrecio extends Controllers{
     } else if ($request=="duplicado"){
       $arrRspta=array("status"=>false,"msg"=>"El Tipo de Precio ya se encuentra Registrado!
       <br>No es posible ingresar <b>Registros Duplicados!</b>");
-      } else if($request=="desconocido") {
-        $arrRspta=array("status"=>false,"msg"=>"Error al Procesar el Registro!<br> Campo desconocido");
     } else {
       $arrRspta=array("status"=>false,"msg"=>$request);
     }
@@ -112,7 +110,7 @@ class ArtPrecio extends Controllers{
 
   public function Eliminar(){
     $request = $this->model->EliminarDt($_POST['id']);
-    if ($request == 1) {
+    if ($request > 1) {
       $arrRspta = array("status" => true, "msg" => "Registros Eliminados Correctamente!");
     } else if ($request=="relacion") {
       $arrRspta = array("status" => false, "msg" => "No es Posible Eliminar Registros Relacionados!");
@@ -121,6 +119,4 @@ class ArtPrecio extends Controllers{
     }
       echo json_encode( $arrRspta , JSON_UNESCAPED_UNICODE);
   }
-
-
 }

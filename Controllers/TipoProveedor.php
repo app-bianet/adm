@@ -66,7 +66,7 @@ class TipoProveedor extends Controllers{
         foreach ($idtipoproveedor as $valor) {
           $request = $this->model->EliminarDt($valor);
         }
-        if ($request == 1) {
+        if ($request > 0) {
           $arrRspta = array("status" => true, "msg" => "Registros Eliminados Correctamente!");
         } else if ($request=="relacion") {
           $arrRspta = array("status" => false, "msg" => "No es Posible Eliminar Registros Relacionados!");
@@ -168,11 +168,11 @@ class TipoProveedor extends Controllers{
     if (isset($_POST["security"])) {
       $arrData=$this->model->ListDt();
       if($arrData){
-          for ($i=0; $i<count($arrData);$i++) { 
-            echo '<option value="'.$arrData[$i]['idtipoproveedor'].'">'.$arrData[$i]['cod_tipoproveedor'].'-'.$arrData[$i]['desc_tipoproveedor'].'</option>';
-          }
+        for ($i=0; $i<count($arrData);$i++) { 
+          echo '<option value="'.$arrData[$i]['idtipoproveedor'].'">'.$arrData[$i]['cod_tipoproveedor'].'-'.$arrData[$i]['desc_tipoproveedor'].'</option>';
+        }
       } else {
-          echo '<option readonly>No Existen Registros!</option>';
+        echo '<option readonly>No Existen Registros!</option>';
       }
     } else {
       header("Location:".base_URL()."Error403");

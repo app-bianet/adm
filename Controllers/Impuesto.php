@@ -33,13 +33,13 @@ class Impuesto extends Controllers{
       $tasa=isset($_POST["tasa"])? limpiarCadena($_POST["tasa"]):"";
       $fechareg=isset($_POST["fechareg"])? limpiarCadena($_POST["fechareg"]):"";
 
-      if (empty($idimpuesto)) {
-        $request=$this->model->InsertDt($cod_impuesto,$desc_impuesto,$simbolo,$tasa,formatDate($fechareg));
-        $option=1;
-      } else {
-       $request=$this->model->EditarDt($idimpuesto,$cod_impuesto,$desc_impuesto,$simbolo,$tasa,formatDate($fechareg));
-        $option=2;
-      }
+        if (empty($idimpuesto)) {
+          $request=$this->model->InsertDt($cod_impuesto,$desc_impuesto,$simbolo,$tasa,formatDate($fechareg));
+          $option=1;
+        } else {
+        $request=$this->model->EditarDt($idimpuesto,$cod_impuesto,$desc_impuesto,$simbolo,$tasa,formatDate($fechareg));
+          $option=2;
+        }
 
       if($request>0){
         if ($option==1) {
@@ -69,7 +69,7 @@ class Impuesto extends Controllers{
         foreach ($idimpuesto as $valor) {
           $request = $this->model->EliminarDt($valor);
         }
-        if ($request == 1) {
+        if ($request > 0) {
           $arrRspta = array("status" => true, "msg" => "Registros Eliminados Correctamente!");
         } else if ($request=="relacion") {
           $arrRspta = array("status" => false, "msg" => "No es Posible Eliminar Registros Relacionados!");

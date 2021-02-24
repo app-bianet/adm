@@ -5,7 +5,9 @@ class Login extends Controllers{
   public function __construct(){
     if (isset($_SESSION['sidusuario'])){
       header("Location:".base_URL()."Escritorio");
-    } 
+    } else{
+      header("Location:".base_URL()."login");
+    }
     parent::__construct();
   }
 
@@ -143,7 +145,7 @@ class Login extends Controllers{
       $clave=hashpw($_POST['clave']);
   
         $request=$this->model->EditarClave($idusuario,$clave);
-        if($request){
+        if($request>0){
           $arrRspta=array("status"=>true,"msg"=>"Clave Actualizada Exitosamente!");
         }else {
           $arrRspta=array("status"=>false,"msg"=>"Error al Actualizar la Clave!");

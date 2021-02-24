@@ -73,7 +73,7 @@ class Deposito extends Controllers{
         foreach ($iddeposito as $valor) {
           $request = $this->model->EliminarDt($valor);
         }
-        if ($request == 1) {
+        if ($request > 0) {
           $arrRspta = array("status" => true, "msg" => "Registros Eliminados Correctamente!");
         } else if ($request=="relacion") {
           $arrRspta = array("status" => false, "msg" => "No es Posible Eliminar Registros Relacionados!");
@@ -90,7 +90,7 @@ class Deposito extends Controllers{
   public function Mostrar(){
     if (isset($_POST['iddeposito'])) {
       $iddeposito=intval(limpiarCadena($_POST['iddeposito']));
-      if ($iddeposito>0) {
+      if ($iddeposito > 0) {
         $arrData=$this->model->ShowDt($iddeposito);
         if (empty($arrData)) {
           $arrRspta=array('status'=>false,'msg'=>'No Existen Registros!');
@@ -110,7 +110,7 @@ class Deposito extends Controllers{
       $iddeposito=intval(limpiarCadena($_POST['iddeposito']));
       $estatus=intval(1);
       $request=$this->model->EstatusDt($iddeposito,$estatus);
-        if($request>0){
+        if($request > 0){
           $arrRspta=array("status"=>true,"msg"=>"Registro Activado Correctamente!");
         }else {
           $arrRspta=array("status"=>false,"msg"=>"Error al Activar el Registro!");
@@ -120,7 +120,6 @@ class Deposito extends Controllers{
       header("Location:".base_URL()."Error404");
     }
     die(); 
-
   }
 
   public function Desactivar(){
@@ -128,7 +127,7 @@ class Deposito extends Controllers{
       $iddeposito=intval(limpiarCadena($_POST['iddeposito']));
       $estatus=intval(0);
       $request=$this->model->EstatusDt($iddeposito,$estatus);
-        if($request>0){
+        if($request > 0){
           $arrRspta=array("status"=>true,"msg"=>"Registro Desctivado Correctamente!");
         }else {
           $arrRspta=array("status"=>false,"msg"=>"Error al Desactivar el Registro!");
@@ -178,12 +177,15 @@ class Deposito extends Controllers{
   public function Selectpicker(){
     if (isset($_POST["security"])) {
       $arrData=$this->model->ListDt();
-      for ($i=0; $i<count($arrData);$i++) { 
-        echo '<option value="'.$arrData[$i]['iddeposito'].'">'.$arrData[$i]['cod_deposito'].'-'.$arrData[$i]['desc_deposito'].'</option>';
+      if ($arrData) {
+        for ($i=0; $i<count($arrData);$i++) { 
+          echo '<option value="'.$arrData[$i]['iddeposito'].'">'.$arrData[$i]['cod_deposito'].'-'.$arrData[$i]['desc_deposito'].'</option>';
+        }
+      } else {
+        echo '<option readonly>No Existen Registros!</option>';
       }
     } else {
       header("Location:".base_URL()."Error403");
     }
   }
-  
 }

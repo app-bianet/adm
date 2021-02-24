@@ -39,7 +39,7 @@ class MAcceso extends Controllers{
           $option=2;
         }
   
-        if($request){
+        if($request > 0){
           if ($option==1) {
             $arrRspta=array("status"=>true,"msg"=>"Registro Ingresado Correctamente!");
           } else {
@@ -67,7 +67,7 @@ class MAcceso extends Controllers{
         foreach ($idmacceso as $valor) {
           $request = $this->model->EliminarDt($valor);
         }
-        if ($request == 1) {
+        if ($request > 0) {
           $arrRspta = array("status" => true, "msg" => "Registros Eliminados Correctamente!");
         } else if ($request=="relacion") {
           $arrRspta = array("status" => false, "msg" => "No es Posible Eliminar Registros Relacionados!");
@@ -168,8 +168,12 @@ class MAcceso extends Controllers{
   public function Selectpicker(){
     if (isset($_POST['security'])) {
       $arrData=$this->model->ListDt();
-      for ($i=0; $i<count($arrData);$i++) { 
-        echo '<option value="'.$arrData[$i]['idmacceso'].'">'.$arrData[$i]['cod_macceso'].'-'.$arrData[$i]['desc_macceso'].'</option>';
+      if($arrData){
+        for ($i=0; $i<count($arrData);$i++) { 
+          echo '<option value="'.$arrData[$i]['idmacceso'].'">'.$arrData[$i]['cod_macceso'].'-'.$arrData[$i]['desc_macceso'].'</option>';
+        }
+      } else {
+        echo '<option readonly>No Existen Registros!</option>';
       }
     }else {
       header("location:".base_URL()."error403");
@@ -192,7 +196,6 @@ class MAcceso extends Controllers{
       } else {
         $Modulos = $this->model->ListarModulo($modulo);
       }
-  
       echo
         '<thead class="bg-gray">
         <th>Tablas</th>
@@ -203,15 +206,12 @@ class MAcceso extends Controllers{
         $sw = in_array($Modulos[$i]['idacceso'], $valores) ? 'checked' : '';
         $swi = in_array($Modulos[$i]['idacceso'], $valores) ? 'success fa fa-check-circle' : 'danger fa fa-times-circle';
   
-  
         echo $fila = '<tr class="filas">
           <td><label>'.$Modulos[$i]['desc_acceso'].'</label></td>
           <td><input form="dataForm" type="checkbox" '.$sw.' name="accesos[]" value="'.$Modulos[$i]['idacceso'].'" class="chk chk'. $modulo .'"></td>
           <td><i class="text-'.$swi.' a'.$modulo.'"></i></td>
-  
         </tr>';
       }
-
     }else {
       header("location:".base_URL()."error403");
     }
@@ -219,39 +219,35 @@ class MAcceso extends Controllers{
 
   public function AccesoOp(){
     if (isset($_POST['security'])) {
-
       $modulo = limpiarCadena($_POST['modulo']);
       $idmacceso = limpiarCadena($_POST['idmacceso']);
       $valores = array();
+      if (!empty($idmacceso)) {
 
-    if (!empty($idmacceso)) {
-
-      $Modulos = $this->model->ListarModulo($modulo);
-      $Marcados = $this->model->ListarMarcados($idmacceso, $modulo);
-      for ($i = 0; $i < count($Marcados); $i++) {
-        array_push($valores, $Marcados[$i]['idacceso']);
+        $Modulos = $this->model->ListarModulo($modulo);
+        $Marcados = $this->model->ListarMarcados($idmacceso, $modulo);
+        for ($i = 0; $i < count($Marcados); $i++) {
+          array_push($valores, $Marcados[$i]['idacceso']);
+        }
+      } else {
+        $Modulos = $this->model->ListarModulo($modulo);
       }
-    } else {
-      $Modulos = $this->model->ListarModulo($modulo);
-    }
-
     echo
       '<thead class="bg-gray">
       <th>Operaciones</th>
       <th width="10%">Estado</th>
       <th width="10%">Permiso</th>                                   
       </thead>';
-    for ($i = 0; $i < count($Modulos); $i++) {
-      $sw = in_array($Modulos[$i]['idacceso'], $valores) ? 'checked' : '';
-      $swi = in_array($Modulos[$i]['idacceso'], $valores) ? 'success fa fa-check-circle' : 'danger fa fa-times-circle';
+      for ($i = 0; $i < count($Modulos); $i++) {
+        $sw = in_array($Modulos[$i]['idacceso'], $valores) ? 'checked' : '';
+        $swi = in_array($Modulos[$i]['idacceso'], $valores) ? 'success fa fa-check-circle' : 'danger fa fa-times-circle';
 
-      echo $fila = '<tr class="filas">
-				<td><label>' . $Modulos[$i]['desc_acceso'] . '</label></td>
-				<td><input form="dataForm" type="checkbox" ' . $sw . ' name="accesos[]" value="' . $Modulos[$i]['idacceso'] . '" class="chk chk' . $modulo . '"></td>
-        <td><i class="text-' . $swi . ' a' . $modulo . '"></i></td>
-			</tr>';
-    }
-
+        echo $fila = '<tr class="filas">
+          <td><label>' . $Modulos[$i]['desc_acceso'] . '</label></td>
+          <td><input form="dataForm" type="checkbox" ' . $sw . ' name="accesos[]" value="' . $Modulos[$i]['idacceso'] . '" class="chk chk' . $modulo . '"></td>
+          <td><i class="text-' . $swi . ' a' . $modulo . '"></i></td>
+        </tr>';
+      }
     }else {
       header("location:".base_URL()."error403");
     }

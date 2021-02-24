@@ -82,18 +82,18 @@ class Traslado extends Controllers{
   public function Anular(){
     $request = $this->model->AnularDt(POSTT($_POST['id']));
     $this->model->AnularStock(POSTT($_POST['id']));
-    if ($request) {
+    if ($request > 0) {
       $arrRspta = array("status" => true, "msg" => "Registros Anulados Correctamente!");
     } else {
       $arrRspta = array("status" => false, "msg" =>$request);
     }
-    echo json_encode( $arrRspta , JSON_UNESCAPED_UNICODE);
+    echo json_encode($arrRspta , JSON_UNESCAPED_UNICODE);
   }
 
   public function Eliminar(){
     $request = $this->model->AnularStock(POSTT($_POST['id']));
     $this->model->EliminarDt(POSTT($_POST['id']));
-    if ($request) {
+    if ($request > 0) {
       $arrRspta = array("status" => true, "msg" => "Registros Eliminado Correctamente!");
     } else {
       $arrRspta = array("status" => false, "msg" =>$request);
@@ -256,6 +256,5 @@ class Traslado extends Controllers{
     } else {
       header("Location:".base_URL()."Error403");
     }
-  }
-  
+  } 
 }

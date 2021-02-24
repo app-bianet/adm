@@ -38,7 +38,7 @@ class TipoPrecio extends Controllers{
         $option=2;
       }
 
-      if($request){
+      if($request > 0){
         if ($option==1) {
           $arrRspta=array("status"=>true,"msg"=>"Registro Ingresado Correctamente!");
         } else {
@@ -66,7 +66,7 @@ class TipoPrecio extends Controllers{
         foreach ($idtipoprecio as $valor) {
           $request = $this->model->EliminarDt($valor);
         }
-        if ($request == 1) {
+        if ($request  > 0) {
           $arrRspta = array("status" => true, "msg" => "Registros Eliminados Correctamente!");
         } else if ($request=="relacion") {
           $arrRspta = array("status" => false, "msg" => "No es Posible Eliminar Registros Relacionados!");
@@ -179,5 +179,4 @@ class TipoPrecio extends Controllers{
       header("Location:".base_URL()."Error403");
     }
   }
-  
 }

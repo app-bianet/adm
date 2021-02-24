@@ -68,7 +68,7 @@ class IPago extends Controllers{
         foreach ($idipago as $valor) {
           $request = $this->model->EliminarDt($valor);
         }
-        if ($request == 1) {
+        if ($request > 0) {
           $arrRspta = array("status" => true, "msg" => "Registros Eliminados Correctamente!");
         } else if ($request=="relacion") {
           $arrRspta = array("status" => false, "msg" => "No es Posible Eliminar Registros Relacionados!");
@@ -182,5 +182,4 @@ class IPago extends Controllers{
       header("Location:".base_URL()."Error403");
     }
   }
-  
 }

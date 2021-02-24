@@ -69,7 +69,7 @@ class ArtUnidad extends Controllers{
       $option=2;
     }
 
-    if($request){
+    if($request>0){
       if ($option==1) {
         $arrRspta=array("status"=>true,"msg"=>"Registro Ingresado Correctamente!");
       } else {
@@ -80,8 +80,6 @@ class ArtUnidad extends Controllers{
     } else if ($request=="duplicado"){
       $arrRspta=array("status"=>false,"msg"=>"La Unidad Seleccionada ya se encuentra Registrada! 
       <br>No es posible ingresar <b>Registros Duplicados!</b>");
-      } else if($request=="desconocido") {
-        $arrRspta=array("status"=>false,"msg"=>"Error al Procesar el Registro!<br> Campo desconocido");
     } else {
       $arrRspta=array("status"=>false,"msg"=>$request);
     }
@@ -95,7 +93,7 @@ class ArtUnidad extends Controllers{
       } else if ($request == 'principaldt') {
           $arrRspta = array("status" => false, "msg" => "No Es posible Eliminar la Unidad Principal!
           <br>Edite la <b>Unidad Pricipal</b> Antes de Eliminar!");
-      } else if ($request == 1) {
+      } else if ($request > 0) {
           $arrRspta = array("status" => true, "msg" => "Registros Eliminados Correctamente!");
       } else {
         $arrRspta=array("status"=>false,"msg"=>$request);

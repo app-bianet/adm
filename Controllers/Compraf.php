@@ -149,7 +149,7 @@ class Compraf extends Controllers{
       (!empty($origenc))?$this->model->AnularProcesarDocumentoImp($origenc,$origend,$totalh):'';
   
     $request=$this->model->AnularDt($idcompra);
-    if($request){
+    if($request>0){
       $arrRspta=array("status"=>true,"msg"=>"Registro Anulado Correctamente!");
     }else {
       $arrRspta=array("status"=>false,"msg"=>"Error al Anular el Registro!");
@@ -173,7 +173,7 @@ class Compraf extends Controllers{
       (!empty($origenc))?$this->model->AnularProcesarDocumentoImp($origenc,$origend,$totalh):'';
     
     $request=$this->model->EliminarDt($idcompra);
-    if($request){
+    if($request>0){
       $arrRspta=array("status"=>true,"msg"=>"Registro Eliminado Correctamente!");
     }else {
       $arrRspta=array("status"=>false,"msg"=>"Error al Eliminar el Registro!");

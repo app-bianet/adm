@@ -42,7 +42,7 @@ class Ajuste extends Controllers{
         $_POST['tipoa'],$tipo);
         $this->model->AjustarCosto($_POST['idarticulo'],insertNumber($_POST['costo']),$_POST['valor']);
 
-      if($request){
+      if($request>0){
         $arrRspta=array("status"=>true,"msg"=>"Registro Ingresado Correctamente!");
       } else if ($request=="duplicado"){
         $arrRspta=array("status"=>false,"msg"=>"El Código <b>".$cod_ajuste."</b> ya se encuentra Registrado! 

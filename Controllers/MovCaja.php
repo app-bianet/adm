@@ -23,8 +23,6 @@ class MovCaja extends Controllers{
     }
     ob_end_flush();
   }
-
-  
     // [idmovcaja] => 
     // [idcaja] => 2
     // [idbanco] => 4
@@ -72,7 +70,7 @@ class MovCaja extends Controllers{
         $option=2;
       }
 
-      if($request){
+      if($request > 0){
         if ($option==1) {
           $arrRspta=array("status"=>true,"msg"=>"Registro Ingresado Correctamente!");
         } else {
@@ -95,7 +93,7 @@ class MovCaja extends Controllers{
   public function Mostrar(){
     if (isset($_POST['idmovcaja'])) {
       $idmovcaja=intval(limpiarCadena($_POST['idmovcaja']));
-      if ($idmovcaja>0) {
+      if ($idmovcaja > 0) {
         $arrData=$this->model->ShowDt($idmovcaja);
         if (empty($arrData)) {
           $arrRspta=array('status'=>false,'msg'=>'No Existen Registros!');
@@ -115,7 +113,7 @@ class MovCaja extends Controllers{
       $idmovcaja=limpiarCadena($_POST['idmovcaja']);
       $idcaja=limpiarCadena($_POST['idcaja']);
       $request=$this->model->AnularDt($idmovcaja,$idcaja);
-        if($request){
+        if($request > 0){
           $arrRspta=array("status"=>true,"msg"=>"Registro Anulado Correctamente!");
         }else {
           $arrRspta=array("status"=>false,"msg"=>"Error al Anular el Registro!");
@@ -148,7 +146,7 @@ class MovCaja extends Controllers{
 
 
   public function Listar(){
- //  if (isset($_POST["security"])) {
+   if (isset($_POST["security"])) {
       $arrData=$this->model->SelectDt();
       $al='style="text-align:';
       $w='; width:';
@@ -209,9 +207,9 @@ class MovCaja extends Controllers{
       }
       echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
       die();
-    // } else{
-    //   header("Location:".base_URL()."Error403");
-   // }
+    } else{
+      header("Location:".base_URL()."Error403");
+   }
   }
 
   public function Selectpicker(){
@@ -228,5 +226,5 @@ class MovCaja extends Controllers{
       header("Location:".base_URL()."Error403");
     }
   }
-  
+
 }

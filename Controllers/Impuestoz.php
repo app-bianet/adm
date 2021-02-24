@@ -70,7 +70,7 @@ class Impuestoz extends Controllers{
         foreach ($idimpuestoz as $valor) {
           $request = $this->model->EliminarDt($valor);
         }
-        if ($request == 1) {
+        if ($request > 0) {
           $arrRspta = array("status" => true, "msg" => "Registros Eliminados Correctamente!");
         } else if ($request=="relacion") {
           $arrRspta = array("status" => false, "msg" => "No es Posible Eliminar Registros Relacionados!");
@@ -180,7 +180,6 @@ class Impuestoz extends Controllers{
         for ($i=0; $i<count($arrData);$i++) { 
           echo '<option value="'.$arrData[$i]['idimpuestoz'].'">'.$arrData[$i]['desc_impuestoz'].'</option>';
         }
-        
       } else {
         echo '<option readonly>No Existen Registros!</option>';
       }
