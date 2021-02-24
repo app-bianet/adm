@@ -36,11 +36,11 @@ class Ajuste extends Controllers{
       $fechareg=isset($_POST["fechareg"])? limpiarCadena($_POST["fechareg"]):"";
 
         $request=$this->model->InsertDt($idusuario,$cod_ajuste,$desc_ajuste,'Registrado',$tipo,
-        $totalstock,insertNumber($totalh),formatDate($fechareg),$_POST['idarticulo'],$_POST['iddeposito'],
-        $_POST['cantidad'],insertNumber($_POST['costo']),$_POST['idartunidad']);
+        $totalstock,$totalh,$fechareg,$_POST['idarticulo'],$_POST['iddeposito'],
+        $_POST['cantidad'],$_POST['costo'],$_POST['idartunidad']);
         $this->model->AddStockArt($_POST['idarticulo'],$_POST['iddeposito'],$_POST['cantidad'],$_POST['valor'],
         $_POST['tipoa'],$tipo);
-        $this->model->AjustarCosto($_POST['idarticulo'],insertNumber($_POST['costo']),$_POST['valor']);
+        $this->model->AjustarCosto($_POST['idarticulo'],$_POST['costo'],$_POST['valor']);
 
       if($request>0){
         $arrRspta=array("status"=>true,"msg"=>"Registro Ingresado Correctamente!");

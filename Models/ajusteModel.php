@@ -234,16 +234,16 @@
       $fechareg,$idarticulo,$iddeposito,$cantidad,$costo,$idartunidad){
       $this->Idusuario=$idusuario;
       $this->Cod_ajuste=$cod_ajuste;
-      $this->Desc_ajuste=$desc_ajuste==''?'Ajuste de '.$tipo.' de fecha '.formatDateRt($fechareg):$desc_ajuste;
+      $this->Desc_ajuste=$desc_ajuste==''?'Ajuste de '.$tipo.' de fecha '.formatDate($fechareg):$desc_ajuste;
       $this->Estatus=$estatus;
       $this->Tipo=$tipo;
       $this->Totalstock=$totalstock;
-      $this->Totalh=$totalh;
+      $this->Totalh=insertNumber($totalh);
       $this->Fechareg=$fechareg;
       $this->Idarticulo=$idarticulo;
       $this->Iddeposito=$iddeposito;
       $this->Cantidad=$cantidad;
-      $this->Costo=$costo;
+      $this->Costo=insertNumber($costo);
       $this->Idartunidad=$idartunidad;
       try{  
         $queryInsert="INSERT INTO tbajuste(idusuario,cod_ajuste,desc_ajuste,tipo,estatus,

@@ -1,24 +1,413 @@
-html {
-  margin: 0;
-  padding: 0;
-  background-color: white;
+*,
+:before,
+:after {
+  box-sizing: border-box;
 }
 
-body,
-html {
-  width: 100%;
-  height: 100%;
+body {
+  display: flex;
+  align-items: center;
+  background: #000;
+  min-width: 275px;
+  height: 100vh;
+
   overflow: hidden;
+  color: #138ff2;
+  font-family: Roboto;
 }
 
-#svgContainer {
-  width: 640px;
-  height: 512px;
-  background-color: white;
+.wrapper {
+  flex-grow: 2;
+  width: 60vw;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+h1 {
+  color: #ffffff;
+  font-weight: bolder;
+  font-size: 4em;
+  margin: 0;
+  outline: none;
+  padding: 0;
+  position: center;
+}
+
+.glitch_word_box {
+  height: 100px;
+  line-height: 100px;
+  position: relative;
+  -webkit-animation: disappear 1s linear;
+  -webkit-animation-iteration-count: infinite, infinite;
+  -moz-animation: disappear 1s linear;
+  -moz-animation-iteration-count: infinite, infinite;
+  -o-animation: disappear 1s linear;
+  -o-animation-iteration-count: infinite, infinite;
+}
+
+.glitch_word_box .glitch_word0 {
+  position: absolute;
+  width: 100%;
+}
+
+.glitch_word_box .glitch_word1 {
+  color: red;
+  font-weight: bolder;
+  left: -2px;
+  position: absolute;
+  top: -2px;
+  width: 100%;
+  z-index: -1;
+  -webkit-animation: animate_glitch_1 0.2s linear;
+  -webkit-animation-iteration-count: infinite;
+  -moz-animation: animate_glitch_1 0.2s linear;
+  -moz-animation-iteration-count: infinite;
+  -o-animation: animate_glitch_1 0.2s linear;
+  -o-animation-iteration-count: infinite;
+}
+
+.glitch_word_box .glitch_word2 {
+  color: blue;
+  font-weight: bolder;
+  left: 2px;
+  position: absolute;
+  top: 2px;
+  width: 100%;
+  z-index: -1;
+  -webkit-animation: animate_glitch_2 0.3s linear;
+  -webkit-animation-iteration-count: infinite;
+  -moz-animation: animate_glitch_2 0.3s linear;
+  -moz-animation-iteration-count: infinite;
+  -o-animation: animate_glitch_2 0.3s linear;
+  -o-animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes disappear {
+  0% {
+    opacity: 0;
+  }
+  2% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes animate_glitch_1 {
+  0% {
+    top: 1px;
+    left: 1px;
+  }
+  25% {
+    top: 3px;
+    left: 2px;
+  }
+  50% {
+    top: -1px;
+    left: -4px;
+  }
+  75% {
+    top: 2px;
+    left: 5px;
+  }
+  100% {
+    top: 1px;
+    left: -2px;
+  }
+}
+
+@-webkit-keyframes animate_glitch_2 {
+  0% {
+    top: -1px;
+    left: -1px;
+  }
+  25% {
+    top: -3px;
+    left: -2px;
+  }
+  50% {
+    top: 1px;
+    left: 4px;
+  }
+  100% {
+    top: -1px;
+    left: -1px;
+  }
+}
+
+@-moz-keyframes disappear {
+  0% {
+    opacity: 0;
+  }
+  2% {
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes animate_glitch_1 {
+  0% {
+    top: 1px;
+    left: 1px;
+  }
+  25% {
+    top: 3px;
+    left: 2px;
+  }
+  50% {
+    top: -1px;
+    left: -4px;
+  }
+  75% {
+    top: 2px;
+    left: 5px;
+  }
+  100% {
+    top: 1px;
+    left: -2px;
+  }
+}
+
+@-moz-keyframes animate_glitch_2 {
+  0% {
+    top: -1px;
+    left: -1px;
+  }
+  25% {
+    top: -3px;
+    left: -2px;
+  }
+  50% {
+    top: 1px;
+    left: 4px;
+  }
+  100% {
+    top: -1px;
+    left: -1px;
+  }
+}
+
+@-o-keyframes disappear {
+  0% {
+    opacity: 0;
+  }
+  2% {
+    opacity: 1;
+  }
+}
+
+@-o-keyframes animate_glitch_1 {
+  0% {
+    top: 1px;
+    left: 1px;
+  }
+  25% {
+    top: 3px;
+    left: 2px;
+  }
+  50% {
+    top: -1px;
+    left: -4px;
+  }
+  75% {
+    top: 2px;
+    left: 5px;
+  }
+  100% {
+    top: 1px;
+    left: -2px;
+  }
+}
+
+@-o-keyframes animate_glitch_2 {
+  0% {
+    top: -1px;
+    left: -1px;
+  }
+  25% {
+    top: -3px;
+    left: -2px;
+  }
+  50% {
+    top: 1px;
+    left: 4px;
+  }
+  100% {
+    top: -1px;
+    left: -1px;
+  }
+}
+
+p {
+  width: 95%;
+  font-size: 1.5em;
+  line-height: 1.4;
+}
+
+.buttons {
+  white-space: nowrap;
+  display: inline-block;
+}
+
+span {
+  display: block;
+  text-transform: uppercase;
+  color: #138ff2;
+  letter-spacing: 1.5px;
+  text-align: center;
+}
+
+a {
+  display: inline-block;
+  padding: 0.8em 1em;
+  margin-right: 1em;
+  margin-bottom: 1em;
+  border: 3px solid #138ff2;
+  color: white;
+  font-weight: 500;
+  text-transform: uppercase;
+  text-decoration: none;
+  letter-spacing: 0.2em;
+  position: relative;
+  overflow: hidden;
+  transition: 0.3s;
+}
+
+a:hover {
+  color: #138ff2;
+}
+
+a:hover:before {
+  top: 0;
+}
+
+a:before {
+  content: "";
+  background: white;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: -100%;
+  left: 0;
+  transition: 0.3s;
+  z-index: -1;
+}
+
+.space {
+  width: 75px;
+  height: calc(50vh + 37.5px);
+  border-top-left-radius: 37.5px;
+  border-top-right-radius: 37.5px;
+  overflow: hidden;
+  margin: calc(50vh - 37.5px) auto 0 auto;
+  position: relative;
+  pointer-events: none;
+  -webkit-transform: translateZ(0);
+}
+
+.blackhole {
+  border: 5px solid #1674d1;
+  height: 75px;
+  width: 75px;
+  border-radius: 50%;
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
+}
+
+.blackhole:after {
+  content: "";
+  height: calc(100% + 10px);
+  width: calc(100% + 10px);
+  border: 5px solid #1674d1;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  z-index: 5;
+  transform: rotate(45deg);
+}
+
+.ship {
+  height: 150px;
+  width: 55px;
+  margin-left: 10px;
+  background: url("https://goo.gl/hqeSfZ") center/contain no-repeat;
+  animation: blackhole 4s infinite linear;
+  position: absolute;
+  bottom: -150px;
+}
+
+@keyframes blackhole {
+  to {
+    transform: translateY(-100vh);
+  }
+}
+
+@media (max-width: 600px) {
+  body {
+    margin: 0 5vw;
+  }
+}
+
+#Polygon-1,
+#Polygon-2,
+#Polygon-3,
+#Polygon-4,
+#Polygon-4,
+#Polygon-5 {
+  animation: float 1s infinite ease-in-out alternate;
+}
+
+#Polygon-2 {
+  animation-delay: 0.2s;
+}
+
+#Polygon-3 {
+  animation-delay: 0.4s;
+}
+
+#Polygon-4 {
+  animation-delay: 0.6s;
+}
+
+#Polygon-5 {
+  animation-delay: 0.8s;
+}
+
+@keyframes float {
+  100% {
+    transform: translateY(20px);
+  }
+}
+
+@media (max-width: 450px) {
+  svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -250px;
+    margin-left: -190px;
+  }
+}
+
+@media (max-width: 480px) {
+  .screen {
+    padding: 15px;
+  }
+  .contact-info-hype,
+  .hypemarketing {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 800px) {
+  button {
+    transform: scale(1.4);
+  }
+}
+
+@media (max-width: 600px) {
+  button {
+    transform: scale(1);
+  }
 }

@@ -182,7 +182,7 @@
       $this->Seriales=$seriales;
       $this->Costoprecio=$costoprecio;
       $this->Imagen=$imagen;
-      $this->Fechareg=$fechareg;
+      $this->Fechareg=formatDate($fechareg);
       $this->Estatus='1';
       try{
         $sql = "INSERT INTO tbarticulo(idcategoria,idlinea,idimpuesto,cod_articulo,desc_articulo,

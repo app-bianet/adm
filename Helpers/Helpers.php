@@ -136,6 +136,15 @@ function formatStock($cantidad){
   return $cantidad;
 }
 
+/** 
+* Funcion para convertir Fecha a formato MYSQL
+*
+* Fecha en formato dd/mm/yyy
+* retorna en formato yyyy/mm/dd
+* --
+* @author: Ricardo Albornoz
+* @return string : Fecha en Formato MYSQL
+*/
 function formatDate($dateCadena){
   $dateRec=str_ireplace('/','-',$dateCadena);
   $fecha = $dateRec; //Recibe una string en formato dd-mm-yyyy 
