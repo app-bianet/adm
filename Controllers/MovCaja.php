@@ -72,7 +72,7 @@ class MovCaja extends Controllers{
         $option=2;
       }
 
-      if($request > 0){
+      if($request){
         if ($option==1) {
           $arrRspta=array("status"=>true,"msg"=>"Registro Ingresado Correctamente!");
         } else {

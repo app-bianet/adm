@@ -15,47 +15,64 @@
     }
 
     public function SelectDt(){
-      $sql="SELECT * FROM tbmacceso";
-      $req=$this->SelectAll($sql);
-      return $req;
+      try {
+        $sql="SELECT * FROM tbmacceso";
+        $req=$this->SelectAll($sql);
+        return $req;
+      } catch (PDOException $e){
+        return PDOError($e,'');
+      }
     }
 
     public function ListDt(){
-      $sql="SELECT * FROM tbmacceso WHERE estatus='1' ORDER BY cod_macceso ASC";
-      $req=$this->SelectAll($sql);
-      return $req;
+      try {
+        $sql="SELECT * FROM tbmacceso WHERE estatus='1' ORDER BY cod_macceso ASC";
+        $req=$this->SelectAll($sql);
+        return $req;
+      } catch (PDOException $e){
+        return PDOError($e,'');
+      }
     }
 
     public function EstatusDt($id,$st){
       $this->Idmacceso=$id;
       $this->Estatus=$st;
-
-      $sql="UPDATE tbmacceso SET estatus=? WHERE idmacceso= $this->Idmacceso";
-      $arrData=array($this->Estatus);
-      $request=$this->Update($sql,$arrData);
-      return $request;
+      try {
+        $sql="UPDATE tbmacceso SET estatus=? WHERE idmacceso= $this->Idmacceso";
+        $arrData=array($this->Estatus);
+        $request=$this->Update($sql,$arrData);
+        return $request;
+      } catch (PDOException $e){
+        return PDOError($e,'');
+      }
     }
 
     public function ShowDt($id){
       $this->Idmacceso=$id;
-      $sql="SELECT * 
-      FROM tbmacceso WHERE idmacceso= $this->Idmacceso";
-      $req=$this->Select($sql);
-      return $req;
+      try {
+        $sql="SELECT * FROM tbmacceso WHERE idmacceso= $this->Idmacceso";
+        $req=$this->Select($sql);
+        return $req;
+      } catch (PDOException $e){
+        return PDOError($e,'');
+      }
     }
 
     public function ListarModulo($modulo){
       $this->Modulo=$modulo;
-
-      if ($this->Modulo) {
-        $sql="SELECT * FROM tbacceso 
-        WHERE modulo='$this->Modulo' ORDER BY idacceso ASC";
-       $request=$this->SelectAll($sql);
-      } else {
-        $sql="SELECT * FROM tbacceso ORDER BY idacceso ASC";
-        $request=$this->SelectAll($sql);
+      try {
+        if ($this->Modulo) {
+          $sql="SELECT * FROM tbacceso 
+          WHERE modulo='$this->Modulo' ORDER BY idacceso ASC";
+          $request=$this->SelectAll($sql);
+        } else {
+          $sql="SELECT * FROM tbacceso ORDER BY idacceso ASC";
+          $request=$this->SelectAll($sql);
+        }
+        return $request;
+      } catch (PDOException $e){
+        return PDOError($e,'');
       }
-      return $request;
     }
 
     public function ListarMarcados($id,$modulo){
@@ -89,21 +106,19 @@
       $this->Desc_macceso=$desc_macceso;
       $this->Departamento=$departamento;
       $this->Accesos=$accesos;
-
-      try {
-        $queryInsert="INSERT INTO tbmacceso(cod_macceso, desc_macceso,departamento,estatus) VALUES(?,?,?,'1')";
-        $arrData=array($this->Cod_macceso,$this->Desc_macceso,$this->Departamento);
-        $requestInsert=$this->Insert($queryInsert,$arrData);
-        $num_item=0;
-        $contador=0;
-
-      while ($num_item < count($this->Accesos)) {
-        $sql_row = "INSERT INTO tbusuarioac(idusuarioac,idmacceso,idacceso) VALUES(?,?,?)";
-        $arrData = array(('0' . $requestInsert . '01') + $contador, $requestInsert, $this->Accesos[$num_item]);
-        $this->Insert($sql_row, $arrData);
-        $num_item = $num_item + 1;
-        $contador = $contador + 1;
-      }
+        try {
+          $queryInsert="INSERT INTO tbmacceso(cod_macceso, desc_macceso,departamento,estatus) VALUES(?,?,?,'1')";
+          $arrData=array($this->Cod_macceso,$this->Desc_macceso,$this->Departamento);
+          $requestInsert=$this->Insert($queryInsert,$arrData);
+          $num_item=0;
+          $contador=0;
+        while ($num_item < count($this->Accesos)) {
+          $sql_row = "INSERT INTO tbusuarioac(idusuarioac,idmacceso,idacceso) VALUES(?,?,?)";
+          $arrData = array(('0' . $requestInsert . '01') + $contador, $requestInsert, $this->Accesos[$num_item]);
+          $this->Insert($sql_row, $arrData);
+          $num_item = $num_item + 1;
+          $contador = $contador + 1;
+        }
         return true;
       } catch(PDOException $e){
         return PDOError($e,'insert');
@@ -116,7 +131,6 @@
       $this->Desc_macceso=$desc_macceso;
       $this->Departamento=$departamento;
       $this->Accesos=$accesos;
-
       try {
         $sql="UPDATE tbmacceso SET cod_macceso=?,desc_macceso=?,departamento=? WHERE idmacceso='$this->Idmacceso'";
         $arrData=array($this->Cod_macceso,$this->Desc_macceso,$this->Departamento);
@@ -144,7 +158,6 @@
     public function EliminarDt($id){
       $returnData = "";
       $this->Idmacceso=$id;
-
       try {
         $sql="DELETE FROM tbmacceso WHERE idmacceso = '$this->Idmacceso'";
         $arrData=array($this->Idmacceso);
@@ -154,6 +167,4 @@
         return PDOError($e,'delete');
       }
     }
-
-
   }

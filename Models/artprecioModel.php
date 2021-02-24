@@ -97,17 +97,10 @@ class artprecioModel extends MySql{
       try {
         $sql="INSERT INTO tbartprecio(idarticulo,idtipoprecio,idmoneda,fechareg,fechaven,vence,montoprecio,margen)
         VALUES(?,?,?,?,?,?,?,?)";
-        $arrData=array(
-          $this->Idarticulo,
-          $this->Idtipoprecio,
-          $this->Idmoneda,
-          $this->Fechareg,
-          $this->Fechaven,
-          $this->Vencprecio,
-          $this->Montoprecio,
-          $this->Margen);
-        $this->Insert($sql,$arrData);
-        return true;
+        $arrData=array($this->Idarticulo,$this->Idtipoprecio,$this->Idmoneda,$this->Fechareg,
+        $this->Fechaven,$this->Vencprecio,$this->Montoprecio,$this->Margen);
+        $request=$this->Insert($sql,$arrData);
+        return $request;
       } catch (PDOException $e) {
         return PDOError($e,'insert');
       }
@@ -127,8 +120,8 @@ class artprecioModel extends MySql{
         margen=?, fechareg=?, fechaven=?, vence=? WHERE idartprecio ='$this->Idartprecio'";
         $arrData=array($this->Idtipoprecio,$this->Idmoneda,$this->Montoprecio,$this->Margen,
         $this->Fechareg,$this->Fechaven,$this->Vencprecio);
-        $this->Update($sql,$arrData);
-        return true;
+        $request=$this->Update($sql,$arrData);
+        return $request;
       } catch(PDOException $e){
         return PDOError($e,'update');
       }

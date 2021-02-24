@@ -174,7 +174,7 @@
         $this->ActSaldoCaja($this->Idcaja);
         return $lastInsert;
       } catch(PDOException $e){
-        //return PDOError($e,'insert');
+        return PDOError($e,'insert');
       }
     }
 
@@ -207,7 +207,7 @@
         $this->Estatus,$this->Tipo,$this->Forma,$this->Numerod,$this->Numeroc,$this->Origen,$this->Montod,$this->Montoh,
         $this->Saldoinicial,$this->Fechareg);
         $request=$this->Update($sql,$arrData);
-        $this->ActSaldoCaja($this->Idcaja);
+        $request=$this->ActSaldoCaja($this->Idcaja);
         return $request;
       } catch(PDOException $e){
         return PDOError($e,'update');

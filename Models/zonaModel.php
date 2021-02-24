@@ -12,7 +12,7 @@
 
     public function SelectDt(){
       try {
-        $sql="SELECT * FROM tbzona";
+        $sql="SELECT idzona, cod_zona, desc_zona, estatus FROM tbzona";
         $req=$this->SelectAll($sql);
         return $req;
       } catch(PDOException $e){
@@ -22,7 +22,7 @@
 
     public function ListDt(){
       try {
-        $sql="SELECT * FROM tbzona WHERE estatus='1' ORDER BY cod_zona ASC";
+        $sql="SELECT idzona, cod_zona, desc_zona, estatus FROM tbzona WHERE estatus='1' ORDER BY cod_zona ASC";
         $req=$this->SelectAll($sql);
         return $req;
       } catch(PDOException $e){
@@ -33,7 +33,7 @@
     public function ShowDt($id){
       try {
         $this->Idzona=$id;
-        $sql="SELECT * 
+        $sql="SELECT idzona, cod_zona, desc_zona, estatus  
         FROM tbzona
         WHERE idzona='$this->Idzona'";
         $req=$this->Select($sql);
@@ -63,8 +63,8 @@
       try{  
         $queryInsert="INSERT INTO tbzona(cod_zona, desc_zona,estatus) VALUES(?,?,?)";
         $arrData=array($this->Cod_zona,$this->Desc_zona,$this->Estatus);
-        $this->Insert($queryInsert,$arrData);
-        return true;
+        $request=$this->Insert($queryInsert,$arrData);
+        return $request;
       } catch(PDOException $e){
         return PDOError($e,'insert');
       }
@@ -77,10 +77,10 @@
       try{  
         $sql="UPDATE tbzona SET cod_zona=?,desc_zona=? WHERE idzona='$this->Idzona'";
         $arrData=array($this->Cod_zona,$this->Desc_zona);
-        $this->Update($sql,$arrData);
-        return true;
+        $request=$this->Update($sql,$arrData);
+        return $request;
       } catch(PDOException $e){
-        return PDOError($e,'update');
+        return PDOError($e,'update');                                                                                                                                                                                                                        
       }
     }
 

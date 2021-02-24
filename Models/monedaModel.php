@@ -14,32 +14,48 @@
     }
 
     public function SelectDt(){
-      $sql="SELECT * FROM tbmoneda";
-      $req=$this->SelectAll($sql);
-      return $req;
+      try {
+        $sql="SELECT idmoneda,cod_moneda,desc_moneda,simbolo,factor,base,estatus FROM tbmoneda";
+        $req=$this->SelectAll($sql);
+        return $req;
+      } catch (PDOException $e){
+        return PDOError($e,'');
+      }
     }
 
     public function ListDt(){
-      $sql="SELECT * FROM tbmoneda WHERE estatus='1'  ORDER BY cod_moneda ASC";
-      $req=$this->SelectAll($sql);
-      return $req;
+      try {
+        $sql="SELECT idmoneda,cod_moneda,desc_moneda,simbolo,factor,base,estatus 
+        FROM tbmoneda WHERE estatus='1' ORDER BY cod_moneda ASC";
+        $req=$this->SelectAll($sql);
+        return $req;
+      } catch (PDOException $e){
+        return PDOError($e,'');
+      }
     }
 
     public function ListDtBase(){
-      $sql="SELECT * 
-      FROM tbmoneda
-      WHERE base='1'";
-      $req=$this->Select($sql);
-      return $req;
+      try {
+        $sql="SELECT idmoneda,cod_moneda,desc_moneda,simbolo,factor,base,estatus 
+        FROM tbmoneda WHERE base='1'";
+        $req=$this->Select($sql);
+        return $req;
+      } catch (PDOException $e){
+        return PDOError($e,'');
+      }
     }
 
     public function ShowDt($id){
       $this->Idmoneda=$id;
-      $sql="SELECT * 
-      FROM tbmoneda
-      WHERE idmoneda= $this->Idmoneda";
-      $req=$this->Select($sql);
-      return $req;
+      try {
+        $sql="SELECT idmoneda,cod_moneda,desc_moneda,simbolo,factor,base,estatus 
+        FROM tbmoneda
+        WHERE idmoneda= $this->Idmoneda";
+        $req=$this->Select($sql);
+        return $req;
+      } catch (PDOException $e){
+        return PDOError($e,'');
+      }
     }
 
     public function InsertDt($cod_moneda,$desc_moneda,$simbolo,$factor,$base){
@@ -49,12 +65,11 @@
       $this->Factor=$factor;
       $this->Base=$base;
       $this->Estatus='1';
-      //Verificamos si Existe Moneeda Base
       try{  
-          $queryInsert = "INSERT INTO tbmoneda(cod_moneda,desc_moneda,simbolo,factor,base,estatus) VALUES(?,?,?,REPLACE(?,',',''),?,?)";
-          $arrData = array($this->Cod_moneda, $this->Desc_moneda, $this->Simbolo,$this->Factor, $this->Base, $this->Estatus);
-          $this->Insert($queryInsert,$arrData);
-          return true;
+        $queryInsert = "INSERT INTO tbmoneda(cod_moneda,desc_moneda,simbolo,factor,base,estatus) VALUES(?,?,?,REPLACE(?,',',''),?,?)";
+        $arrData = array($this->Cod_moneda, $this->Desc_moneda, $this->Simbolo,$this->Factor, $this->Base, $this->Estatus);
+        $request=$this->Insert($queryInsert,$arrData);
+        return $request;
       } catch(PDOException $e){
         return PDOError($e,'insert');
       }
@@ -71,8 +86,8 @@
         $sql = "UPDATE tbmoneda 
         SET cod_moneda=?,desc_moneda=?,simbolo=?,factor=REPLACE(?,',',''),base=? WHERE idmoneda='$this->Idmoneda'";
         $arrData = array($this->Cod_moneda, $this->Desc_moneda, $this->Simbolo,$this->Factor, $this->Base);
-        $this->Update($sql, $arrData);
-        return true;
+        $request=$this->Update($sql, $arrData);
+        return $request;
       } catch(PDOException $e){
         return PDOError($e,'update');
       }
@@ -81,17 +96,19 @@
     public function EstatusDt($id,$st){
       $this->Idmoneda=$id;
       $this->Estatus=$st;
-
-      $sql="UPDATE tbmoneda SET estatus=? WHERE idmoneda='$this->Idmoneda'";
-      $arrData=array($this->Estatus);
-      $request=$this->Update($sql,$arrData);
-      return $request;
+      try {
+        $sql="UPDATE tbmoneda SET estatus=? WHERE idmoneda='$this->Idmoneda'";
+        $arrData=array($this->Estatus);
+        $request=$this->Update($sql,$arrData);
+        return $request;
+      } catch (PDOException $e){
+        return PDOError($e,'');
+      }
     }
 
     public function EliminarDt($id){
       $returnData = "";
       $this->Idmoneda=$id;
-
       try {
         $sql="DELETE FROM tbmoneda WHERE idmoneda = '$this->Idmoneda'";
         $arrData=array($this->Idmoneda);

@@ -63,7 +63,7 @@ class artunidadModel extends MySql{
 
     $sqlDT="SELECT principal FROM tbartunidad WHERE idarticulo='$this->Idarticulo' AND principal='1'";
     $require=$this->Select($sqlDT);
-
+    
     if ($require &&  $this->Principal=='1') {
       return 'principaldt';
     } else {
@@ -71,8 +71,8 @@ class artunidadModel extends MySql{
         $sql="INSERT INTO tbartunidad(idarticulo,idunidad,valor,principal)
         VALUES(?,?,?,?)";
         $arrData=array($this->Idarticulo,$this->Idunidad,$this->Valor,$this->Principal);
-        $this->Insert($sql,$arrData);
-        return true;
+        $request = $this->Insert($sql,$arrData);
+        return $request;
       } catch (PDOException $e) {
         return PDOError($e,'insert');
       }
@@ -95,8 +95,8 @@ class artunidadModel extends MySql{
       try {
         $sql="UPDATE tbartunidad SET idunidad=?, valor=?, principal=? WHERE idartunidad='$this->Idartunidad'";
         $arrData=array($this->Idunidad,$this->Valor,$this->Principal);
-        $this->Insert($sql,$arrData);
-        return true;
+        $request = $this->Insert($sql,$arrData);
+        return $request;
       } catch (PDOException $e) {
         return PDOError($e,'update');
       }

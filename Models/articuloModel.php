@@ -184,7 +184,6 @@
       $this->Imagen=$imagen;
       $this->Fechareg=$fechareg;
       $this->Estatus='1';
-
       try{
         $sql = "INSERT INTO tbarticulo(idcategoria,idlinea,idimpuesto,cod_articulo,desc_articulo,
           tipo,origen,ref,stockmin,stockmax,stockped,alto,ancho,peso,comision,costo,
@@ -237,8 +236,8 @@
         $this->Tipo,$this->Origen,$this->Ref,$this->Stockmin,$this->Stockmax,$this->Stockped,$this->Alto,$this->Ancho,
         $this->Peso,$this->Comision,$this->Costo,$this->Costoprecio,$this->Lotes,$this->Lotesv,$this->Seriales,
         $this->Imagen,$this->Fechareg);
-        $this->Update($sql,$arrData);
-        return true;
+        $request=$this->Update($sql,$arrData);
+        return $request;
       } catch(PDOException $e){
         return PDOError($e,'update');
       }
@@ -256,5 +255,4 @@
         return PDOError($e,'delete');
       }
     }
-
   }

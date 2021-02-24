@@ -24,113 +24,129 @@
     }
 
     public function SelectDt(){
-      $sql="SELECT
-      c.idcuenta,
-      c.idbanco,
-      c.cod_cuenta,
-      c.desc_cuenta,
-      c.tipo,
-      c.numcuenta,
-      b.cod_banco,
-      b.desc_banco,
-      m.cod_moneda,
-      m.desc_moneda,
-      m.simbolo,
-      c.agencia,
-      c.ejecutivo,
-      c.direccion,
-      c.telefono,
-      c.email,
-      c.mostrar,
-      c.saldod,
-      c.saldoh,
-      c.saldot,
-      DATE_FORMAT(c.fechareg,'%d/%m/%Y') AS fechareg,
-      c.estatus
-      FROM tbcuenta c
-      INNER JOIN tbbanco AS b ON (b.idbanco=c.idbanco)
-      INNER JOIN tbmoneda AS m ON (m.idmoneda=b.idmoneda)";
-      $req=$this->SelectAll($sql);
-      return $req;
+      try {
+        $sql="SELECT
+        c.idcuenta,
+        c.idbanco,
+        c.cod_cuenta,
+        c.desc_cuenta,
+        c.tipo,
+        c.numcuenta,
+        b.cod_banco,
+        b.desc_banco,
+        m.cod_moneda,
+        m.desc_moneda,
+        m.simbolo,
+        c.agencia,
+        c.ejecutivo,
+        c.direccion,
+        c.telefono,
+        c.email,
+        c.mostrar,
+        c.saldod,
+        c.saldoh,
+        c.saldot,
+        DATE_FORMAT(c.fechareg,'%d/%m/%Y') AS fechareg,
+        c.estatus
+        FROM tbcuenta c
+        INNER JOIN tbbanco AS b ON (b.idbanco=c.idbanco)
+        INNER JOIN tbmoneda AS m ON (m.idmoneda=b.idmoneda)";
+        $req=$this->SelectAll($sql);
+        return $req;
+      } catch (PDOException $e){
+        return PDOError($e,'');
+      }
     }
 
-    public function ListDt(){
-      $sql="SELECT
-      c.idcuenta,
-      c.idbanco,
-      c.cod_cuenta,
-      c.desc_cuenta,
-      c.tipo,
-      c.numcuenta,
-      b.cod_banco,
-      b.desc_banco,
-      m.cod_moneda,
-      m.desc_moneda,
-      m.simbolo,
-      c.agencia,
-      c.ejecutivo,
-      c.direccion,
-      c.telefono,
-      c.email,
-      c.mostrar,
-      c.saldod,
-      c.saldoh,
-      c.saldot,
-      DATE_FORMAT(c.fechareg,'%d/%m/%Y') AS fechareg,
-      c.estatus
-      FROM tbcuenta c
-      INNER JOIN tbbanco AS b ON (b.idbanco=c.idbanco)
-      INNER JOIN tbmoneda AS m ON (m.idmoneda=b.idmoneda)
-      WHERE c.estatus='1'
-      ORDER BY c.cod_cuenta ASC";
-      $req=$this->SelectAll($sql);
-      return $req;
+    public function ListDt(){;
+      try {
+        $sql="SELECT
+        c.idcuenta,
+        c.idbanco,
+        c.cod_cuenta,
+        c.desc_cuenta,
+        c.tipo,
+        c.numcuenta,
+        b.cod_banco,
+        b.desc_banco,
+        m.cod_moneda,
+        m.desc_moneda,
+        m.simbolo,
+        c.agencia,
+        c.ejecutivo,
+        c.direccion,
+        c.telefono,
+        c.email,
+        c.mostrar,
+        c.saldod,
+        c.saldoh,
+        c.saldot,
+        DATE_FORMAT(c.fechareg,'%d/%m/%Y') AS fechareg,
+        c.estatus
+        FROM tbcuenta c
+        INNER JOIN tbbanco AS b ON (b.idbanco=c.idbanco)
+        INNER JOIN tbmoneda AS m ON (m.idmoneda=b.idmoneda)
+        WHERE c.estatus='1'
+        ORDER BY c.cod_cuenta ASC";
+        $req=$this->SelectAll($sql);
+        return $req;
+      } catch (PDOException $e){
+        return PDOError($e,'');
+      }
     }
 
     public function ShowDt($id){
       $this->Idcuenta=$id;
-      $sql="SELECT
-      c.idcuenta,
-      c.idbanco,
-      c.cod_cuenta,
-      c.desc_cuenta,
-      c.tipo,
-      c.numcuenta,
-      b.cod_banco,
-      b.desc_banco,
-      m.cod_moneda,
-      m.desc_moneda,
-      m.simbolo,
-      c.agencia,
-      c.ejecutivo,
-      c.direccion,
-      c.telefono,
-      c.email,
-      c.mostrar,
-      c.saldod,
-      c.saldoh,
-      c.saldot,
-      DATE_FORMAT(c.fechareg,'%d/%m/%Y') AS fechareg,
-      c.estatus
-      FROM tbcuenta c
-      INNER JOIN tbbanco AS b ON (b.idbanco=c.idbanco)
-      INNER JOIN tbmoneda AS m ON (m.idmoneda=b.idmoneda) 
-      WHERE c.idcuenta='$this->Idcuenta'";
-      $req=$this->Select($sql);
-      return $req;
+      try {
+        $sql="SELECT
+        c.idcuenta,
+        c.idbanco,
+        c.cod_cuenta,
+        c.desc_cuenta,
+        c.tipo,
+        c.numcuenta,
+        b.cod_banco,
+        b.desc_banco,
+        m.cod_moneda,
+        m.desc_moneda,
+        m.simbolo,
+        c.agencia,
+        c.ejecutivo,
+        c.direccion,
+        c.telefono,
+        c.email,
+        c.mostrar,
+        c.saldod,
+        c.saldoh,
+        c.saldot,
+        DATE_FORMAT(c.fechareg,'%d/%m/%Y') AS fechareg,
+        c.estatus
+        FROM tbcuenta c
+        INNER JOIN tbbanco AS b ON (b.idbanco=c.idbanco)
+        INNER JOIN tbmoneda AS m ON (m.idmoneda=b.idmoneda) 
+        WHERE c.idcuenta='$this->Idcuenta'";
+        $req=$this->Select($sql);
+        return $req;
+      } catch (PDOException $e){
+        return PDOError($e,'');
+      }
     }
    
     public function EstatusDt($id,$st){
       $this->Idcuenta=$id;
       $this->Estatus=$st;
-      $sql="UPDATE tbcuenta SET estatus=? WHERE idcuenta='$this->Idcuenta'";
-      $arrData=array($this->Estatus);
-      $request=$this->Update($sql,$arrData);
-      return $request;
+      try {
+        $sql="UPDATE tbcuenta SET estatus=? WHERE idcuenta='$this->Idcuenta'";
+        $arrData=array($this->Estatus);
+        $request=$this->Update($sql,$arrData);
+        return $request;
+      } catch (PDOException $e){
+        return PDOError($e,'');
+      }
     }
 
     public function InsertDt($idbanco,$cod_cuenta,$desc_cuenta,$tipo,$numcuenta,$agencia,$ejecutivo,$direccion,
-    $telefono,$email,$mostrar,$fechareg){
+      $telefono,$email,$mostrar,$fechareg){
       $this->Idbanco=$idbanco;
       $this->Cod_cuenta=$cod_cuenta;
       $this->Desc_cuenta=$desc_cuenta;
@@ -153,15 +169,15 @@
         $arrData=array($this->Idbanco,$this->Cod_cuenta,$this->Desc_cuenta,$this->Tipo,$this->Numcuenta,$this->Agencia,
         $this->Ejecutivo,$this->Direccion,$this->Telefono,$this->Email,$this->Mostrar,$this->Fechareg,$this->Saldod,
         $this->Saldoh,$this->Saldot,$this->Estatus);
-        $this->Insert($sql,$arrData);
-        return true;
+        $request = $this->Insert($sql,$arrData);
+        return $request;
       } catch(PDOException $e){
         return PDOError($e,'insert');
       }
     }
 
     public function EditarDt($id,$idbanco,$cod_cuenta,$desc_cuenta,$tipo,$numcuenta,$agencia,$ejecutivo,$direccion,
-    $telefono,$email,$mostrar,$fechareg){
+      $telefono,$email,$mostrar,$fechareg){
       $this->Idcuenta=$id;
       $this->Idbanco=$idbanco;
       $this->Cod_cuenta=$cod_cuenta;
@@ -180,8 +196,8 @@
         ejecutivo =?,direccion =?,telefono =?,email = ?,mostrar = ?,fechareg =? WHERE idcuenta='$this->Idcuenta'";
         $arrData=array($this->Idbanco,$this->Cod_cuenta,$this->Desc_cuenta,$this->Tipo,$this->Numcuenta,$this->Agencia,
         $this->Ejecutivo,$this->Direccion,$this->Telefono,$this->Email,$this->Mostrar,$this->Fechareg);
-        $this->Update($sql,$arrData);
-        return true;
+        $request = $this->Update($sql,$arrData);
+        return $request;
       } catch(PDOException $e){
         return PDOError($e,'update');
       }

@@ -13,22 +13,27 @@ class loginModel extends MySql{
 
     $sql = "SELECT idusuario FROM tbusuario WHERE cod_usuario='$this->Cod_usuario'";
     $request = $this->SelectAll($sql);
-  
-    if ($request) {
-      $sql="SELECT u.idusuario,u.cod_usuario,u.desc_usuario,u.direccion,u.telefono,u.email,u.imagen,
-      u.clave,u.idmacceso,ma.cod_macceso,ma.desc_macceso,ma.departamento,u.estatus
-      FROM tbusuario u 
-      INNER JOIN tbmacceso ma ON ma.idmacceso=u.idmacceso
-      WHERE cod_usuario='$this->Cod_usuario'";
-      $returnData = $this->SelectAll($sql);
-    } else {
-      $returnData='false';
-    }
+
+    try {
+      if ($request) {
+        $sql="SELECT u.idusuario,u.cod_usuario,u.desc_usuario,u.direccion,u.telefono,u.email,u.imagen,
+        u.clave,u.idmacceso,ma.cod_macceso,ma.desc_macceso,ma.departamento,u.estatus
+        FROM tbusuario u 
+        INNER JOIN tbmacceso ma ON ma.idmacceso=u.idmacceso
+        WHERE cod_usuario='$this->Cod_usuario'";
+        $returnData = $this->SelectAll($sql);
+      } else {
+        $returnData='false';
+      }
       return $returnData;
+    } catch (PDOException $e){
+      return PDOError($e,'');
+    }
   }
 
   public function ListarMarcados(int $id){
     $this->Idmacceso=$id;
+    try {
       $sql="SELECT 
       uc.idacceso,
       uc.idmacceso,
@@ -36,16 +41,22 @@ class loginModel extends MySql{
       FROM tbusuarioac uc
       WHERE uc.idmacceso='$this->Idmacceso'";
       $request=$this->SelectAll($sql);     
-    return $request;
+      return $request;
+    } catch (PDOException $e){
+      return PDOError($e,'');
+    }
   }
 
   public function EditarClave($id, $clave){
     $this->Idusuario = $id;
     $this->Clave = $clave;
-
-    $sql = "UPDATE tbusuario SET clave =? WHERE idusuario = '$this->Idusuario'";
-    $arrData = array($this->Clave);
-    $request = $this->Update($sql, $arrData);
-    return $request;
+    try {
+      $sql = "UPDATE tbusuario SET clave =? WHERE idusuario = '$this->Idusuario'";
+      $arrData = array($this->Clave);
+      $request = $this->Update($sql, $arrData);
+      return $request;
+    } catch (PDOException $e){
+      return PDOError($e,'');
+    }
   }
 }

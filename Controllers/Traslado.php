@@ -41,9 +41,9 @@ class Traslado extends Controllers{
       $this->model->RemoveStockArt($_POST['idarticulo'],$_POST['iddepositoi'],$_POST['cantidad'],$_POST['valor']);
       $this->model->AddStockArt($_POST['idarticulo'],$_POST['iddepositod'],$_POST['cantidad'],$_POST['valor']);
       
-      if($request){
+      if($request>0){
         $arrRspta=array("status"=>true,"msg"=>"Registro Ingresado Correctamente!");
-      } else if ($request=="1062"){
+      } else if ($request=="duplicado"){
         $arrRspta=array("status"=>false,"msg"=>"El Código <b>".$cod_traslado."</b> ya se encuentra Registrado! 
         <br>No es posible ingresar <b>Registros Duplicados!</b>");
       } else {
@@ -81,7 +81,7 @@ class Traslado extends Controllers{
 
   public function Anular(){
     $request = $this->model->AnularDt(POSTT($_POST['id']));
-    $request = $this->model->AnularStock(POSTT($_POST['id']));
+    $this->model->AnularStock(POSTT($_POST['id']));
     if ($request) {
       $arrRspta = array("status" => true, "msg" => "Registros Anulados Correctamente!");
     } else {
@@ -92,7 +92,7 @@ class Traslado extends Controllers{
 
   public function Eliminar(){
     $request = $this->model->AnularStock(POSTT($_POST['id']));
-    $request = $this->model->EliminarDt(POSTT($_POST['id']));
+    $this->model->EliminarDt(POSTT($_POST['id']));
     if ($request) {
       $arrRspta = array("status" => true, "msg" => "Registros Eliminado Correctamente!");
     } else {

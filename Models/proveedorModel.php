@@ -31,112 +31,128 @@
     }
 
     public function SelectDt(){
-      $sql="SELECT 
-      pv.idproveedor,
-      pv.idtipoproveedor,
-      pv.idoperacion,
-      pv.idcondpago,
-      pv.idzona,
-      pv.idimpuestoz,
-      pv.cod_proveedor,
-      pv.desc_proveedor,
-      pv.rif,
-      pv.direccion,
-      pv.ciudad,
-      pv.codpostal,
-      pv.contacto,
-      pv.telefono,
-      pv.movil,
-      pv.email,
-      pv.web,
-      pv.limite,
-      pv.montofiscal,
-      DATE_FORMAT(pv.fechareg, '%d/%m/%Y') AS fechareg,
-      pv.aplicareten,
-      pv.estatus,
-      tc.cod_tipoproveedor,
-      tc.desc_tipoproveedor,
-      t.cod_operacion,
-      t.desc_operacion,
-      cp.cod_condpago,
-      cp.desc_condpago,
-      cp.dias,
-      z.cod_zona,
-      z.desc_zona,
-      IFNULL((SELECT SUM(saldoh) FROM tbcompra 
-      WHERE idproveedor = pv.idproveedor AND tipo <> 'Cotizacion' AND estatus <> 'Anulado'),0) AS saldo 
-      FROM
-      tbproveedor AS pv 
-      INNER JOIN tbtipoproveedor AS tc ON (pv.idtipoproveedor = tc.idtipoproveedor) 
-      INNER JOIN tboperacion AS t ON (pv.idoperacion = t.idoperacion) 
-      INNER JOIN tbcondpago AS cp ON (pv.idcondpago = cp.idcondpago) 
-      INNER JOIN tbzona AS z ON (pv.idzona = z.idzona) 
-      INNER JOIN tbimpuestoz AS iz ON (iz.idimpuestoz = pv.idimpuestoz)";
-      $req=$this->SelectAll($sql);
-      return $req;
+      try {
+        $sql="SELECT 
+        pv.idproveedor,
+        pv.idtipoproveedor,
+        pv.idoperacion,
+        pv.idcondpago,
+        pv.idzona,
+        pv.idimpuestoz,
+        pv.cod_proveedor,
+        pv.desc_proveedor,
+        pv.rif,
+        pv.direccion,
+        pv.ciudad,
+        pv.codpostal,
+        pv.contacto,
+        pv.telefono,
+        pv.movil,
+        pv.email,
+        pv.web,
+        pv.limite,
+        pv.montofiscal,
+        DATE_FORMAT(pv.fechareg, '%d/%m/%Y') AS fechareg,
+        pv.aplicareten,
+        pv.estatus,
+        tc.cod_tipoproveedor,
+        tc.desc_tipoproveedor,
+        t.cod_operacion,
+        t.desc_operacion,
+        cp.cod_condpago,
+        cp.desc_condpago,
+        cp.dias,
+        z.cod_zona,
+        z.desc_zona,
+        IFNULL((SELECT SUM(saldoh) FROM tbcompra 
+        WHERE idproveedor = pv.idproveedor AND tipo <> 'Cotizacion' AND estatus <> 'Anulado'),0) AS saldo 
+        FROM
+        tbproveedor AS pv 
+        INNER JOIN tbtipoproveedor AS tc ON (pv.idtipoproveedor = tc.idtipoproveedor) 
+        INNER JOIN tboperacion AS t ON (pv.idoperacion = t.idoperacion) 
+        INNER JOIN tbcondpago AS cp ON (pv.idcondpago = cp.idcondpago) 
+        INNER JOIN tbzona AS z ON (pv.idzona = z.idzona) 
+        INNER JOIN tbimpuestoz AS iz ON (iz.idimpuestoz = pv.idimpuestoz)";
+        $req=$this->SelectAll($sql);
+        return $req;
+      } catch (PDOException $e){
+        return PDOError($e,'');
+      }
     }
 
     public function ListDt(){
-      $sql="SELECT * FROM tbproveedor WHERE estatus='1' ORDER BY cod_proveedor ASC";
-      $req=$this->SelectAll($sql);
-      return $req;
+      try {
+        $sql="SELECT * FROM tbproveedor WHERE estatus='1' ORDER BY cod_proveedor ASC";
+        $req=$this->SelectAll($sql);
+        return $req;
+      } catch (PDOException $e){
+        return PDOError($e,'');
+      }
     }
 
     public function ShowDt($id){
       $this->Idproveedor=$id;
-      $sql="SELECT 
-      pv.idproveedor,
-      pv.idtipoproveedor,
-      pv.idoperacion,
-      pv.idcondpago,
-      pv.idzona,
-      pv.idimpuestoz,
-      pv.cod_proveedor,
-      pv.desc_proveedor,
-      pv.rif,
-      pv.direccion,
-      pv.ciudad,
-      pv.codpostal,
-      pv.contacto,
-      pv.telefono,
-      pv.movil,
-      pv.email,
-      pv.web,
-      pv.limite,
-      pv.montofiscal,
-      DATE_FORMAT(pv.fechareg, '%d/%m/%Y') AS fechareg,
-      pv.aplicareten,
-      pv.estatus,
-      tc.cod_tipoproveedor,
-      tc.desc_tipoproveedor,
-      t.cod_operacion,
-      t.desc_operacion,
-      cp.cod_condpago,
-      cp.desc_condpago,
-      cp.dias,
-      z.cod_zona,
-      z.desc_zona,
-      IFNULL((SELECT SUM(saldoh) FROM tbcompra 
-      WHERE idproveedor = pv.idproveedor AND tipo <> 'Cotizacion' AND estatus <> 'Anulado'),0) AS saldo 
-      FROM
-      tbproveedor AS pv 
-      INNER JOIN tbtipoproveedor AS tc ON (pv.idtipoproveedor = tc.idtipoproveedor) 
-      INNER JOIN tboperacion AS t ON (pv.idoperacion = t.idoperacion) 
-      INNER JOIN tbcondpago AS cp ON (pv.idcondpago = cp.idcondpago) 
-      INNER JOIN tbzona AS z ON (pv.idzona = z.idzona) 
-      INNER JOIN tbimpuestoz AS iz ON (iz.idimpuestoz = pv.idimpuestoz) 
-      WHERE pv.idproveedor='$this->Idproveedor'";
-      $req=$this->Select($sql);
-      return $req;
+      try {
+        $sql="SELECT 
+        pv.idproveedor,
+        pv.idtipoproveedor,
+        pv.idoperacion,
+        pv.idcondpago,
+        pv.idzona,
+        pv.idimpuestoz,
+        pv.cod_proveedor,
+        pv.desc_proveedor,
+        pv.rif,
+        pv.direccion,
+        pv.ciudad,
+        pv.codpostal,
+        pv.contacto,
+        pv.telefono,
+        pv.movil,
+        pv.email,
+        pv.web,
+        pv.limite,
+        pv.montofiscal,
+        DATE_FORMAT(pv.fechareg, '%d/%m/%Y') AS fechareg,
+        pv.aplicareten,
+        pv.estatus,
+        tc.cod_tipoproveedor,
+        tc.desc_tipoproveedor,
+        t.cod_operacion,
+        t.desc_operacion,
+        cp.cod_condpago,
+        cp.desc_condpago,
+        cp.dias,
+        z.cod_zona,
+        z.desc_zona,
+        IFNULL((SELECT SUM(saldoh) FROM tbcompra 
+        WHERE idproveedor = pv.idproveedor AND tipo <> 'Cotizacion' AND estatus <> 'Anulado'),0) AS saldo 
+        FROM
+        tbproveedor AS pv 
+        INNER JOIN tbtipoproveedor AS tc ON (pv.idtipoproveedor = tc.idtipoproveedor) 
+        INNER JOIN tboperacion AS t ON (pv.idoperacion = t.idoperacion) 
+        INNER JOIN tbcondpago AS cp ON (pv.idcondpago = cp.idcondpago) 
+        INNER JOIN tbzona AS z ON (pv.idzona = z.idzona) 
+        INNER JOIN tbimpuestoz AS iz ON (iz.idimpuestoz = pv.idimpuestoz) 
+        WHERE pv.idproveedor='$this->Idproveedor'";
+        $req=$this->Select($sql);
+        return $req;
+      } catch (PDOException $e){
+        return PDOError($e,'');
+      }
     }
    
     public function EstatusDt($id,$st){
       $this->Idproveedor=$id;
       $this->Estatus=$st;
-      $sql="UPDATE tbproveedor SET estatus=? WHERE idproveedor='$this->Idproveedor'";
-      $arrData=array($this->Estatus);
-      $request=$this->Update($sql,$arrData);
-      return $request;
+      try {
+        $sql="UPDATE tbproveedor SET estatus=? WHERE idproveedor='$this->Idproveedor'";
+        $arrData=array($this->Estatus);
+        $request=$this->Update($sql,$arrData);
+        return $request;
+      } catch (PDOException $e){
+        return PDOError($e,'');
+      }
     }
 
     public function InsertDt($idtipoproveedor,$idoperacion,$idcondpago,$idzona,$idimpuestoz,$cod_proveedor,$desc_proveedor,
@@ -170,8 +186,8 @@
         $this->Cod_proveedor,$this->Desc_proveedor,$this->Rif,$this->Direccion,$this->Ciudad,$this->Codpostal,
         $this->Contacto,$this->Telefono,$this->Movil,$this->Email,$this->Web,$this->Limite,$this->Montofiscal,
         $this->Fechareg,$this->Aplicareten,$this->Estatus);
-        $this->Insert($queryInsert,$arrData);
-        return true;
+        $request=$this->Insert($queryInsert,$arrData);
+        return $request;
       } catch(PDOException $e){
         return PDOError($e,'insert');
       }
@@ -199,7 +215,7 @@
     }
 
     public function EditarDt($id,$idtipoproveedor,$idoperacion,$idcondpago,$idzona,$idimpuestoz,$cod_proveedor,$desc_proveedor,
-    $rif,$direccion,$ciudad,$codpostal,$contacto,$telefono,$movil,$email,$web,$limite,$montofiscal,$fechareg,$aplicareten){
+      $rif,$direccion,$ciudad,$codpostal,$contacto,$telefono,$movil,$email,$web,$limite,$montofiscal,$fechareg,$aplicareten){
       $this->Idproveedor=$id;
       $this->Idtipoproveedor =$idtipoproveedor;
       $this->Idoperacion =$idoperacion;

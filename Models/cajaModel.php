@@ -12,90 +12,100 @@ class cajaModel extends MySql
   private $Fechareg;
   private $Estatus;
 
-  public function __construct()
-  {
+  public function __construct(){
     parent::__construct();
   }
 
-  public function SelectDt()
-  {
-    $sql = "SELECT 
-    c.idcaja,
-    c.idmoneda,
-    c.cod_caja,
-    c.desc_caja,
-    m.cod_moneda,
-    m.desc_moneda,
-    m.simbolo,
-    c.saldoefectivo,
-    c.saldodocumento,
-    c.saldototal,
-    DATE_FORMAT(c.fechareg,'%d/%m/%Y') AS fechareg,
-    c.estatus 
-    FROM tbcaja c
-    INNER JOIN tbmoneda AS m ON m.idmoneda=c.idmoneda";
-    $req = $this->SelectAll($sql);
-    return $req;
+  public function SelectDt(){
+    try {
+      $sql = "SELECT 
+      c.idcaja,
+      c.idmoneda,
+      c.cod_caja,
+      c.desc_caja,
+      m.cod_moneda,
+      m.desc_moneda,
+      m.simbolo,
+      c.saldoefectivo,
+      c.saldodocumento,
+      c.saldototal,
+      DATE_FORMAT(c.fechareg,'%d/%m/%Y') AS fechareg,
+      c.estatus 
+      FROM tbcaja c
+      INNER JOIN tbmoneda AS m ON m.idmoneda=c.idmoneda";
+      $req = $this->SelectAll($sql);
+      return $req;
+    } catch (PDOException $e){
+      return PDOError($e,'');
+    }
   }
 
-  public function ListDt()
-  {
-    $sql = "SELECT 
-    c.idcaja,
-    c.idmoneda,
-    c.cod_caja,
-    c.desc_caja,
-    m.cod_moneda,
-    m.desc_moneda,
-    m.simbolo,
-    c.saldoefectivo,
-    c.saldodocumento,
-    c.saldototal,
-    DATE_FORMAT(c.fechareg,'%d/%m/%Y') AS fechareg,
-    c.estatus 
-    FROM tbcaja c
-    INNER JOIN tbmoneda AS m ON m.idmoneda=c.idmoneda 
-    WHERE c.estatus='1'
-    ORDER BY c.cod_caja ASC";
-    $req = $this->SelectAll($sql);
-    return $req;
+  public function ListDt(){
+    try {
+      $sql = "SELECT 
+      c.idcaja,
+      c.idmoneda,
+      c.cod_caja,
+      c.desc_caja,
+      m.cod_moneda,
+      m.desc_moneda,
+      m.simbolo,
+      c.saldoefectivo,
+      c.saldodocumento,
+      c.saldototal,
+      DATE_FORMAT(c.fechareg,'%d/%m/%Y') AS fechareg,
+      c.estatus 
+      FROM tbcaja c
+      INNER JOIN tbmoneda AS m ON m.idmoneda=c.idmoneda 
+      WHERE c.estatus='1'
+      ORDER BY c.cod_caja ASC";
+      $req = $this->SelectAll($sql);
+      return $req;
+    } catch (PDOException $e){
+      return PDOError($e,'');
+    }
   }
 
-  public function ShowDt($id)
-  {
-    $this->Idcaja = $id;
-    $sql = "SELECT 
-    c.idcaja,
-    c.idmoneda,
-    c.cod_caja,
-    c.desc_caja,
-    m.cod_moneda,
-    m.desc_moneda,
-    m.simbolo,
-    c.saldoefectivo,
-    c.saldodocumento,
-    c.saldototal,
-    DATE_FORMAT(c.fechareg,'%d/%m/%Y') AS fechareg,
-    c.estatus 
-    FROM tbcaja c
-    INNER JOIN tbmoneda AS m ON m.idmoneda=c.idmoneda 
-    WHERE c.idcaja='$this->Idcaja'";
-    $req = $this->Select($sql);
-    return $req;
+  public function ShowDt($id){
+    try {
+      $this->Idcaja = $id;
+      $sql = "SELECT 
+      c.idcaja,
+      c.idmoneda,
+      c.cod_caja,
+      c.desc_caja,
+      m.cod_moneda,
+      m.desc_moneda,
+      m.simbolo,
+      c.saldoefectivo,
+      c.saldodocumento,
+      c.saldototal,
+      DATE_FORMAT(c.fechareg,'%d/%m/%Y') AS fechareg,
+      c.estatus 
+      FROM tbcaja c
+      INNER JOIN tbmoneda AS m ON m.idmoneda=c.idmoneda 
+      WHERE c.idcaja='$this->Idcaja'";
+      $req = $this->Select($sql);
+      return $req;
+    } catch (PDOException $e){
+      return PDOError($e,'');
+    }
   }
 
-  public function EstatusDt($id, $st)
-  {
-    $this->Idcaja = $id;
-    $this->Estatus = $st;
-    $sql = "UPDATE tbcaja SET estatus=? WHERE idcaja='$this->Idcaja'";
-    $arrData = array($this->Estatus);
-    $request = $this->Update($sql, $arrData);
-    return $request;
+  public function EstatusDt($id, $st){
+    try {
+      $this->Idcaja = $id;
+      $this->Estatus = $st;
+      $sql = "UPDATE tbcaja SET estatus=? WHERE idcaja='$this->Idcaja'";
+      $arrData = array($this->Estatus);
+      $request = $this->Update($sql, $arrData);
+      return $request;
+    } catch (PDOException $e){
+      return PDOError($e,'');
+    }
   }
 
-  public function InsertDt($idmoneda, $cod_caja, $desc_caja, $fechareg)
-  {
+  public function InsertDt($idmoneda, $cod_caja, $desc_caja, $fechareg){
     $this->Idmoneda = $idmoneda;
     $this->Cod_caja = $cod_caja;
     $this->Desc_caja = $desc_caja;
@@ -108,19 +118,16 @@ class cajaModel extends MySql
       $queryInsert = "INSERT INTO tbcaja(idmoneda,cod_caja,desc_caja,fechareg,
         saldoefectivo,saldodocumento,saldototal,estatus)
         VALUES(?,?,?,?,?,?,?,?)";
-      $arrData = array(
-        $this->Idmoneda, $this->Cod_caja, $this->Desc_caja, $this->Fechareg, $this->Saldoefectivo,
-        $this->Saldodocumento, $this->Saldototal, $this->Estatus
-      );
-      $this->Insert($queryInsert, $arrData);
-      return true;
+      $arrData = array($this->Idmoneda, $this->Cod_caja, $this->Desc_caja, $this->Fechareg, $this->Saldoefectivo,
+        $this->Saldodocumento, $this->Saldototal, $this->Estatus);
+      $request=$this->Insert($queryInsert, $arrData);
+      return $request;
     } catch (PDOException $e) {
       return PDOError($e, 'insert');
     }
   }
 
-  public function EditarDt($id, $idmoneda, $cod_caja, $desc_caja, $fechareg)
-  {
+  public function EditarDt($id, $idmoneda, $cod_caja, $desc_caja, $fechareg){
     $this->Idcaja = $id;
     $this->Idmoneda = $idmoneda;
     $this->Cod_caja = $cod_caja;
@@ -129,15 +136,14 @@ class cajaModel extends MySql
     try {
       $queryInsert = "UPDATE tbcaja SET idmoneda=?,cod_caja=?,desc_caja=?,fechareg=? WHERE idcaja='$this->Idcaja'";
       $arrData = array($this->Idmoneda, $this->Cod_caja, $this->Desc_caja, $this->Fechareg);
-      $this->Update($queryInsert, $arrData);
-      return true;
+      $request=$this->Update($queryInsert, $arrData);
+      return $request;
     } catch (PDOException $e) {
       return PDOError($e, 'update');
     }
   }
 
-  public function EliminarDt($id)
-  {
+  public function EliminarDt($id){
     $returnData = "";
     $this->Idcaja = $id;
     try {

@@ -13,35 +13,50 @@
     }
 
     public function SelectDt(){
-      $sql="SELECT idimpuesto, cod_impuesto, desc_impuesto, simbolo, tasa, DATE_FORMAT(fechareg,'%d/%m/%Y') AS fechareg, estatus 
-      FROM tbimpuesto";
-      $req=$this->SelectAll($sql);
-      return $req;
+      try {
+        $sql="SELECT idimpuesto, cod_impuesto, desc_impuesto, simbolo, tasa, DATE_FORMAT(fechareg,'%d/%m/%Y') AS fechareg, estatus 
+        FROM tbimpuesto";
+        $req=$this->SelectAll($sql);
+        return $req;
+      } catch (PDOException $e){
+        return PDOError($e,'');
+      }
     }
 
     public function ListDt(){
-      $sql="SELECT idimpuesto, cod_impuesto, desc_impuesto, simbolo, tasa, DATE_FORMAT(fechareg,'%d/%m/%Y') AS fechareg, estatus 
-      FROM tbimpuesto WHERE estatus='1' ORDER BY cod_impuesto ASC";
-      $req=$this->SelectAll($sql);
-      return $req;
+      try {
+        $sql="SELECT idimpuesto, cod_impuesto, desc_impuesto, simbolo, tasa, DATE_FORMAT(fechareg,'%d/%m/%Y') AS fechareg, estatus 
+        FROM tbimpuesto WHERE estatus='1' ORDER BY cod_impuesto ASC";
+        $req=$this->SelectAll($sql);
+        return $req;
+      } catch (PDOException $e){
+        return PDOError($e,'');
+      }
     }
 
     public function ShowDt($id){
       $this->Idimpuesto=$id;
-      $sql="SELECT idimpuesto, cod_impuesto, desc_impuesto, simbolo, tasa, DATE_FORMAT(fechareg,'%d/%m/%Y') AS fechareg, estatus
-      FROM tbimpuesto WHERE idimpuesto='$this->Idimpuesto'";
-      $req=$this->Select($sql);
-      return $req;
+      try {
+        $sql="SELECT idimpuesto, cod_impuesto, desc_impuesto, simbolo, tasa, DATE_FORMAT(fechareg,'%d/%m/%Y') AS fechareg, estatus
+        FROM tbimpuesto WHERE idimpuesto='$this->Idimpuesto'";
+        $req=$this->Select($sql);
+        return $req;
+      } catch (PDOException $e){
+        return PDOError($e,'');
+      }
     }
 
     public function EstatusDt($id,$st){
       $this->Idimpuesto=$id;
       $this->Estatus=$st;
-
-      $sql="UPDATE tbimpuesto SET estatus=? WHERE idimpuesto='$this->Idimpuesto'";
-      $arrData=array($this->Estatus);
-      $request=$this->Update($sql,$arrData);
-      return $request;
+      try {   
+        $sql="UPDATE tbimpuesto SET estatus=? WHERE idimpuesto='$this->Idimpuesto'";
+        $arrData=array($this->Estatus);
+        $request=$this->Update($sql,$arrData);
+        return $request;
+      } catch (PDOException $e){
+        return PDOError($e,'');
+      }
     }
 
     public function InsertDt($cod_impuesto,$desc_impuesto,$simbolo,$tasa,$fechareg){
@@ -51,13 +66,12 @@
       $this->Tasa=$tasa;
       $this->Fechareg=$fechareg;
       $this->Estatus='1';
-
       try{  
         $queryInsert="INSERT INTO tbimpuesto(cod_impuesto, desc_impuesto,simbolo,REPLACE(?,',',''),fechareg,estatus) 
         VALUES(?,?,?,?,?)";
         $arrData=array($this->Cod_impuesto, $this->Desc_impuesto, $this->Simbolo, $this->Tasa,$this->Fechareg, $this->Estatus);
-        $this->Insert($queryInsert,$arrData);
-        return true;
+        $request=$this->Insert($queryInsert,$arrData);
+        return $request;
       } catch(PDOException $e){
         return PDOError($e,'insert');
       }
@@ -74,8 +88,8 @@
         $sql="UPDATE tbimpuesto 
         SET cod_impuesto=?,desc_impuesto=?,simbolo=?,tasa=REPLACE(?,',',''),fechareg=? WHERE idimpuesto='$this->Idimpuesto'";
         $arrData=array($this->Cod_impuesto,$this->Desc_impuesto, $this->Simbolo, $this->Tasa, $this->Fechareg);
-        $this->Update($sql,$arrData);
-        return true;
+        $request=$this->Update($sql,$arrData);
+        return $request;
       } catch(PDOException $e){
         return PDOError($e,'update');
       }
@@ -84,7 +98,6 @@
     public function EliminarDt($id){
       $returnData = "";
       $this->Idimpuesto=$id;
-
       try {
         $sql="DELETE FROM tbimpuesto WHERE idimpuesto = '$this->Idimpuesto'";
         $arrData=array($this->Idimpuesto);

@@ -12,39 +12,57 @@
     }
 
     public function SelectDt(){
-      $sql="SELECT tc.idtipocliente,tc.idtipoprecio, tc.cod_tipocliente,tc.desc_tipocliente,tp.cod_tipoprecio,tp.desc_tipoprecio,tc.estatus
-      FROM tbtipocliente tc
-      INNER JOIN tbtipoprecio tp on tp.idtipoprecio=tc.idtipoprecio";
-      $req=$this->SelectAll($sql);
-      return $req;
+      try {
+        $sql="SELECT 
+        tc.idtipocliente,tc.idtipoprecio, tc.cod_tipocliente,
+        tc.desc_tipocliente,tp.cod_tipoprecio,tp.desc_tipoprecio,tc.estatus
+        FROM tbtipocliente tc
+        INNER JOIN tbtipoprecio tp on tp.idtipoprecio=tc.idtipoprecio";
+        $req=$this->SelectAll($sql);
+        return $req;
+      } catch (PDOException $e){
+        return PDOError($e,'');
+      }
     }
 
     public function ListDt(){
-      $sql="SELECT * FROM tbtipocliente 
-      WHERE estatus='1' ORDER BY cod_tipocliente ASC";
-      $req=$this->SelectAll($sql);
-      return $req;
+      try {
+        $sql="SELECT tc.idtipocliente,tc.idtipoprecio, tc.cod_tipocliente,
+        tc.desc_tipocliente,tp.cod_tipoprecio,tp.desc_tipoprecio,tc.estatus FROM tbtipocliente 
+        WHERE estatus='1' ORDER BY cod_tipocliente ASC";
+        $req=$this->SelectAll($sql);
+        return $req;
+      } catch (PDOException $e){
+        return PDOError($e,'');
+      }
     }
  
     public function ShowDt($id){
       $this->Idtipocliente=$id;
-      $sql="SELECT tc.idtipocliente,tc.idtipoprecio, tc.cod_tipocliente,tc.desc_tipocliente,tp.cod_tipoprecio,tp.desc_tipoprecio,tc.estatus
-      FROM tbtipocliente tc
-      INNER JOIN tbtipoprecio tp on tp.idtipoprecio=tc.idtipoprecio
-      WHERE tc.idtipocliente='$this->Idtipocliente'";
-      $req=$this->Select($sql);
-      return $req;
+      try {
+        $sql="SELECT tc.idtipocliente,tc.idtipoprecio, tc.cod_tipocliente,
+        tc.desc_tipocliente,tp.cod_tipoprecio,tp.desc_tipoprecio,tc.estatus
+        FROM tbtipocliente tc
+        INNER JOIN tbtipoprecio tp on tp.idtipoprecio=tc.idtipoprecio
+        WHERE tc.idtipocliente='$this->Idtipocliente'";
+        $req=$this->Select($sql);
+        return $req;
+      } catch (PDOException $e){
+        return PDOError($e,'');
+      }
     }
-
   
     public function EstatusDt($id,$st){
       $this->Idtipocliente=$id;
       $this->Estatus=$st;
-
-      $sql="UPDATE tbtipocliente SET estatus=? WHERE idtipocliente='$this->Idtipocliente'";
-      $arrData=array($this->Estatus);
-      $request=$this->Update($sql,$arrData);
-      return $request;
+      try {
+        $sql="UPDATE tbtipocliente SET estatus=? WHERE idtipocliente='$this->Idtipocliente'";
+        $arrData=array($this->Estatus);
+        $request=$this->Update($sql,$arrData);
+        return $request;
+      } catch (PDOException $e){
+        return PDOError($e,'');
+      }
     }
 
     public function InsertDt($idtipoprecio,$cod_tipocliente,$desc_tipocliente){
@@ -52,12 +70,11 @@
       $this->Cod_tipocliente=$cod_tipocliente;
       $this->Desc_tipocliente=$desc_tipocliente;
       $this->Estatus='1';
-
       try {
         $queryInsert="INSERT INTO tbtipocliente(idtipoprecio,cod_tipocliente, desc_tipocliente,estatus) VALUES(?,?,?,?)";
         $arrData=array($this->Idtipoprecio,$this->Cod_tipocliente,$this->Desc_tipocliente,$this->Estatus);
-        $this->Insert($queryInsert,$arrData);
-        return true;
+        $request=$this->Insert($queryInsert,$arrData);
+        return $request;
       } catch(PDOException $e){
         return PDOError($e,'insert');
       }
@@ -68,12 +85,11 @@
       $this->Idtipoprecio=$idtipoprecio;
       $this->Cod_tipocliente=$cod_tipocliente;
       $this->Desc_tipocliente=$desc_tipocliente;
-
       try {
         $sql="UPDATE tbtipocliente SET cod_tipocliente=?,desc_tipocliente=?,idtipoprecio=? WHERE idtipocliente='$this->Idtipocliente'";
         $arrData=array($this->Cod_tipocliente,$this->Desc_tipocliente,$this->Idtipoprecio);
-        $this->Update($sql,$arrData);
-        return true;
+        $request=$this->Update($sql,$arrData);
+        return $request;
       } catch(PDOException $e){
         return PDOError($e,'update');
       }
@@ -82,7 +98,6 @@
     public function EliminarDt($id){
       $returnData = "";
       $this->Idtipocliente=$id;
-
       try {
         $sql="DELETE FROM tbtipocliente WHERE idtipocliente = '$this->Idtipocliente'";
         $arrData=array($this->Idtipocliente);
@@ -92,5 +107,4 @@
         return PDOError($e,'delete');
       }
     }
-
   }

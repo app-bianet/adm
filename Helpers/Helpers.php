@@ -177,23 +177,37 @@ function verifypw($password, $hash) {
   return password_verify($password, $hash);
 }
 
-//Funcion para Capturar Errores en PDO
+/** 
+* Funcion para Capturar Errores en PDO
+
+* Se Recibe el Codigo de Error y Retornamos
+* la vartiable correspondiente
+* Se retorna solo los Siguientes Errores:
+*1451: Registros Relacionados
+*1062: Valores Duplicados
+*1054: Campo Desconocido/Invalido
+
+* @author: Ricardo Albornoz
+* @param mixed $error_get: Código de Error PDO:getCode()
+* @param mixed $tipo: Tipo de Operacion Realizada:update/insert/delete
+* @return string : relacion/duplicado/desconocido/
+*/
 function PDOError($error_get,$tipo){
-  //cAPTURA EL MENSAJE
+  //CAPTURA EL MENSAJE
   switch ($error_get->getCode()) {
     case 23000:
       //SELECCION AL MENSAJE PARA VERIFICAR EN ERROR
       $serror= $error_get->getMessage();
-      $eerror= explode(" ", $serror);
+      $array_error= explode(" ", $serror);
 
-      // VERIFICA EL EL AREGLO EL CODIGO ENCONTRADO
-      if (in_array("1451",$eerror)){
+      // VERIFICA EL EL AREGLO (ARRAY getMessage()) EL CODIGO ENCONTRADO
+      if (in_array("1451",$array_error)){
           return 'relacion';//Registros Relacionados
       } 
-      else if (in_array("1062",$eerror)){
+      else if (in_array("1062",$array_error)){
         return 'duplicado';//Valores Duplicados
       } 
-      else if (in_array("1054",$eerror)){
+      else if (in_array("1054",$array_error)){
         return 'desconocido';//Campo desconocido
       } 
       else {

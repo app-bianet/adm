@@ -28,22 +28,29 @@
  
     public function ShowDt($id){
       $this->Idpais=$id;
-      $sql="SELECT p.idpais,p.idmoneda, p.cod_pais,p.desc_pais,m.cod_moneda,m.desc_moneda,p.estatus
-      FROM tbpais p
-      INNER JOIN tbmoneda m on m.idmoneda=p.idmoneda
-      WHERE p.idpais='$this->Idpais'";
-      $req=$this->Select($sql);
-      return $req;
+      try {
+        $sql="SELECT p.idpais,p.idmoneda, p.cod_pais,p.desc_pais,m.cod_moneda,m.desc_moneda,p.estatus
+        FROM tbpais p
+        INNER JOIN tbmoneda m on m.idmoneda=p.idmoneda
+        WHERE p.idpais='$this->Idpais'";
+        $req=$this->Select($sql);
+        return $req;
+      } catch (PDOException $e){
+        return PDOError($e,'');
+      }
     }
   
     public function EstatusDt($id,$st){
       $this->Idpais=$id;
       $this->Estatus=$st;
-
-      $sql="UPDATE tbpais SET estatus=? WHERE idpais='$this->Idpais'";
-      $arrData=array($this->Estatus);
-      $request=$this->Update($sql,$arrData);
-      return $request;
+      try {
+        $sql="UPDATE tbpais SET estatus=? WHERE idpais='$this->Idpais'";
+        $arrData=array($this->Estatus);
+        $request=$this->Update($sql,$arrData);
+        return $request;
+      } catch (PDOException $e){
+        return PDOError($e,'');
+      }
     }
 
     public function InsertDt($idmoneda,$cod_pais,$desc_pais){
@@ -51,12 +58,11 @@
       $this->Cod_pais=$cod_pais;
       $this->Desc_pais=$desc_pais;
       $this->Estatus='1';
-
       try {
         $queryInsert="INSERT INTO tbpais(idmoneda,cod_pais, desc_pais,estatus) VALUES(?,?,?,?)";
         $arrData=array($this->Idmoneda,$this->Cod_pais,$this->Desc_pais,$this->Estatus);
-        $this->Insert($queryInsert,$arrData);
-        return true;
+        $request=$this->Insert($queryInsert,$arrData);
+        return $request;
       } catch(PDOException $e){
         return PDOError($e,'insert');
       }
@@ -67,12 +73,11 @@
       $this->Idmoneda=$idmoneda;
       $this->Cod_pais=$cod_pais;
       $this->Desc_pais=$desc_pais;
-
       try {
         $sql="UPDATE tbpais SET cod_pais=?,desc_pais=?,idmoneda=? WHERE idpais='$this->Idpais'";
         $arrData=array($this->Cod_pais,$this->Desc_pais,$this->Idmoneda);
-        $this->Update($sql,$arrData);
-        return true;
+        $request=$this->Update($sql,$arrData);
+        return $request;
       } catch(PDOException $e){
         return PDOError($e,'update');
       }
@@ -81,7 +86,6 @@
     public function EliminarDt($id){
       $returnData = "";
       $this->Idpais=$id;
-
       try {
         $sql="DELETE FROM tbpais WHERE idpais = '$this->Idpais'";
         $arrData=array($this->Idpais);

@@ -14,7 +14,7 @@
 
     public function SelectDt(){
       try{
-        $sql="SELECT * FROM tbipago";
+        $sql="SELECT idipago,cod_ipago,comision,recargo,estatus FROM tbipago";
         $req=$this->SelectAll($sql);
         return $req;
       } catch (PDOException $e ) {
@@ -24,7 +24,8 @@
 
     public function ListDt(){
       try {
-        $sql="SELECT * FROM tbipago WHERE estatus='1' ORDER BY cod_ipago ASC";
+        $sql="SELECT idipago,cod_ipago,comision,recargo,estatus FROM tbipago 
+        WHERE estatus='1' ORDER BY cod_ipago ASC";
         $req=$this->SelectAll($sql);
         return $req;
       } catch (PDOException $e ) {
@@ -35,9 +36,8 @@
     public function ShowDt($id){
       $this->Idipago=$id;
       try {
-        $sql="SELECT * 
-        FROM tbipago
-        WHERE idipago='$this->Idipago'";
+        $sql="SELECT idipago,cod_ipago,comision,recargo,estatus 
+        FROM tbipago WHERE idipago='$this->Idipago'";
         $req=$this->Select($sql);
         return $req;
       } catch (PDOException $e ) {
@@ -67,8 +67,8 @@
       try{  
         $queryInsert="INSERT INTO tbipago(cod_ipago, desc_ipago,comision,recargo,estatus) VALUES(?,?,?,?,?)";
         $arrData=array($this->Cod_ipago,$this->Desc_ipago,$this->Comision,$this->Recargo,$this->Estatus);
-        $this->Insert($queryInsert,$arrData);
-        return true;
+        $request=$this->Insert($queryInsert,$arrData);
+        return $request;
       } catch(PDOException $e){
         return PDOError($e,'insert');
       }
@@ -83,8 +83,8 @@
       try{  
         $sql="UPDATE tbipago SET cod_ipago=?,desc_ipago=?,comision=?,recargo=? WHERE idipago='$this->Idipago'";
         $arrData=array($this->Cod_ipago,$this->Desc_ipago,$this->Comision,$this->Recargo);
-        $this->Update($sql,$arrData);
-        return true;
+        $request=$this->Update($sql,$arrData);
+        return $request;
       } catch(PDOException $e){
         return PDOError($e,'update');
       }

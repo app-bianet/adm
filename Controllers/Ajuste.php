@@ -44,7 +44,7 @@ class Ajuste extends Controllers{
 
       if($request){
         $arrRspta=array("status"=>true,"msg"=>"Registro Ingresado Correctamente!");
-      } else if ($request=="1062"){
+      } else if ($request=="duplicado"){
         $arrRspta=array("status"=>false,"msg"=>"El Código <b>".$cod_ajuste."</b> ya se encuentra Registrado! 
         <br>No es posible ingresar <b>Registros Duplicados!</b>");
       } else {

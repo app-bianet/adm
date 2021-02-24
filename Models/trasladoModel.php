@@ -8,7 +8,6 @@
     private $Totalh;
     private $Fechareg;
     private $Estatus;
-
     private $Idarticulo;
     private $Iddepositoi;
     private $Iddepositod;
@@ -116,7 +115,6 @@
 
     public function SelectTraslado($iddepositoi,$iddepositod){
       $this->Iddepositoi=$iddepositoi;
-
       try {
         $sql="SELECT
         a.idarticulo, 
@@ -194,7 +192,6 @@
       $num_elementos=0;
       try {
         while ($num_elementos < count($idarticulo)) {
-
             $sql_detalle ="INSERT INTO tbstock(idarticulo,iddeposito,cantidad) 
             VALUES(?,?,?)
             ON DUPLICATE KEY 

@@ -19,59 +19,70 @@ class usuarioModel extends MySql{
   }
 
   public function SelectDt(){
-    $sql = "SELECT 
-    u.idusuario,u.idmacceso,u.cod_usuario,u.desc_usuario,u.direccion,u.telefono,u.email,u.clave,
-    u.imagen,u.fechareg,u.estatus,u.idempresa,ma.cod_macceso,ma.desc_macceso,ma.departamento
-    FROM tbusuario u INNER JOIN tbmacceso ma ON ma.idmacceso=u.idmacceso";
-    $req = $this->SelectAll($sql);
-    return $req;
+    try {
+      $sql = "SELECT 
+      u.idusuario,u.idmacceso,u.cod_usuario,u.desc_usuario,u.direccion,u.telefono,u.email,u.clave,
+      u.imagen,u.fechareg,u.estatus,u.idempresa,ma.cod_macceso,ma.desc_macceso,ma.departamento
+      FROM tbusuario u INNER JOIN tbmacceso ma ON ma.idmacceso=u.idmacceso";
+      $req = $this->SelectAll($sql);
+      return $req;
+    } catch (PDOException $e){
+      return PDOError($e,'');
+    }
   }
 
   public function ListDt(){
-    $sql = "SELECT * FROM tbusuario WHERE estatus='1' ORDER BY cod_usuario";
-    $req = $this->SelectAll($sql);
-    return $req;
+    try {
+      $sql = "SELECT * FROM tbusuario WHERE estatus='1' ORDER BY cod_usuario";
+      $req = $this->SelectAll($sql);
+      return $req;
+    } catch (PDOException $e){
+      return PDOError($e,'');
+    }
   }
 
   public function ShowDt($id){
     $this->Idusuario = $id;
-    $sql = "SELECT 
-    u.idusuario,u.idmacceso,u.cod_usuario,u.desc_usuario,u.direccion,u.telefono,u.email,u.clave,
-    u.imagen, DATE_FORMAT(u.fechareg,'%d/%m/%Y') AS fechareg,u.estatus,u.idempresa,ma.cod_macceso,ma.desc_macceso,ma.departamento
-    FROM tbusuario u INNER JOIN tbmacceso ma ON ma.idmacceso=u.idmacceso
-    WHERE u.idusuario='$this->Idusuario'";
-    $req = $this->Select($sql);
-    return $req;
+    try {
+      $sql = "SELECT 
+      u.idusuario,u.idmacceso,u.cod_usuario,u.desc_usuario,u.direccion,u.telefono,u.email,u.clave,
+      u.imagen, DATE_FORMAT(u.fechareg,'%d/%m/%Y') AS fechareg,u.estatus,u.idempresa,ma.cod_macceso,ma.desc_macceso,ma.departamento
+      FROM tbusuario u INNER JOIN tbmacceso ma ON ma.idmacceso=u.idmacceso
+      WHERE u.idusuario='$this->Idusuario'";
+      $req = $this->Select($sql);
+      return $req;
+    } catch (PDOException $e){
+      return PDOError($e,'');
+    }
   }
 
   public function InsertDt($idmacceso,$cod_usuario,$desc_usuario,$direccion,
-  $telefono,$email,$clave,$imagen,$fechareg){
-     $this->Idmacceso=$idmacceso;
-     $this->Cod_usuario=$cod_usuario;
-     $this->Desc_usuario=$desc_usuario;
-     $this->Direccion=$direccion;
-     $this->Telefono=$telefono;
-     $this->Email=$email;
-     $this->Clave=$clave;
-     $this->Imagen=$imagen;
-     $this->Fechareg=$fechareg;
-     $this->Estatus='1';
-
+    $telefono,$email,$clave,$imagen,$fechareg){
+    $this->Idmacceso=$idmacceso;
+    $this->Cod_usuario=$cod_usuario;
+    $this->Desc_usuario=$desc_usuario;
+    $this->Direccion=$direccion;
+    $this->Telefono=$telefono;
+    $this->Email=$email;
+    $this->Clave=$clave;
+    $this->Imagen=$imagen;
+    $this->Fechareg=$fechareg;
+    $this->Estatus='1';
     try {
       $queryInsert = "INSERT INTO tbusuario(idmacceso,cod_usuario,desc_usuario,direccion,
         telefono,email,clave,imagen,fechareg,estatus)VALUES(?,?,?,?,?,?,?,?,?,?)";
       $arrData = array(
         $this->Idmacceso, $this->Cod_usuario, $this->Desc_usuario, $this->Direccion,
         $this->Telefono, $this->Email, $this->Clave, $this->Imagen, $this->Fechareg, $this->Estatus);
-        $this->Insert($queryInsert, $arrData);
-      return true;
+        $request=$this->Insert($queryInsert, $arrData);
+        return $request;
     } catch (PDOException $e) {
       return PDOError($e,'insert');
     }
   }
 
   public function EditarDt($idusuario,$idmacceso,$cod_usuario,$desc_usuario,$direccion,
-  $telefono,$email,$clave,$imagen,$fechareg){
+    $telefono,$email,$clave,$imagen,$fechareg){
     $this->Idusuario=$idusuario;
     $this->Idmacceso=$idmacceso;
     $this->Cod_usuario=$cod_usuario;
@@ -82,7 +93,6 @@ class usuarioModel extends MySql{
     $this->Clave=$clave;
     $this->Imagen=$imagen;
     $this->Fechareg=$fechareg;
-
     try {
       $sql = "UPDATE tbusuario SET 
       idmacceso=?,cod_usuario=?,desc_usuario=?,direccion=?,telefono=?,email=?,clave=?,imagen=?,fechareg = ? 
@@ -90,8 +100,7 @@ class usuarioModel extends MySql{
       $arrData = array(
         $this->Idmacceso, $this->Cod_usuario, $this->Desc_usuario, $this->Direccion,
         $this->Telefono, $this->Email, $this->Clave, $this->Imagen, $this->Fechareg);
-        $this->Update($sql, $arrData);
-      return true;
+        return $this->Update($sql, $arrData);
     } catch (PDOException $e) {
       return PDOError($e,'update');
     }
@@ -100,11 +109,14 @@ class usuarioModel extends MySql{
   public function EstatusDt($id,$st){
     $this->Idusuario = $id;
     $this->Estatus = $st;
-
-    $sql = "UPDATE tbusuario SET estatus=? WHERE idusuario= $this->Idusuario";
-    $arrData = array($this->Estatus);
-    $request = $this->Update($sql, $arrData);
-    return $request;
+    try {
+      $sql = "UPDATE tbusuario SET estatus=? WHERE idusuario= $this->Idusuario";
+      $arrData = array($this->Estatus);
+      $request = $this->Update($sql, $arrData);
+      return $request;
+    } catch (PDOException $e){
+      return PDOError($e,'');
+    }
   }
 
   public function EliminarDt($id){
@@ -123,6 +135,7 @@ class usuarioModel extends MySql{
 
   public function ListarMarcados($id){
     $this->Idmacceso=$id;
+    try {
       $sql="SELECT 
       uc.idacceso,
       uc.idmacceso,
@@ -130,7 +143,10 @@ class usuarioModel extends MySql{
       FROM tbusuarioac uc
       WHERE uc.idmacceso='$this->Idmacceso'";
       $request=$this->SelectAll($sql);     
-    return $request;
+      return $request;
+    } catch (PDOException $e){
+      return PDOError($e,'');
+    }
   }
 
   public function Verificar($cod_usuario){

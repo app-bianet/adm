@@ -61,13 +61,13 @@ class Cliente extends \Controllers{
         $option=2;
       }
 
-      if($request){
+      if($request>0){
         if ($option==1) {
           $arrRspta=array("status"=>true,"msg"=>"Registro Ingresado Correctamente!");
         } else {
           $arrRspta=array("status"=>true,"msg"=>"Registro Actualizado Correctamente!");
         }
-      } else if ($request=="1062"){
+      } else if ($request=="duplicado"){
         $arrRspta=array("status"=>false,"msg"=>"El Código <b>".$cod_cliente."</b> ya se encuentra Registrado! 
         <br>No es posible ingresar <b>Registros Duplicados!</b>");
       } else {
@@ -91,7 +91,7 @@ class Cliente extends \Controllers{
         }
         if ($request == 1) {
           $arrRspta = array("status" => true, "msg" => "Registros Eliminados Correctamente!");
-        } else if ($request == '1451') {
+        } else if ($request=="relacion") {
           $arrRspta = array("status" => false, "msg" => "No es Posible Eliminar Registros Relacionados!");
         } else {
           $arrRspta = array("status" => false, "msg" =>$request);

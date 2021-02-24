@@ -77,9 +77,11 @@ class ArtUnidad extends Controllers{
       }
     } else if ($request=="principaldt"){
       $arrRspta=array("status"=>false,"msg"=>"Solo es posible indicar una Unidad como <b>Principal</b>");
-    } else if ($request=="1062"){
+    } else if ($request=="duplicado"){
       $arrRspta=array("status"=>false,"msg"=>"La Unidad Seleccionada ya se encuentra Registrada! 
       <br>No es posible ingresar <b>Registros Duplicados!</b>");
+      } else if($request=="desconocido") {
+        $arrRspta=array("status"=>false,"msg"=>"Error al Procesar el Registro!<br> Campo desconocido");
     } else {
       $arrRspta=array("status"=>false,"msg"=>$request);
     }

@@ -10,13 +10,13 @@ document.addEventListener("DOMContentLoaded", function () {
   Monto();
   SelectOp();
 
-  $('.chk').on('click', () => {
+  $('.chk').on('click', function () {
     if ($(this).is(':checked')) {
-      $(this).val('1')
+        $(this).val('1')
     } else {
-      $(this).val('0')
+        $(this).val('0')
     }
-  });
+});
 
   $("#idcaja").on('change', () => {
     SelectCaja($("#idcaja").val());
@@ -356,7 +356,6 @@ function Operacion(operacion) {
       EventoCheckBox();
       FormaOp();
       MostrarForm(true);
-      $("input.chk").val(0)
       break;
 
     case "editar":
@@ -583,16 +582,16 @@ function eliminar(idmovcaja, idcaja) {
   });
 }
 
-
 $("#tbdetalle").dataTable();
 
 function EventoCheckBox() {
-  $("input[type=checkbox]").show(function () {
-    var value = $(this).val();
-    if (value == 0) {
-      $(this).prop('checked', false);
-    } else {
-      $(this).prop('checked', true);
-    }
+  $("input[type=checkbox].chk").show(function () {
+      var value = $(this).val();
+      if (value == 0) {
+          $(this).prop('checked', false);
+      } else {
+          $(this).prop('checked', true);
+      }
   });
+
 }

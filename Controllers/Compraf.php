@@ -65,9 +65,9 @@ class Compraf extends Controllers{
             $this->model->ProcesarDocumentoImp($_POST['idcompraop']);
           }
 
-      if($request){
+      if($request>0){
         $arrRspta=array("status"=>true,"msg"=>"Registro Ingresado Correctamente!");
-      } else if ($request=="1062"){
+      } else if ($request=="duplicado"){
         $arrRspta=array("status"=>false,"msg"=>"El Código <b>".$cod_compra."</b> ya se encuentra Registrado! 
         <br>No es posible ingresar <b>Registros Duplicados!</b>");
       } else {
@@ -147,7 +147,7 @@ class Compraf extends Controllers{
       $this->model->AnularDetalle($idcompra);
     } 
       (!empty($origenc))?$this->model->AnularProcesarDocumentoImp($origenc,$origend,$totalh):'';
-   
+  
     $request=$this->model->AnularDt($idcompra);
     if($request){
       $arrRspta=array("status"=>true,"msg"=>"Registro Anulado Correctamente!");
